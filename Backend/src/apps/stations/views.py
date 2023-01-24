@@ -20,8 +20,8 @@ class StationView(viewsets.GenericViewSet):
 
     def getOneStation(self, request, id):
         station = Station.objects.get(id=id)
-        station_serializer = StationSerializer(station, many=True)
-        return JsonResponse(station_serializer, safe=False)
+        station_serializer = StationSerializer(station, many=False)
+        return JsonResponse(station_serializer.data)
 
     def createStation(self, request):
         station_data = JSONParser().parse(request)

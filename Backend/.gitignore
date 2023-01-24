@@ -3,4 +3,3 @@
 /Scripts
 .env
 pyvenv.cfg
-src/settings.py
