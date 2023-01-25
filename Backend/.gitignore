@@ -1,5 +1,8 @@
 # created by virtualenv automatically
 /Lib
+/lib
+/bin
 /Scripts
 .env
 pyvenv.cfg
+__pycache__
