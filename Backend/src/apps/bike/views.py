@@ -36,5 +36,8 @@ class BikeView(viewsets.GenericViewSet):
 
   
    def deleteBike(self, request, id):
-       Bike.objects.get(id=id).delete()
-       return JsonResponse({'message': 'Eliminada Correctamente'}, status=status.HTTP_204_NO_CONTENT)
+       bike_data = request.data
+       bike_serializer = BikeSerializer(data=bike_data)
+       if (bike_serializer.is_valid(raise_exception=True)):   
+           Bike.objects.get(id=id).delete()
+       return JsonResponse({'message': 'Bici eliminada Correctamente', "Bike": bike_serializer.data}, status=status.HTTP_204_NO_CONTENT)

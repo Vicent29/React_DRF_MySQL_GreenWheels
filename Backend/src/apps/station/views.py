@@ -38,5 +38,8 @@ class StationView(viewsets.GenericViewSet):
 
   
    def deleteStation(self, request, id):
-       Station.objects.get(id=id).delete()
-       return JsonResponse({'message': 'Eliminada Correctamente'}, status=status.HTTP_204_NO_CONTENT)
+       station_data = request.data
+       station_serializer = StationSerializer(data=station_data)
+       if (station_serializer.is_valid()):   
+           Station.objects.get(id=id).delete()
+       return JsonResponse({'message': 'Station eliminada Correctamente', "Station": station_serializer.data}, status=status.HTTP_204_NO_CONTENT)
