@@ -20,13 +20,13 @@ export default function Bikes() {
     return (
         <>
             <div className="header">
-                <div className="logo"></div>
+                <div className="logo"><img src="/graygreenwheels.png" alt="greenwheels" width="200vh"/></div>
                 <div className="header-menu">
                     {print}
                 </div>
-                <div className="search-bar">
+                {/* <div className="search-bar">
                     <input type="text" placeholder="Search" />
-                </div>
+                </div> */}
                 <div className="header-profile">
                     <div className="notification campana">
                         <span className="notification-number">3</span>

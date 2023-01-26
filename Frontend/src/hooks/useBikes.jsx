@@ -25,8 +25,9 @@ export function useBikes() {
             })
     }, [])
 
-    const createBike = useCallback(() => {
-        BikesService.createBike()
+    const createBike = useCallback((request) => {
+        console.log(request);
+        BikesService.createBike(request)
             .then(({ data }) => {
                 if (data) {
                     navigate("/bike")

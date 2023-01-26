@@ -4,8 +4,10 @@ export default function BikesTable({ bike, deleteBike,/* changeStatusBike */ }) 
     return (
         <>
             <td>{bike.id}</td>
-            <td>{bike.name}</td>
-            <td>{bike.location}</td>
+            <td>{bike.slot}</td>
+            <td>{bike.status === true ? 'true' : 'false'}</td>
+            <td>{bike.pfm}</td>
+            <td>{bike.img_bike}</td>
             <td onClick={(e) => deleteBike(bike.id)}><button>delete</button></td>
         </>
     )
