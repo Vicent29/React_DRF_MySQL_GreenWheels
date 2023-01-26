@@ -1,9 +1,9 @@
 from django.apps import AppConfig
 
 
-class StationsConfig(AppConfig):
+class BikeConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'src.apps.stations'
+    name = 'src.apps.bike'
 
     def ready(self):
-        import src.apps.stations.signals
+        import src.apps.bike.signals

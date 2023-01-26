@@ -17,8 +17,7 @@ ALLOWED_HOSTS = ["localhost"]
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3001',
-    'http://localhost:8000',
+    'http://localhost:3000',
 )
 
 # Application definition
@@ -31,7 +30,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'src.apps.stations',
+    'src.apps.station',
+    'src.apps.slot',
+    'src.apps.bike',
     'corsheaders',
 ]
 

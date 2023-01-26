@@ -7,8 +7,8 @@ from rest_framework import status, viewsets
 from rest_framework.response import Response
 
 
-from src.apps.stations.models import Station
-from src.apps.stations.serializers import StationSerializer
+from src.apps.station.models import Station
+from src.apps.station.serializers import StationSerializer
 from rest_framework.views import APIView
 
 
@@ -29,19 +29,11 @@ class StationView(viewsets.GenericViewSet):
 
 
    def createStation(self, request):
-       # station_data = JSONParser().parse(request)
-       # station_serializer = StationSerializer(data=station_data)
-       # if station_serializer.is_valid():
-       #     station_serializer.save()
-       #     return JsonResponse(station_serializer.data, status=status.HTTP_201_CREATED)
-       # return JsonResponse(station_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-       station = request.data
-       serializer = StationSerializer(data=station)
-       if (serializer.is_valid(raise_exception=True)):
-           serializer.save()
-       return Response(serializer.data)
+       station_data = request.data
+       station_serializer = StationSerializer(data=station_data)
+       if (station_serializer.is_valid(raise_exception=True)):
+           station_serializer.save()
+       return Response(station_serializer.data)
 
 
   
