@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function BikesTable({ bike, deleteBike,/* changeStatusBike */ }) {
+export default function BikesLine({ bike, deleteBike,/* changeStatusBike */ }) {
     return (
         <>
             <td>{bike.id}</td>

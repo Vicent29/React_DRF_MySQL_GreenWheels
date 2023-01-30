@@ -6,3 +6,4 @@
 .env
 pyvenv.cfg
 **/__pycache__
+package.json
