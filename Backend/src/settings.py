@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'src.apps.station',
     'src.apps.slot',
     'src.apps.bike',
+    'src.apps.user',
     'corsheaders',
 ]
 
