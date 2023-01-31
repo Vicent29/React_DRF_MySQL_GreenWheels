@@ -31,9 +31,9 @@ export default function MyMap({ onclickmap }) {
             <Map
                 mapboxAccessToken="pk.eyJ1Ijoic2FudGlpbWFydGluZXoiLCJhIjoiY2t6eWZlYzk2MGIyOTJ2cDdxc2dmcDkxaSJ9.IhYesNObwvyMWu_nQQQoiw"
                 initialViewState={{
-                    longitude: -0.603869,
-                    latitude: 38.823049,
-                    zoom: 13,
+                    longitude: -0.37631302556856916,
+                    latitude: 39.472483187600396,
+                    zoom: 12,
                 }}
                 mapStyle="mapbox://styles/mapbox/streets-v11"
                 onClick={handleClick}

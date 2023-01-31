@@ -8,7 +8,7 @@ export default function FormBike() {
     const { slots } = useSlots()
     const { register, handleSubmit, formState: { errors } } = useForm()
     return (
-        <form className='text-white' onSubmit={handleSubmit(createBike)}>
+        <form onSubmit={handleSubmit(createBike)}>
             <select name="" id="" {...register("slot", { required: false })}>
                 <option value="">Null</option>
                 {slots.map((item, id) => {
