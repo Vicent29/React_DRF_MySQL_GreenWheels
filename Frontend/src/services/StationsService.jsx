@@ -7,6 +7,9 @@ const StationsService = {
     getStation(id) {
         return http().get(`/api/station/${id}`)
     },
+    getStationsMap() {
+        return http().get(`/api/stationmap`)
+    },
     createStation(data) {
         return http().post(`/api/station`, data)
     },

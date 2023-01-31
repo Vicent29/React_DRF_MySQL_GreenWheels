@@ -13,7 +13,7 @@ export default function CreateStation() {
     }
 
     const createStationForm = (request) => {
-        if (lat != undefined || long != undefined) {
+        if (lat !== undefined || long !== undefined) {
             createStation({ ...request, lat: lat, long: long })
         } else {
             console.log("lat and long not used");

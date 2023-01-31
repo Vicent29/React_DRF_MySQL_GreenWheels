@@ -7,6 +7,9 @@ const BikesService = {
     getBike(id) {
         return http().get(`/api/bike/${id}`)
     },
+    getBikesByStation(id) {
+        return http().get(`/api/bikebystation/${id}`)
+    },
     createBike(data) {
         return http().post(`/api/bike`, data)
     },

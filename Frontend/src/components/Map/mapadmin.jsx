@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Map, { GeolocateControl, Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import "./map.css"
+import "./map.scss"
 import { useStations } from '../../hooks/useStations'
 import { useEffect } from 'react';
 

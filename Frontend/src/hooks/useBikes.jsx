@@ -25,6 +25,15 @@ export function useBikes() {
             })
     }, [])
 
+    const getBikesByStation = useCallback((id) => {
+        BikesService.getBikesByStation(id)
+        .then(({ data }) => {
+            if (data) {
+                setBikes(data)
+            }
+        })
+    },[])
+
     const createBike = useCallback((request) => {
         console.log(request);
         BikesService.createBike(request)
@@ -40,5 +49,5 @@ export function useBikes() {
         setBikes(bikes.filter(bike => bike.id !== id))
     })
 
-    return { loading, bikes, getBike, createBike/*, updateBike, changeStatusBike,*/, deleteBike }
+    return { loading, bikes, getBike, createBike, getBikesByStation/*, updateBike, changeStatusBike,*/, deleteBike }
 }

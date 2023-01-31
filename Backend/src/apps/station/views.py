@@ -16,30 +16,30 @@ from rest_framework.views import APIView
 # @api_view(['GET', 'POST', 'DELETE'])
 
 class StationView(viewsets.GenericViewSet):
-   def getStations(self, request):
-       station = Station.objects.all()
-       station_serializer = StationSerializer(station, many=True)
-       return JsonResponse(station_serializer.data, safe=False)
+    def getStations(self, request):
+        station = Station.objects.all()
+        station_serializer = StationSerializer(station, many=True)
+        return JsonResponse(station_serializer.data, safe=False)
 
+    def getOneStation(self, request, id):
+        station = Station.objects.get(id=id)
+        station_serializer = StationSerializer(station, many=False)
+        return JsonResponse(station_serializer.data, safe=False)
 
-   def getOneStation(self, request, id):
-       station = Station.objects.get(id=id)
-       station_serializer = StationSerializer(station, many=False)
-       return JsonResponse(station_serializer.data, safe=False)
+    def getStationsMap(self, request):
+        serialized = StationSerializer.getStationsMapS()
+        return JsonResponse(serialized, safe=False)
 
+    def createStation(self, request):
+        station_data = request.data
+        station_serializer = StationSerializer(data=station_data)
+        if (station_serializer.is_valid(raise_exception=True)):
+            station_serializer.save()
+        return Response(station_serializer.data)
 
-   def createStation(self, request):
-       station_data = request.data
-       station_serializer = StationSerializer(data=station_data)
-       if (station_serializer.is_valid(raise_exception=True)):
-           station_serializer.save()
-       return Response(station_serializer.data)
-
-
-  
-   def deleteStation(self, request, id):
-       station_data = request.data
-       station_serializer = StationSerializer(data=station_data)
-       if (station_serializer.is_valid()):   
-           Station.objects.get(id=id).delete()
-       return JsonResponse({'message': 'Station eliminada Correctamente', "Station": station_serializer.data}, status=status.HTTP_204_NO_CONTENT)
+    def deleteStation(self, request, id):
+        station_data = request.data
+        station_serializer = StationSerializer(data=station_data)
+        if (station_serializer.is_valid()):
+            Station.objects.get(id=id).delete()
+        return JsonResponse({'message': 'Station eliminada Correctamente', "Station": station_serializer.data}, status=status.HTTP_204_NO_CONTENT)

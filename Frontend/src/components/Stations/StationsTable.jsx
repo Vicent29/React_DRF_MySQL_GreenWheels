@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import StationLine from './StationsLine'
 // import "./Bike.scss"
 
-export default function StationsTable({ stations, deleteStations/*, changeStatusBike */ }) {
+export default function StationsTable({ stations, deleteStation/*, changeStatusBike */ }) {
 
     return (
         <div>
@@ -21,7 +21,7 @@ export default function StationsTable({ stations, deleteStations/*, changeStatus
                 </thead>
                 <tbody>
                     {stations.map(item => {
-                        return <tr key={item.id}><StationLine station={item} deleteStations={deleteStations} /></tr>
+                        return <tr key={item.id}><StationLine station={item} deleteStation={deleteStation} /></tr>
                     })}
                 </tbody>
             </table>
