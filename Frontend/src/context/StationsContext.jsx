@@ -9,7 +9,7 @@ export function StationsContextProvider ({children}) {
     // const {rent} = useContext(RentContext)
 
     useEffect(function () {
-        StationsService.getStations() 
+        StationsService.getStationsMap() 
         .then( ({data}) => {
             setStations(data)
         })

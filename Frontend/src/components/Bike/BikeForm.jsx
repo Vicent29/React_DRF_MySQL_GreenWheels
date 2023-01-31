@@ -2,11 +2,17 @@ import React from 'react'
 import { useBikes } from '../../hooks/useBikes'
 import { useSlots } from '../../hooks/useSlots'
 import { useForm } from 'react-hook-form'
+import { useEffect } from 'react'
 
 export default function FormBike() {
     const { createBike } = useBikes()
-    const { slots } = useSlots()
+    const { slots, getSlotsnoBike } = useSlots()
     const { register, handleSubmit, formState: { errors } } = useForm()
+
+    useEffect(() => {
+        getSlotsnoBike()
+    }, [])
+
     return (
         <form onSubmit={handleSubmit(createBike)}>
             <select name="" id="" {...register("slot", { required: false })}>

@@ -16,30 +16,30 @@ from rest_framework.views import APIView
 # @api_view(['GET', 'POST', 'DELETE'])
 
 class SlotView(viewsets.GenericViewSet):
-   def getSlots(self, request):
-       slot = Slot.objects.all()
-       slot_serializer = SlotSerializer(slot, many=True)
-       return JsonResponse(slot_serializer.data, safe=False)
+    def getSlots(self, request):
+        slot = Slot.objects.all()
+        slot_serializer = SlotSerializer(slot, many=True)
+        return JsonResponse(slot_serializer.data, safe=False)
 
+    def getOneSlot(self, request, id):
+        slot = Slot.objects.get(id=id)
+        slot_serializer = SlotSerializer(slot, many=False)
+        return JsonResponse(slot_serializer.data, safe=False)
 
-   def getOneSlot(self, request, id):
-       slot = Slot.objects.get(id=id)
-       slot_serializer = SlotSerializer(slot, many=False)
-       return JsonResponse(slot_serializer.data, safe=False)
+    def getSlotWithoutBike(self, request):
+        serialized = SlotSerializer.getSlotWithoutBike()
+        return JsonResponse(serialized, safe=False)
 
+    def createSlot(self, request):
+        slot_data = request.data
+        slot_serializer = SlotSerializer(data=slot_data)
+        if (slot_serializer.is_valid(raise_exception=True)):
+            slot_serializer.save()
+        return Response(slot_serializer.data)
 
-   def createSlot(self, request):
-       slot_data = request.data
-       slot_serializer = SlotSerializer(data=slot_data)
-       if (slot_serializer.is_valid(raise_exception=True)):
-           slot_serializer.save()
-       return Response(slot_serializer.data)
-
-
-  
-   def deleteSlot(self, request, id):
-       slot_data = request.data
-       slot_serializer = SlotSerializer(data=slot_data)
-       if (slot_serializer.is_valid(raise_exception=True)):   
-           Slot.objects.get(id=id).delete()
-       return JsonResponse({'message': 'Slot eliminado Correctamente', "Slot": slot_serializer.data}, status=status.HTTP_204_NO_CONTENT)
+    def deleteSlot(self, request, id):
+        slot_data = request.data
+        slot_serializer = SlotSerializer(data=slot_data)
+        if (slot_serializer.is_valid(raise_exception=True)):
+            Slot.objects.get(id=id).delete()
+        return JsonResponse({'message': 'Slot eliminado Correctamente', "Slot": slot_serializer.data}, status=status.HTTP_204_NO_CONTENT)

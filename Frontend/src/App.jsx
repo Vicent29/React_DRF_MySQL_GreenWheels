@@ -2,6 +2,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React, { Suspense } from 'react';
 import './App.css';
+
+// context
 import { StationsContextProvider } from "./context/StationsContext";
 
 // bootstrap
@@ -18,6 +20,8 @@ const AddBike = React.lazy(() => import("./pages/Bikes/CreateBike"))
 const Home = React.lazy(() => import("./pages/Home/Home"))
 const Station = React.lazy(() => import("./pages/Station/Stations"))
 const AddStation = React.lazy(() => import("./pages/Station/CreateStation"))
+const Signin = React.lazy(() => import("./pages/User/Signin"))
+const Signup = React.lazy(() => import("./pages/User/Signup"))
 
 function App() {
   return (
@@ -32,6 +36,8 @@ function App() {
             <Route path="addbike" element={<Suspense fallback={<SpinnerLoading />}><AddBike /></Suspense>} />
             <Route path="station" element={<Suspense fallback={<SpinnerLoading />}><Station /></Suspense>} />
             <Route path="addstation" element={<Suspense fallback={<SpinnerLoading />}><AddStation /></Suspense>} />
+            <Route path="signin" element={<Suspense fallback={<SpinnerLoading />}><Signin /></Suspense>} />
+            <Route path="signup" element={<Suspense fallback={<SpinnerLoading />}><Signup /></Suspense>} />
           </Routes>
         </StationsContextProvider>
       </BrowserRouter>

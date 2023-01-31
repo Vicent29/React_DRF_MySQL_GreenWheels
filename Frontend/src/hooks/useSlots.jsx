@@ -16,5 +16,14 @@ export function useSlots() {
             })
     }, [])
 
-    return { loading, slots/*, getBike, createBike/*, updateBike, changeStatusBike,, deleteBike*/ }
+    const getSlotsnoBike = useCallback(() => {
+        SlotsService.getSlotsnoBike()
+            .then(({ data }) => {
+                if (data) {
+                    setSlots(data)
+                }
+            })
+    },[])
+
+    return { loading, slots, getSlotsnoBike/*, getBike, createBike/*, updateBike, changeStatusBike,, deleteBike*/ }
 }

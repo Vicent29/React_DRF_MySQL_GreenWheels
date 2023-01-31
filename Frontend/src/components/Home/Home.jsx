@@ -20,7 +20,6 @@ export default function HomeComponent() {
             <div className="text-white d-flex flex-column justify-center align-middle col-6">
                 {show !== null && (
                     bikes.map((bike, id) => {
-                        console.log(bike.id);
                         return <BikeCard key={id} bike={bike} />
                     })
                 )}

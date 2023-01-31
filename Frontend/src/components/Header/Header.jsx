@@ -7,7 +7,7 @@ export default function Bikes() {
 
     const alocation = useLocation()
     const [location, setLocation] = useState(alocation.pathname.replace('/', ''))
-    const links = ["home", "bike", "station"]
+    const links = ["home", "bike", "station", "signin", "signup"]
 
     const changeCN = (item) => {
         return alocation.pathname.replace('/', '') === item ? "menu-link is-active" : "menu-link";

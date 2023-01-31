@@ -4,8 +4,7 @@ export default function BikeCard({ bike }) {
     // console.log(bike);
     return (
         <>
-            {bike.id}
-            <br />
+            <p>{bike.id}</p>
             {/* {bike.slot}
             {bike.status === true ? 'true' : 'false'}
             {bike.pfm}

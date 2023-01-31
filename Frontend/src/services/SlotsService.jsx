@@ -7,6 +7,9 @@ const SlotsService = {
     getSlot(id) {
         return http().get(`/api/slot/${id}`)
     },
+    getSlotsnoBike() {
+        return http().get(`/api/slotnobike`)
+    },
     createSlot(data) {
         return http().post(`/api/slot`, data)
     },
