@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'src.apps.slot',
     'src.apps.bike',
     'src.apps.user',
+    'src.apps.profile_user',
     'src.apps.rent',
     'corsheaders',
 ]
