@@ -8,15 +8,15 @@ export function useStations() {
     const { stations, setStations } = useContext(StationsContext)
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     setLoading(true)
-    //     StationsService.getStationsMap()
-    //         .then(({ data }) => {
-    //             setStations(data)
-    //             console.log(data);
-    //             setLoading(false)
-    //         })
-    // }, [])
+    useEffect(() => {
+        setLoading(true)
+        StationsService.getStationsMap()
+            .then(({ data }) => {
+                setStations(data)
+                console.log(data);
+                setLoading(false)
+            })
+    }, [])
 
     const getStationsMap = useCallback(() => {
         StationsService.getStationsMap()

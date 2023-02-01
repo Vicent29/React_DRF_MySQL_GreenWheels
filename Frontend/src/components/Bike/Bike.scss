@@ -1,3 +1,24 @@
 .white {
     color: white;
 }
+
+.hover-border-white:hover {
+    border: 1px solid white;
+}
+
+.hover-up {
+    transition: all 1s ease-out;
+
+    &:hover {
+        animation: up 1s forwards;
+    }
+}
+
+@keyframes up {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-0.5rem);
+    }
+}
