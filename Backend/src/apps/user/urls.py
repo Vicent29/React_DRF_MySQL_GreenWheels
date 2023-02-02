@@ -6,6 +6,5 @@ urlpatterns = [
     path('user/<int:id>',
          UserView.as_view({'get': 'getOneUser', 'delete': 'deleteUser'})),
     path('register', UserRegLog.as_view({'post': 'register'})),
-    # path('login', UserRegLog.as_view({'post': 'login'}))
-    # path('restaurants', GetRestaurants.as_view()),
+    path('login', UserRegLog.as_view({'post': 'login'})),
 ]

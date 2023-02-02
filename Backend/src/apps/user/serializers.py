@@ -3,7 +3,6 @@ from src.apps.user.models import User
 import json
 from django.core.serializers import serialize
 
-
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -38,15 +37,8 @@ class UserSerializer(serializers.ModelSerializer):
             )
 
         except User.DoesNotExist:
-
-            user = User.objects.create(
-                email=email,
-                password=password,
-                first_name=first_name,
-                last_name=last_name,
-                is_active=True,
-                type='user'
-            )
+            user = User.objects.create_user(
+                first_name, last_name, email, password)
 
         return {
             'user': {
@@ -57,4 +49,31 @@ class UserSerializer(serializers.ModelSerializer):
                 'type': user.type
             },
             'token': user.token,
+            'rftoken': user.refresh_token,
         }
+
+    def login(context):
+
+        email = context['email']
+        password = context['password']
+
+        try:
+            user = User.objects.get(email=email)
+            if user.check_password(password):
+
+                return {
+                    'user': {
+                        'email': user.email,
+                        'first_name': user.first_name,
+                        'last_name': user.last_name,
+                        'is_active': user.is_active,
+                        'type': user.type
+                    },
+                    'token': user.token,
+                    'rftoken': user.refresh_token,
+                }
+            else:
+                return "email or password not correct"
+
+        except User.DoesNotExist:
+            return "email not registered"

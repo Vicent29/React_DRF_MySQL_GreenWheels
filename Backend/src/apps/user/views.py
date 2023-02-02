@@ -42,25 +42,6 @@ class UserView(viewsets.GenericViewSet):
             User.objects.get(id=id).delete()
         return JsonResponse({'message': 'User eliminado Correctamente', "User": user_serializer.data}, status=status.HTTP_204_NO_CONTENT)
 
-    def register(self, request):
-
-        email = request.data['email']
-        password = request.data['password']
-        first_name = request.data['first_name']
-        last_name = request.data['last_name']
-
-        if email is None:
-            raise NotFound("Email is required!")
-
-        if password is None:
-            raise NotFound("Password is required!")
-
-        if first_name is None:
-            raise NotFound("First Name is required!")
-
-        if last_name is None:
-            raise NotFound("Last Name is required!")
-
 
 class UserRegLog(viewsets.GenericViewSet):
     permission_classes = (AllowAny,)
@@ -73,19 +54,6 @@ class UserRegLog(viewsets.GenericViewSet):
         first_name = request.data['first_name']
         last_name = request.data['last_name']
 
-        # if email is None:
-        #     # raise NotFound("Email is required!")
-        #     raise serializers.ValidationError('Email required')
-
-        # if password is None:
-        #     raise serializers.ValidationError("Password is required!")
-
-        # if first_name is None:
-        #     raise serializers.ValidationError("First Name is required!")
-
-        # if last_name is None:
-        #     raise serializers.ValidationError("Last Name is required!")
-
         serializer_context = {
             'email': email,
             'password': password,
@@ -94,5 +62,17 @@ class UserRegLog(viewsets.GenericViewSet):
         }
 
         serializer = UserSerializer.register(serializer_context)
+        return Response(serializer, status=status.HTTP_200_OK)
 
+    def login(self, request):
+
+        email = request.data['email']
+        password = request.data['password']
+
+        serializer_context = {
+            'email': email,
+            'password': password,
+        }
+
+        serializer = UserSerializer.login(serializer_context)
         return Response(serializer, status=status.HTTP_200_OK)

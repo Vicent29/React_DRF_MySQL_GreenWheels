@@ -6,20 +6,15 @@ from src.apps.core.models import TimestampedModel
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin
 )
-
 # Create your models here.
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, first_name, email, password=None):
+    def create_user(self, first_name,last_name, email, password=None):
         """Create and return a `User` with an email, username and password."""
-        if first_name is None:
-            raise TypeError('First name must have a string.')
-
-        if email is None:
-            raise TypeError('Users must have an email address.')
 
         user = self.model(first_name=first_name,
+                          last_name=last_name,
                           email=self.normalize_email(email))
         user.set_password(password)
         user.save()
@@ -43,7 +38,7 @@ class User(AbstractBaseUser, TimestampedModel, models.Model):
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
     email = models.EmailField(unique=True, blank=False)
-    password = models.CharField(max_length=30, blank=False)
+    password = models.CharField(max_length=200, blank=False)
     is_active = models.BooleanField(blank=True, default=True)
     type = models.CharField(max_length=30, blank=True, default="client")
 
@@ -63,14 +58,18 @@ class User(AbstractBaseUser, TimestampedModel, models.Model):
         The `@property` decorator above makes this possible. `token` is called
         a "dynamic property".
         """
-        return self._generate_jwt_token()
+        return self._generate_jwt_token(1)
+    
+    @property
+    def refresh_token(self):
+        return self._generate_jwt_token(5)
 
-    def _generate_jwt_token(self):
+    def _generate_jwt_token(self, h):
         """
         Generates a JSON Web Token that stores this user's ID and has an expiry
         date set to 1 days into the future.
         """
-        dt = datetime.now() + timedelta(days=1)
+        dt = datetime.now() + timedelta(hours=h)
 
         token = jwt.encode({
             'id': self.pk,
