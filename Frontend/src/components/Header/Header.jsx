@@ -7,7 +7,7 @@ export default function Bikes() {
 
     const alocation = useLocation()
     const [location, setLocation] = useState(alocation.pathname.replace('/', ''))
-    const links = ["home", "bike", "station", "signin", "signup"]
+    const links = ["HOME", "BIKE", "STATION", "SIGNIN", "SIGNUP"]
 
     const changeCN = (item) => {
         return alocation.pathname.replace('/', '') === item ? "menu-link is-active" : "menu-link";
@@ -20,7 +20,7 @@ export default function Bikes() {
     return (
         <>
             <div className="header">
-                <div className="logo"><img src="/graygreenwheels.png" alt="greenwheels" width="200vh"/></div>
+                <div className="logo"><img src="/assets/logos/graygreenwheels.png" alt="greenwheels" width="200vh"/></div>
                 <div className="header-menu">
                     {print}
                 </div>
