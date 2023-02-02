@@ -20,8 +20,8 @@ const AddBike = React.lazy(() => import("./pages/Bikes/CreateBike"))
 const Home = React.lazy(() => import("./pages/Home/Home"))
 const Station = React.lazy(() => import("./pages/Station/Stations"))
 const AddStation = React.lazy(() => import("./pages/Station/CreateStation"))
-const Signin = React.lazy(() => import("./pages/User/Signin"))
-const Signup = React.lazy(() => import("./pages/User/Signup"))
+const Signin = React.lazy(() => import("./pages/Login/Signin"))
+const Signup = React.lazy(() => import("./pages/Login/Signup"))
 
 function App() {
   return (
