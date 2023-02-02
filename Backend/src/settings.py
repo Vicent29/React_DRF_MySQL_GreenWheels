@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from environ import Env
 
-env=Env()
+env = Env()
 # BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 env.read_env(os.path.join(BASE_DIR+'/src', '.env'))
@@ -121,6 +121,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# AUTH_USER_MODEL = 'user.user'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

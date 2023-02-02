@@ -8,7 +8,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'uuid', 'first_name', 'last_name', 'email', 'password', 'is_active', 'type')
+        fields = ('id', 'uuid', 'first_name', 'last_name',
+                  'email', 'password', 'is_active', 'type')
 
     def to_users(instance):
         return {
@@ -20,4 +21,40 @@ class UserSerializer(serializers.ModelSerializer):
             'password': instance.password,
             'is_active': instance.is_active,
             'type': instance.type,
+        }
+
+    def register(context):
+
+        email = context['email']
+        password = context['password']
+        first_name = context['first_name']
+        last_name = context['last_name']
+
+        try:
+            user = User.objects.get(email=email)
+
+            raise serializers.ValidationError(
+                'User with this email already exists.'
+            )
+
+        except User.DoesNotExist:
+
+            user = User.objects.create(
+                email=email,
+                password=password,
+                first_name=first_name,
+                last_name=last_name,
+                is_active=True,
+                type='user'
+            )
+
+        return {
+            'user': {
+                'email': user.email,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'is_active': user.is_active,
+                'type': user.type
+            },
+            'token': user.token,
         }

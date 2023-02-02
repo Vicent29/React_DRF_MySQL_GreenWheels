@@ -1,19 +1,80 @@
+from django.conf import settings
+import jwt
+from datetime import datetime, timedelta
 from django.db import models
 from src.apps.core.models import TimestampedModel
+from django.contrib.auth.models import (
+    AbstractBaseUser, BaseUserManager, PermissionsMixin
+)
 
 # Create your models here.
 
-class User(TimestampedModel, models.Model):
-   uuid = models.CharField(max_length=36,unique=True, editable=False)
-   first_name = models.CharField(max_length=30, blank=True)
-   last_name= models.CharField(max_length=30, blank=True)
-   email = models.EmailField(unique=True, blank=False)
-   password = models.CharField(max_length=30, blank=False)
-   is_active= models.BooleanField(blank=True, default=True)
-   type= models.CharField(max_length=30, blank=True, default="client")
 
-   class Meta:
-       verbose_name_plural = 'Users'
+class UserManager(BaseUserManager):
+    def create_user(self, first_name, email, password=None):
+        """Create and return a `User` with an email, username and password."""
+        if first_name is None:
+            raise TypeError('First name must have a string.')
 
-   def __str__(self):
-       return self.id
+        if email is None:
+            raise TypeError('Users must have an email address.')
+
+        user = self.model(first_name=first_name,
+                          email=self.normalize_email(email))
+        user.set_password(password)
+        user.save()
+
+        return user
+
+    def create_superuser(self, first_name, email, password):
+        if password is None:
+            raise TypeError('Superusers must have a password.')
+
+        user = self.create_user(first_name, email, password)
+        user.is_superuser = True
+        user.is_staff = True
+        user.save()
+
+        return user
+
+
+class User(AbstractBaseUser, TimestampedModel, models.Model):
+    uuid = models.CharField(max_length=36, unique=True, editable=False)
+    first_name = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=30, blank=True)
+    email = models.EmailField(unique=True, blank=False)
+    password = models.CharField(max_length=30, blank=False)
+    is_active = models.BooleanField(blank=True, default=True)
+    type = models.CharField(max_length=30, blank=True, default="client")
+
+    objects = UserManager()
+
+    class Meta:
+        verbose_name_plural = 'Users'
+
+    def __str__(self):
+        return self.id
+
+    @property
+    def token(self):
+        """
+        Allows us to get a user's token by calling `user.token` instead of
+        `user.generate_jwt_token().
+        The `@property` decorator above makes this possible. `token` is called
+        a "dynamic property".
+        """
+        return self._generate_jwt_token()
+
+    def _generate_jwt_token(self):
+        """
+        Generates a JSON Web Token that stores this user's ID and has an expiry
+        date set to 1 days into the future.
+        """
+        dt = datetime.now() + timedelta(days=1)
+
+        token = jwt.encode({
+            'id': self.pk,
+            'exp': int(dt.timestamp())
+        }, settings.SECRET_KEY, algorithm='HS256')
+
+        return token
