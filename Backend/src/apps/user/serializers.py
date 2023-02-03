@@ -98,7 +98,9 @@ class UserSerializer(serializers.ModelSerializer):
                     'rftoken': user.refresh_token,
                 }
             else:
-                return "email or password not correct"
+                raise serializers.ValidationError(
+                    'email or password not correct'
+                )                
 
         except User.DoesNotExist:
             return "email not registered"

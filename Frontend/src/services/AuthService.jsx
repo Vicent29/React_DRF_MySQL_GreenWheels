@@ -14,7 +14,7 @@ const AuthService = {
         return http().post(`/api/register`, data)
     },
     loginUser(data) {
-        return http().get(`/api/login`, data)
+        return http().post(`/api/login`, data)
     },
     isAdmin() {
         return http().get("/api/user/isadmin")

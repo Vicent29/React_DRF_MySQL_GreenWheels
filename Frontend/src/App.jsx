@@ -7,6 +7,10 @@ import './App.css';
 import { AuthContextProvider } from "./context/AuthContext";
 import { StationsContextProvider } from "./context/StationsContext";
 
+// toastr
+import {ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
 // bootstrap
 import 'bootstrap/dist/css/bootstrap.css';
 import "bootstrap/dist/js/bootstrap.min.js";
@@ -30,6 +34,7 @@ function App() {
       <BrowserRouter>
         <AuthContextProvider>
           <Header />
+          <ToastContainer />
           <StationsContextProvider>
             <Routes>
               <Route path="/" element={<Suspense fallback={<SpinnerLoading />}><Home /></Suspense>} />

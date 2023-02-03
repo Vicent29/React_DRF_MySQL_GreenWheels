@@ -4,11 +4,8 @@ import { useAuth } from '../../hooks/useLogin'
 
 export default function Signin() {
     const { register, handleSubmit, formState: { errors } } = useForm()
-    
+    const { signin, status } = useAuth();
 
-    const signin = (request) => {
-        console.log(request);
-    }
 
     return (
         <div className="login-box login">

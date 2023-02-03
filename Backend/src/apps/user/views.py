@@ -60,7 +60,7 @@ class OnlyAdmin(viewsets.GenericViewSet):
 
 
 class UserRegLog(viewsets.GenericViewSet):
-    permission_classes = (AllowAny,)
+    # permission_classes = (AllowAny,)
     serializer_class = UserSerializer
 
     def register(self, request):

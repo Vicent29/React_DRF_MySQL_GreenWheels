@@ -6,11 +6,6 @@ export default function SignUp() {
     const { register, watch, handleSubmit, formState: { errors } } = useForm()
     const { signup, status } = useAuth();
 
-    // const signup = (request) => {
-    //     console.log(request);
-    //     signup_hook()
-    // }
-
     return (
         <div className="login-box register">
             <div className="card">
@@ -39,6 +34,7 @@ export default function SignUp() {
                         <label>Email</label>
                         {errors.email && errors.email.type === "pattern" && <span className="text-base text-danger">{errors.email.message}</span>}
                         {errors.email?.type === 'required' && <span className="text-base text-danger">{"*Email is Required"}</span>}
+                        {status.error === true && <span className="text-base text-danger">{"*Email Exist"}</span>}
                     </div>
                     <div className="user-box">
                         <input type="password" name="" required="" {...register("password_one", {
