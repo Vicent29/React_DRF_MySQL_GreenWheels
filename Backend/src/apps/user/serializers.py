@@ -33,7 +33,7 @@ class UserSerializer(serializers.ModelSerializer):
             user = User.objects.get(email=email)
 
             raise serializers.ValidationError(
-                'User with this email already exists.'
+                'Email exist.'
             )
 
         except User.DoesNotExist:

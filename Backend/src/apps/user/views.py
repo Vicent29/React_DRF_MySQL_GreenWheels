@@ -50,7 +50,7 @@ class UserRegLog(viewsets.GenericViewSet):
     def register(self, request):
 
         email = request.data['email']
-        password = request.data['password']
+        password = request.data['password_one']
         first_name = request.data['first_name']
         last_name = request.data['last_name']
 

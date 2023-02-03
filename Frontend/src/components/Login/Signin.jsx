@@ -1,8 +1,10 @@
 import { useForm } from "react-hook-form"
 import "./Signin.scss"
+import { useAuth } from '../../hooks/useLogin'
 
 export default function Signin() {
     const { register, handleSubmit, formState: { errors } } = useForm()
+    
 
     const signin = (request) => {
         console.log(request);

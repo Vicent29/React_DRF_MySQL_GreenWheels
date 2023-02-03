@@ -1,12 +1,15 @@
 import { useForm } from "react-hook-form"
 import "./Signin.scss"
+import { useAuth } from '../../hooks/useLogin'
 
 export default function SignUp() {
     const { register, watch, handleSubmit, formState: { errors } } = useForm()
+    const { signup, status } = useAuth();
 
-    const signup = (request) => {
-        console.log(request);
-    }
+    // const signup = (request) => {
+    //     console.log(request);
+    //     signup_hook()
+    // }
 
     return (
         <div className="login-box register">
@@ -56,12 +59,12 @@ export default function SignUp() {
                                 message: "*More than 3 caracters"
                             },
                             validate: (val) => {
-                                if (watch('password_one') != val) {
+                                if (watch('password_one') !== val) {
                                    return "*Your passwords do no match";
                                 }
                               },
                         })} />
-                        <label>Password</label>
+                        <label>Repeat Password</label>
                         {errors.password_two && (errors.password_two.type === "pattern" || errors.password_two.type === "validate" )  &&  <span className="text-base text-danger">{errors.password_two.message}</span>}
                         {errors.password_two?.type === 'required' && <span className="text-base text-danger">{"*Repeat a password"}</span>}
                     </div>

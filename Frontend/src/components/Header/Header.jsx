@@ -2,6 +2,7 @@ import "./Header.scss"
 import { useLocation } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
+import Home from "../../pages/Home/Home";
 
 export default function Bikes() {
 
@@ -20,7 +21,7 @@ export default function Bikes() {
     return (
         <>
             <div className="header">
-                <div className="logo"><img src="/assets/logos/graygreenwheels.png" alt="greenwheels" width="200vh"/></div>
+                <div className="logo"><Link to="Home"><img src="/assets/logos/graygreenwheels.png" alt="greenwheels" width="200vh"/></Link></div>
                 <div className="header-menu">
                     {print}
                 </div>
