@@ -3,6 +3,7 @@ from src.apps.user.models import User
 import json
 from django.core.serializers import serialize
 
+
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -21,6 +22,30 @@ class UserSerializer(serializers.ModelSerializer):
             'is_active': instance.is_active,
             'type': instance.type,
         }
+
+    def to_user_admin(instance):
+        return {
+            'first_name': instance.first_name,
+            'last_name': instance.last_name,
+            'email': instance.email,
+            'is_active': instance.is_active,
+            'type': instance.type,
+        }
+
+    def getUserTk(context):
+        user = User.objects.get(id=context)
+        return {
+            'user': {
+                'email': user.email,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'is_active': user.is_active,
+                'type': user.type
+            },
+            'token': user.token,
+            'rftoken': user.refresh_token,
+        }
+
 
     def register(context):
 

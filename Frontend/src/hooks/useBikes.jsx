@@ -1,10 +1,12 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useContext } from 'react'
 import { useNavigate } from "react-router-dom"
+import AuthContextProvider from '../context/AuthContext';
 import BikesService from "../services/BikesService";
 
 export function useBikes() {
     const [loading, setLoading] = useState(false);
     const [bikes, setBikes] = useState([])
+    const { rftoken } = useContext(AuthContextProvider)
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -13,6 +15,9 @@ export function useBikes() {
             .then(({ data }) => {
                 setBikes(data)
                 setLoading(false)
+            })
+            .catch(e => {
+                rftoken();
             })
     }, [])
 
@@ -27,12 +32,12 @@ export function useBikes() {
 
     const getBikesByStation = useCallback((id) => {
         BikesService.getBikesByStation(id)
-        .then(({ data }) => {
-            if (data) {
-                setBikes(data)
-            }
-        })
-    },[])
+            .then(({ data }) => {
+                if (data) {
+                    setBikes(data)
+                }
+            })
+    }, [])
 
     const createBike = useCallback((request) => {
         BikesService.createBike(request)

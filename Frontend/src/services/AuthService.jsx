@@ -7,14 +7,17 @@ const AuthService = {
     getUser(id) {
         return http().get(`/api/user/${id}`)
     },
+    getUserTk() {
+        return http().get(`/api/usertk`)
+    },
     registerUser(data) {
         return http().post(`/api/register`, data)
     },
     loginUser(data) {
         return http().get(`/api/login`, data)
     },
-    isAdmin(data) {
-        return http().get("/api/userIsAdmin/", data)
+    isAdmin() {
+        return http().get("/api/user/isadmin")
     },
     changePassword(data){
         return http().put(`/api/change_password/`, data)

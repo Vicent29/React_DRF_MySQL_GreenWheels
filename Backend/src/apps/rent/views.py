@@ -4,6 +4,9 @@ from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework import status, viewsets
 from rest_framework.response import Response
+from rest_framework.permissions import (
+    AllowAny, IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser,)
+from src.apps.core.permissions import IsAdmin
 
 
 from src.apps.rent.models import Rent
@@ -14,10 +17,6 @@ from src.apps.rent.serializers import RentSerializer
 
 
 class RentView(viewsets.GenericViewSet):
-    def getRents(self, request):
-        rent = Rent.objects.all()
-        rent_serializer = RentSerializer(rent, many=True)
-        return JsonResponse(rent_serializer.data, safe=False)
 
     def getOneRent(self, request, id):
         rent = Rent.objects.get(id=id)
@@ -33,14 +32,22 @@ class RentView(viewsets.GenericViewSet):
 
     def closeRent(self, request, id):
         serializer_context = {
-            'id_rent' : id,
+            'id_rent': id,
             'id_bike': request.data['bike'],
             'id_user': request.data['user'],
         }
         serializer = RentSerializer.close_rent(context=serializer_context)
         # return Response(serializer, content_type="application/json")
         return Response(serializer)
-        
+
+
+class OnlyAdmin(viewsets.GenericViewSet):
+    permission_classes = [IsAuthenticated, IsAdmin]
+
+    def getRents(self, request):
+        rent = Rent.objects.all()
+        rent_serializer = RentSerializer(rent, many=True)
+        return JsonResponse(rent_serializer.data, safe=False)
 
     def deleteRent(self, request, id):
         rent_data = request.data

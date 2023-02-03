@@ -10,7 +10,16 @@ export default function http() {
                 "Authorization": `Bearer ${JwtService.getToken()}`
             }
         });
-    } else {
+    } else if(localStorage.getItem('rftoken')) {
+        return axios.create({
+            baseURL: "http://localhost:3001/",
+            headers: {
+                "Content-type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem('rftoken')}`
+            }
+        });
+    }
+    else {
         return axios.create({
             baseURL: "http://localhost:3001/",
             headers: {

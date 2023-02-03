@@ -11,10 +11,10 @@ const StationsService = {
         return http().get(`/api/stationmap`)
     },
     createStation(data) {
-        return http().post(`/api/station`, data)
+        return http().post(`/api/astation`, data)
     },
     deleteStation(id, data) {
-        return http().delete(`/api/station/${id}`)
+        return http().delete(`/api/astation/${id}`)
     },
 }
 export default StationsService;

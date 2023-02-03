@@ -4,6 +4,7 @@ import React, { Suspense } from 'react';
 import './App.css';
 
 // context
+import { AuthContextProvider } from "./context/AuthContext";
 import { StationsContextProvider } from "./context/StationsContext";
 
 // bootstrap
@@ -27,19 +28,21 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header />
-        <StationsContextProvider>
-          <Routes>
-            <Route path="/" element={<Suspense fallback={<SpinnerLoading />}><Home /></Suspense>} />
-            <Route path="home" element={<Suspense fallback={<SpinnerLoading />}><Home /></Suspense>} />
-            <Route path="bike" element={<Suspense fallback={<SpinnerLoading />}><Bikes /></Suspense>} />
-            <Route path="addbike" element={<Suspense fallback={<SpinnerLoading />}><AddBike /></Suspense>} />
-            <Route path="station" element={<Suspense fallback={<SpinnerLoading />}><Station /></Suspense>} />
-            <Route path="addstation" element={<Suspense fallback={<SpinnerLoading />}><AddStation /></Suspense>} />
-            <Route path="signin" element={<Suspense fallback={<SpinnerLoading />}><Signin /></Suspense>} />
-            <Route path="signup" element={<Suspense fallback={<SpinnerLoading />}><Signup /></Suspense>} />
-          </Routes>
-        </StationsContextProvider>
+        <AuthContextProvider>
+          <Header />
+          <StationsContextProvider>
+            <Routes>
+              <Route path="/" element={<Suspense fallback={<SpinnerLoading />}><Home /></Suspense>} />
+              <Route path="home" element={<Suspense fallback={<SpinnerLoading />}><Home /></Suspense>} />
+              <Route path="bike" element={<Suspense fallback={<SpinnerLoading />}><Bikes /></Suspense>} />
+              <Route path="addbike" element={<Suspense fallback={<SpinnerLoading />}><AddBike /></Suspense>} />
+              <Route path="station" element={<Suspense fallback={<SpinnerLoading />}><Station /></Suspense>} />
+              <Route path="addstation" element={<Suspense fallback={<SpinnerLoading />}><AddStation /></Suspense>} />
+              <Route path="signin" element={<Suspense fallback={<SpinnerLoading />}><Signin /></Suspense>} />
+              <Route path="signup" element={<Suspense fallback={<SpinnerLoading />}><Signup /></Suspense>} />
+            </Routes>
+          </StationsContextProvider>
+        </AuthContextProvider>
       </BrowserRouter>
     </div>
   );

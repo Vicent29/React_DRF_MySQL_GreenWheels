@@ -1,9 +1,10 @@
 from django.urls import path
-from src.apps.slot.views import SlotView
+from src.apps.slot.views import SlotView, OnlyAdmin
 
 urlpatterns = [
-    path('slot', SlotView.as_view( {'get': 'getSlots', 'post': 'createSlot'})),
-    path('slot/<int:id>', SlotView.as_view({'get': 'getOneSlot', 'delete': 'deleteSlot'})),
-    path('slotnobike', SlotView.as_view( {'get': 'getSlotWithoutBike'})),
+    path('slot/<int:id>', SlotView.as_view({'get': 'getOneSlot'})),
+    path('slotnobike', SlotView.as_view({'get': 'getSlotWithoutBike'})),
+    path('aslot', OnlyAdmin.as_view({'get': 'getSlots', 'post': 'createSlot'})),
+    path('slot/<int:id>', OnlyAdmin.as_view({'delete': 'deleteSlot'})),
     # path('restaurants', GetRestaurants.as_view()),
 ]

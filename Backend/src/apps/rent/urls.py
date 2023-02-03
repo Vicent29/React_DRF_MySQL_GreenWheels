@@ -1,7 +1,10 @@
 from django.urls import path
-from src.apps.rent.views import RentView
+from src.apps.rent.views import RentView, OnlyAdmin
 
 urlpatterns = [
-    path('rent', RentView.as_view( {'get': 'getRents', 'post': 'createRent'})),
-    path('rent/<int:id>', RentView.as_view({'get': 'getOneRent', 'delete': 'deleteRent' , 'put': 'closeRent'})),
+    path('rent', RentView.as_view({'post': 'createRent'})),
+    path('rent/<int:id>', RentView.as_view({'get': 'getOneRent', 'put': 'closeRent'})),
+    path('arent', OnlyAdmin.as_view({'get': 'getRents'})),
+    path('arent/<int:id>', OnlyAdmin.as_view({'delete': 'deleteRent'})),
+
 ]

@@ -5,6 +5,9 @@ from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework import status, viewsets
 from rest_framework.response import Response
+from rest_framework.permissions import (
+    AllowAny, IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser,)
+from src.apps.core.permissions import IsAdmin
 
 
 from src.apps.slot.models import Slot
@@ -16,10 +19,6 @@ from rest_framework.views import APIView
 # @api_view(['GET', 'POST', 'DELETE'])
 
 class SlotView(viewsets.GenericViewSet):
-    def getSlots(self, request):
-        slot = Slot.objects.all()
-        slot_serializer = SlotSerializer(slot, many=True)
-        return JsonResponse(slot_serializer.data, safe=False)
 
     def getOneSlot(self, request, id):
         slot = Slot.objects.get(id=id)
@@ -29,6 +28,15 @@ class SlotView(viewsets.GenericViewSet):
     def getSlotWithoutBike(self, request):
         serialized = SlotSerializer.getSlotWithoutBike()
         return JsonResponse(serialized, safe=False)
+
+
+class OnlyAdmin(viewsets.GenericViewSet):
+    permission_classes = [IsAuthenticated, IsAdmin]
+
+    def getSlots(self, request):
+        slot = Slot.objects.all()
+        slot_serializer = SlotSerializer(slot, many=True)
+        return JsonResponse(slot_serializer.data, safe=False)
 
     def createSlot(self, request):
         slot_data = request.data

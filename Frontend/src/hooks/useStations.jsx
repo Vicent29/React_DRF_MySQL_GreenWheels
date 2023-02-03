@@ -13,7 +13,6 @@ export function useStations() {
         StationsService.getStationsMap()
             .then(({ data }) => {
                 setStations(data)
-                console.log(data);
                 setLoading(false)
             })
     }, [])
@@ -37,7 +36,6 @@ export function useStations() {
     }, [])
 
     const createStation = useCallback((request) => {
-        console.log(request);
         StationsService.createStation(request)
             .then(({ data }) => {
                 if (data) {

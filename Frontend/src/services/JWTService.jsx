@@ -1,12 +1,13 @@
 const JWTService = {
     getToken(){
-        return window.localStorage.getItem("token")
+        return localStorage.getItem("token")
     },
-    saveToken(token){
-        window.localStorage.setItem("token", token)
+    saveToken(token, rftoken){
+        localStorage.setItem("token", token)
+        localStorage.setItem("rftoken", rftoken)
     },
     destroyToken(){
-        window.localStorage.removeItem("token")
+        localStorage.removeItem("token")
     }
 }
 
