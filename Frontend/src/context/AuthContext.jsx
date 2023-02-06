@@ -20,6 +20,7 @@ export function AuthContextProvider({ children }) {
     }, [])
 
     const loadUser = async () => {
+        console.log("Soy el LOADUSER");
         await AuthService.getUserTk()
             .then(({ data }) => {
                 setUser(data.user)
@@ -64,7 +65,7 @@ export function AuthContextProvider({ children }) {
 
 
     return (
-        <Context.Provider value={{ loadUser, user, setUser, rftoken, isLoading/*, isAdmin, setIsAdmin*/, jwt, setJWT }}>{children}</Context.Provider>
+        <Context.Provider value={{ loadUser, user, setUser, rftoken, isLoading, isAdmin, setIsAdmin, jwt, setJWT }}>{children}</Context.Provider>
     );
 }
 
