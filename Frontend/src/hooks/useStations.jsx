@@ -1,11 +1,13 @@
 import { useEffect, useState, useCallback, useContext } from 'react'
-import { useNavigate } from "react-router-dom"
-import StationsContext from '../context/StationsContext'
+import { useNavigate } from "react-router-dom";
+import StationsContext from '../context/StationsContext';
 import StationsService from "../services/StationsService";
+import AuthContextProvider from '../context/AuthContext';
 
 export function useStations() {
     const [loading, setLoading] = useState(false);
     const { stations, setStations } = useContext(StationsContext)
+    const { rftoken } = useContext(AuthContextProvider)
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -14,6 +16,10 @@ export function useStations() {
             .then(({ data }) => {
                 setStations(data)
                 setLoading(false)
+            })
+            .catch(e => {
+                if (e.response.status === 403)
+                    rftoken();
             })
     }, [])
 
@@ -24,6 +30,10 @@ export function useStations() {
                     setStations(data)
                 }
             })
+            .catch(e => {
+                if (e.response.status === 403)
+                    rftoken();
+            })
     }, [])
 
     const getStation = useCallback((id) => {
@@ -33,6 +43,10 @@ export function useStations() {
                     setStations(data)
                 }
             })
+            .catch(e => {
+                if (e.response.status === 403)
+                    rftoken();
+            })
     }, [])
 
     const createStation = useCallback((request) => {
@@ -41,6 +55,10 @@ export function useStations() {
                 if (data) {
                     navigate("/station")
                 }
+            })
+            .catch(e => {
+                if (e.response.status === 403)
+                    rftoken();
             })
     }, [navigate])
 

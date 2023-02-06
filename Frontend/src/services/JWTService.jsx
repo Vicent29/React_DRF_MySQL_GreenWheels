@@ -8,6 +8,10 @@ const JWTService = {
     },
     destroyToken(){
         localStorage.removeItem("token")
+    },
+    destroyAllTokens() {
+        localStorage.removeItem("token")
+        localStorage.removeItem("rftoken")
     }
 }
 

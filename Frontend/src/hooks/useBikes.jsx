@@ -17,7 +17,8 @@ export function useBikes() {
                 setLoading(false)
             })
             .catch(e => {
-                rftoken();
+                if (e.response.status === 403)
+                    rftoken();
             })
     }, [])
 
@@ -28,6 +29,10 @@ export function useBikes() {
                     setBikes(data)
                 }
             })
+            .catch(e => {
+                if (e.response.status === 403)
+                    rftoken();
+            })
     }, [])
 
     const getBikesByStation = useCallback((id) => {
@@ -37,6 +42,10 @@ export function useBikes() {
                     setBikes(data)
                 }
             })
+            .catch(e => {
+                if (e.response.status === 403)
+                    rftoken();
+            })
     }, [])
 
     const createBike = useCallback((request) => {
@@ -45,6 +54,10 @@ export function useBikes() {
                 if (data) {
                     navigate("/bike")
                 }
+            })
+            .catch(e => {
+                if (e.response.status === 403)
+                    rftoken();
             })
     }, [navigate])
 

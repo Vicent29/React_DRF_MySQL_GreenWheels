@@ -8,45 +8,45 @@ import JWTService from '../services/JWTService';
 import { toast } from 'react-toastify';
 
 
-export function useAuth () {
+export function useAuth() {
     const navigate = useNavigate();
-    const {loadUser, checkAdmin, setJWT, setUser } = useContext(AuthContext)
+    const { loadUser, checkAdmin, setJWT, setUser } = useContext(AuthContext)
 
-    const [ status, setStatus ] = useState({loading: false, error: false})
+    const [status, setStatus] = useState({ loading: false, error: false })
 
     const signup = useCallback((data) => {
         setStatus({ loading: true, error: false });
-        AuthService.registerUser(data) 
-        .then((res) => {
-            setUserLoged(res);            
-        }).catch((error) => {
-            if (error.response.data == "Email exist.") {
-                toast.error("The email already belongs to an account", {
-                    position: toast.POSITION.TOP_RIGHT,
-                });
-                setStatus({ loading: false, error: true });
-            }
-        });
-    },[setStatus]);
+        AuthService.registerUser(data)
+            .then((res) => {
+                setUserLoged(res);
+            }).catch((error) => {
+                if (error.response.data == "Email exist.") {
+                    toast.error("The email already belongs to an account", {
+                        position: toast.POSITION.TOP_RIGHT,
+                    });
+                    setStatus({ loading: false, error: true });
+                }
+            });
+    }, [setStatus]);
 
     const signin = useCallback((data) => {
-        setStatus({ loading: true});
-        AuthService.loginUser(data) 
-        .then((res) => {
-            setUserLoged(res);     
-        }).catch((error) => {
-            console.log(error.response.data);
-            if (error.response.data == 'email or password not correct') {
-                toast.error("Email or password is not correct", {
-                    position: toast.POSITION.TOP_RIGHT,
-                });
-                setStatus({ loading: false});
-            }
-        });
-    },[setStatus]);
+        setStatus({ loading: true });
+        AuthService.loginUser(data)
+            .then((res) => {
+                setUserLoged(res);
+            }).catch((error) => {
+                console.log(error.response.data);
+                if (error.response.data == 'email or password not correct') {
+                    toast.error("Email or password is not correct", {
+                        position: toast.POSITION.TOP_RIGHT,
+                    });
+                    setStatus({ loading: false });
+                }
+            });
+    }, [setStatus]);
 
     const setUserLoged = useCallback((res) => {
-        setStatus({ loading: false, error: false }); 
+        setStatus({ loading: false, error: false });
         JWTService.saveToken(res.data.token, res.data.rftoken);
         toast.success("User " + res.data.user.first_name + " login successfully", {
             position: toast.POSITION.TOP_CENTER
@@ -56,7 +56,7 @@ export function useAuth () {
             await checkAdmin()
         }
         loadData()
-        navigate('/'); 
+        navigate('/');
     }, [setStatus, navigate])
 
 
@@ -78,11 +78,11 @@ export function useAuth () {
         // }).catch((error) => {
         //     setStatus({ loading: false, error: true });
         // });
-    },[navigate]);
+    }, [navigate]);
 
-    
 
-    return {status,signup,signin,setUserLoged,logout,updateUser,loadUser, checkAdmin, setJWT, setUser}
+
+    return { status, signup, signin, setUserLoged, logout, updateUser, loadUser, checkAdmin, setJWT, setUser }
 }
 
 

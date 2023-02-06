@@ -20,7 +20,6 @@ export function AuthContextProvider({ children }) {
     }, [])
 
     const loadUser = async () => {
-        console.log("Soy el LOADUSER");
         await AuthService.getUserTk()
             .then(({ data }) => {
                 setUser(data.user)
@@ -45,10 +44,10 @@ export function AuthContextProvider({ children }) {
                 setUser(data.user)
                 setJWT(data.token)
                 localStorage.setItem('token', data.token)
+                window.location.reload(false)
             })
             .catch(({ response }) => {
-                localStorage.removeItem('token');
-                localStorage.removeItem('rftoken');
+                JWTService.destroyAllTokens()
                 setUser(null);
                 setJWT(null);
             });

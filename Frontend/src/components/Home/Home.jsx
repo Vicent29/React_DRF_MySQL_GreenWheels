@@ -27,10 +27,12 @@ export default function HomeComponent() {
                 {show === null && (
                     <div className="px-3">
                         <h1>About us</h1>
-                        <p>Greenwheels es una empresa de alquiler de bicicletas en línea que ofrece bicicletas modernas y confiables para su uso diario.
-                            Todas las bicicletas cuentan con un diseño atractivo y práctico, además de ser resistentes y fáciles de usar.
-                            Con Greenwheels, puedes alquilar una bicicleta de forma rápida y sencilla, disfrutar de una forma sostenible de transporte y explorar la ciudad sin preocuparte por el estacionamiento o la mantención.
-                            ¡Elige Greenwheels para una experiencia cómoda y ecológica en dos ruedas!
+                        <p>
+                            Greenwheels is an online bike rental company that offers modern and reliable bikes for your daily use.
+                            All bicycles have an attractive and practical design, as well as being resistant and easy to use.
+                            With Greenwheels, you can quickly and easily rent a bike, enjoy a sustainable form of transportation,
+                            and explore the city without worrying about parking or maintenance.
+                            Choose Greenwheels for a comfortable and eco-friendly experience on two wheels!
                         </p>
                     </div>
                 )}

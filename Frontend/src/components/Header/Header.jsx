@@ -10,12 +10,13 @@ export default function Bikes() {
     const [location, setLocation] = useState(alocation.pathname.replace('/', ''))
     const links = ["HOME", "BIKE", "STATION", "SIGNIN", "SIGNUP"]
 
+
     const changeCN = (item) => {
         return alocation.pathname.replace('/', '') === item ? "menu-link is-active" : "menu-link";
     }
 
     const print = links.map(item => {
-        return <Link to={"/" + item} className={changeCN(item)} key={item}>{item}</Link>
+        return <Link to={"/" + item.toLowerCase()} className={changeCN(item)} key={item}>{item}</Link>
     })
 
     return (
