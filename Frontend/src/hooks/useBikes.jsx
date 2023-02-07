@@ -16,10 +16,6 @@ export function useBikes() {
                 setBikes(data)
                 setLoading(false)
             })
-             .catch(e => {
-                 if (e.response.status === 403 && localStorage.getItem('rftoken'))
-                     rftoken();
-             })
     }, [])
 
     const getBike = useCallback((id) => {
@@ -29,10 +25,6 @@ export function useBikes() {
                     setBikes(data)
                 }
             })
-             .catch(e => {
-                 if (e.response.status === 403 && localStorage.getItem('rftoken'))
-                     rftoken();
-             })
     }, [])
 
     const getBikesByStation = useCallback((id) => {
@@ -42,10 +34,6 @@ export function useBikes() {
                     setBikes(data)
                 }
             })
-             .catch(e => {
-                 if (e.response.status === 403 && localStorage.getItem('rftoken'))
-                     rftoken();
-             })
     }, [])
 
     const createBike = useCallback((request) => {
@@ -55,10 +43,6 @@ export function useBikes() {
                     navigate("/bike")
                 }
             })
-             .catch(e => {
-                 if (e.response.status === 403 && localStorage.getItem('rftoken'))
-                     rftoken();
-             })
     }, [navigate])
 
     const deleteBike = ((id) => {

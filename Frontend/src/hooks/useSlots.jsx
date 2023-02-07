@@ -16,10 +16,6 @@ export function useSlots() {
                 setSlots(data)
                 setLoading(false)
             })
-             .catch(e => {
-                 if (e.response.status === 403 && localStorage.getItem('rftoken'))
-                     rftoken();
-             })
     }, [])
 
     const getSlotsnoBike = useCallback(() => {
@@ -29,10 +25,6 @@ export function useSlots() {
                     setSlots(data)
                 }
             })
-             .catch(e => {
-                 if (e.response.status === 403 && localStorage.getItem('rftoken'))
-                     rftoken();
-             })
     }, [])
 
     return { loading, slots, getSlotsnoBike/*, getBike, createBike/*, updateBike, changeStatusBike,, deleteBike*/ }
