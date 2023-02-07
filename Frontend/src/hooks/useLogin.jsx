@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 
 export function useAuth() {
     const navigate = useNavigate();
-    const { user, loadUser, checkAdmin, setJWT, setUser } = useContext(AuthContextProvider)
+    const { user, loadUser, checkAdmin, setJWT, setUser, setIsAdmin } = useContext(AuthContextProvider)
 
 
     const [status, setStatus] = useState({ loading: false, error: false })
@@ -66,6 +66,7 @@ export function useAuth() {
             setUser(null)
             setJWT(null)
         }
+        setIsAdmin(false)
         JWTService.destroyAllTokens();
         toast.success("LogOut successfully ", {
             position: toast.POSITION.TOP_RIGHT

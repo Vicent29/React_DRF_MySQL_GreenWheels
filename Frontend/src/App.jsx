@@ -19,6 +19,11 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import Header from './components/Header/Header'
 import SpinnerLoading from "./components/LoadingSpinner/SpinnerLoading";
 
+//Guards
+import AdminGuard from './services/guards/AdminGuard';
+import { NoAuthGuard } from './services/guards/AuthGuard';
+import { AuthGuard } from './services/guards/AuthGuard';
+
 // pages
 const Bikes = React.lazy(() => import("./pages/Bikes/Bikes"))
 const AddBike = React.lazy(() => import("./pages/Bikes/CreateBike"))
@@ -37,14 +42,24 @@ function App() {
           <ToastContainer />
           <StationsContextProvider>
             <Routes>
+              {/* All users */}
               <Route path="/" element={<Suspense fallback={<SpinnerLoading />}><Home /></Suspense>} />
               <Route path="home" element={<Suspense fallback={<SpinnerLoading />}><Home /></Suspense>} />
-              <Route path="bike" element={<Suspense fallback={<SpinnerLoading />}><Bikes /></Suspense>} />
-              <Route path="addbike" element={<Suspense fallback={<SpinnerLoading />}><AddBike /></Suspense>} />
-              <Route path="station" element={<Suspense fallback={<SpinnerLoading />}><Station /></Suspense>} />
-              <Route path="addstation" element={<Suspense fallback={<SpinnerLoading />}><AddStation /></Suspense>} />
-              <Route path="signin" element={<Suspense fallback={<SpinnerLoading />}><Signin /></Suspense>} />
-              <Route path="signup" element={<Suspense fallback={<SpinnerLoading />}><Signup /></Suspense>} />
+              {/* Dashoboards  Admin */}
+              <Route element={<AdminGuard />}>
+                <Route path="bike" element={<Suspense fallback={<SpinnerLoading />}><Bikes /></Suspense>} />
+                <Route path="addbike" element={<Suspense fallback={<SpinnerLoading />}><AddBike /></Suspense>} />
+                <Route path="station" element={<Suspense fallback={<SpinnerLoading />}><Station /></Suspense>} />
+                <Route path="addstation" element={<Suspense fallback={<SpinnerLoading />}><AddStation /></Suspense>} />
+              </Route>
+              {/* Regsiter and Login */}
+              <Route element={<NoAuthGuard />}>
+                <Route path="signin" element={<Suspense fallback={<SpinnerLoading />}><Signin /></Suspense>} />
+                <Route path="signup" element={<Suspense fallback={<SpinnerLoading />}><Signup /></Suspense>} />
+              </Route>
+              <Route element={<AuthGuard />}>
+                
+              </Route>
             </Routes>
           </StationsContextProvider>
         </AuthContextProvider>

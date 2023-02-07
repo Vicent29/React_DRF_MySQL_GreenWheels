@@ -58,10 +58,10 @@ export function AuthContextProvider({ children }) {
             }).catch((error) => {
                 setIsAdmin(false);
             })
-    }
+        }
 
     return (
-        <Context.Provider value={{ user, setUser, rftoken, isLoading, checkAdmin, setIsAdmin, jwt, setJWT, loadUser }}>{children}</Context.Provider>
+        <Context.Provider value={{ user, setUser, rftoken, isLoading, isAdmin, checkAdmin, setIsAdmin, jwt, setJWT, loadUser }}>{children}</Context.Provider>
     );
 }
 

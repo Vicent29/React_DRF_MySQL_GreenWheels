@@ -10,9 +10,9 @@ export default function Header() {
 
     const alocation = useLocation()
     const [location, setLocation] = useState(alocation.pathname.replace('/', ''))
-    const { user } = useContext(AuthContextProvider)
-    const links = ["HOME", "BIKE", "STATION"]
-    user ? links.push("LOGOUT") : links.push("SIGNIN", "SIGNUP");
+    const { user, isAdmin } = useContext(AuthContextProvider)
+    const links = ["HOME"]
+    user ? isAdmin ? links.push("BIKE", "STATION", "LOGOUT") : links.push("LOGOUT") : links.push("SIGNIN", "SIGNUP");
     const { logout } = useAuth()
 
     const changeCN = (item) => {
@@ -27,12 +27,6 @@ export default function Header() {
         <>
             <div className="header">
                 <div className="logo"><Link to="Home"><img src="/assets/logos/graygreenwheels.png" alt="greenwheels" width="200vh" /></Link></div>
-                <div className="header-menu">
-                    {print}
-                </div>
-                {/* <div className="search-bar">
-                    <input type="text" placeholder="Search" />
-                </div> */}
                 <div className="header-profile">
                     {user && (
                         <>
@@ -46,6 +40,12 @@ export default function Header() {
                         </>
                     )}
                 </div>
+                <div className="header-menu">
+                    {print}
+                </div>
+                {/* <div className="search-bar">
+                    <input type="text" placeholder="Search" />
+                </div> */}
             </div>
         </>
     )
