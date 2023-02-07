@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import AuthService from "../services/AuthService"
 import JWTService from "../services/JWTService";
+import { useAuth } from "../hooks/useLogin";
+
 const Context = React.createContext({});
 
 export function AuthContextProvider({ children }) {
 
-    const [user, setUser] = useState();
+    const [user, setUser] = useState({});
     const [isAdmin, setIsAdmin] = useState(false);
     const [jwt, setJWT] = useState(localStorage.getItem('token'));
     const [isLoading, setLoading] = useState(true);
+    const { logout } = useAuth()
 
     useEffect(() => {
         async function loadData() {
@@ -29,15 +32,12 @@ export function AuthContextProvider({ children }) {
             .catch(({ error }) => {
                 if (localStorage.getItem('rftoken')) {
                     rftoken();
-                } else {
-                    localStorage.removeItem('token')
-                    setUser(null)
                 }
             });
     }
 
     const rftoken = async () => {
-        await JWTService.destroyToken();
+        JWTService.destroyToken();
         await AuthService.getUserTk()
             .then(({ data }) => {
                 console.log(data);
@@ -47,9 +47,7 @@ export function AuthContextProvider({ children }) {
                 window.location.reload(false)
             })
             .catch(({ response }) => {
-                JWTService.destroyAllTokens()
-                setUser(null);
-                setJWT(null);
+                logout()
             });
     }
 
@@ -62,9 +60,8 @@ export function AuthContextProvider({ children }) {
             })
     }
 
-
     return (
-        <Context.Provider value={{ loadUser, user, setUser, rftoken, isLoading, isAdmin, setIsAdmin, jwt, setJWT }}>{children}</Context.Provider>
+        <Context.Provider value={{ user, setUser, rftoken, isLoading, checkAdmin, setIsAdmin, jwt, setJWT, loadUser }}>{children}</Context.Provider>
     );
 }
 

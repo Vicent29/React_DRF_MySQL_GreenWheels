@@ -17,10 +17,10 @@ export function useStations() {
                 setStations(data)
                 setLoading(false)
             })
-            .catch(e => {
-                if (e.response.status === 403)
-                    rftoken();
-            })
+             .catch(e => {
+                 if (e.response.status === 403 && localStorage.getItem('rftoken'))
+                     rftoken();
+             })
     }, [])
 
     const getStationsMap = useCallback(() => {
@@ -30,10 +30,10 @@ export function useStations() {
                     setStations(data)
                 }
             })
-            .catch(e => {
-                if (e.response.status === 403)
-                    rftoken();
-            })
+             .catch(e => {
+                 if (e.response.status === 403 && localStorage.getItem('rftoken'))
+                 rftoken()
+             })
     }, [])
 
     const getStation = useCallback((id) => {
@@ -43,10 +43,10 @@ export function useStations() {
                     setStations(data)
                 }
             })
-            .catch(e => {
-                if (e.response.status === 403)
-                    rftoken();
-            })
+            //  .catch(e => {
+            //      if (e.response.status === 403 && localStorage.getItem('rftoken'))
+            //          rftoken();
+            //  })
     }, [])
 
     const createStation = useCallback((request) => {
@@ -56,10 +56,10 @@ export function useStations() {
                     navigate("/station")
                 }
             })
-            .catch(e => {
-                if (e.response.status === 403)
-                    rftoken();
-            })
+            //  .catch(e => {
+            //      if (e.response.status === 403 && localStorage.getItem('rftoken'))
+            //          rftoken();
+            //  })
     }, [navigate])
 
     const deleteStation = ((id) => {

@@ -9,6 +9,7 @@ export default function HomeComponent() {
     const { stations } = useStations()
     const { bikes, getBikesByStation } = useBikes()
 
+
     const [show, setshow] = useState(null);
 
     return (

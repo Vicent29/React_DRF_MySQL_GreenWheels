@@ -1,7 +1,7 @@
-import { /*useEffect,*/useContext, useState, useCallback } from 'react'
+import { /*useEffect,*/useContext, useState, useCallback, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
 
-import AuthContext from '../context/AuthContext';
+import AuthContextProvider from '../context/AuthContext';
 import AuthService from '../services/AuthService';
 import JWTService from '../services/JWTService';
 
@@ -10,7 +10,8 @@ import { toast } from 'react-toastify';
 
 export function useAuth() {
     const navigate = useNavigate();
-    const { loadUser, checkAdmin, setJWT, setUser } = useContext(AuthContext)
+    const { user, loadUser, checkAdmin, setJWT, setUser } = useContext(AuthContextProvider)
+
 
     const [status, setStatus] = useState({ loading: false, error: false })
 
@@ -61,11 +62,19 @@ export function useAuth() {
 
 
     const logout = useCallback(() => {
-        JWTService.destroyToken()
-        setUser(null)
-        setJWT(null)
-        navigate("/")
-    }, [setJWT, setUser, navigate])
+        if (user) {
+            setUser(null)
+            setJWT(null)
+        }
+        JWTService.destroyAllTokens();
+        toast.success("LogOut successfully ", {
+            position: toast.POSITION.TOP_RIGHT
+        });
+        navigate("/bike")
+        setTimeout(() => {
+            navigate("/")
+        },100);
+    }, [navigate, user])
 
 
     const updateUser = useCallback((data) => {

@@ -69,7 +69,7 @@ class User(AbstractBaseUser, TimestampedModel, models.Model):
         Generates a JSON Web Token that stores this user's ID and has an expiry
         date set to 1 days into the future.
         """
-        dt = datetime.now() + timedelta(seconds=h)
+        dt = datetime.now() + timedelta(minutes=h)
 
         token = jwt.encode({
             'id': self.pk,
