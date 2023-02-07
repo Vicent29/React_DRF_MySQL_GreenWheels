@@ -32,7 +32,8 @@ export default function http() {
     api.interceptors.response.use(
         (response) => response,
         (error) => {
-            if (error.response.status === 403 && ['Authentication credentials were not provided.', 'You are not staff'].indexOf(error.response.data.detail) > 1) {
+            if (error.response.status === 403 && error.response.data.detail != 'Authentication credentials were not provided.' && error.response.data.detail != 'You are not staff') {
+                console.log("hola");
                 JwtService.destroyToken();
                 window.location.reload();
             }

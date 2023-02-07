@@ -7,7 +7,7 @@ const Context = React.createContext({});
 
 export function AuthContextProvider({ children }) {
 
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(null);
     const [isAdmin, setIsAdmin] = useState(false);
     const [jwt, setJWT] = useState(localStorage.getItem('token'));
     const [isLoading, setLoading] = useState(true);

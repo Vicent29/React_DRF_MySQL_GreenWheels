@@ -70,10 +70,6 @@ export function useAuth() {
         toast.success("LogOut successfully ", {
             position: toast.POSITION.TOP_RIGHT
         });
-        navigate("/bike")
-        setTimeout(() => {
-            navigate("/")
-        },100);
     }, [navigate, user])
 
 

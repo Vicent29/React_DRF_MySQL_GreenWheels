@@ -58,18 +58,18 @@ class User(AbstractBaseUser, TimestampedModel, models.Model):
         The `@property` decorator above makes this possible. `token` is called
         a "dynamic property".
         """
-        return self._generate_jwt_token(1)
+        return self._generate_jwt_token(10)
     
     @property
     def refresh_token(self):
-        return self._generate_jwt_token(5)
+        return self._generate_jwt_token(60)
 
     def _generate_jwt_token(self, h):
         """
         Generates a JSON Web Token that stores this user's ID and has an expiry
         date set to 1 days into the future.
         """
-        dt = datetime.now() + timedelta(seconds=h)
+        dt = datetime.now() + timedelta(minutes=h)
 
         token = jwt.encode({
             'id': self.pk,
