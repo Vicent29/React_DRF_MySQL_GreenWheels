@@ -46,7 +46,7 @@ function App() {
               <Route path="/" element={<Suspense fallback={<SpinnerLoading />}><Home /></Suspense>} />
               <Route path="home" element={<Suspense fallback={<SpinnerLoading />}><Home /></Suspense>} />
               {/* Dashoboards  Admin */}
-              <Route element={<AdminGuard />}>
+              <Route element={<Suspense fallback={<SpinnerLoading />}><AdminGuard /></Suspense>}>
                 <Route path="bike" element={<Suspense fallback={<SpinnerLoading />}><Bikes /></Suspense>} />
                 <Route path="addbike" element={<Suspense fallback={<SpinnerLoading />}><AddBike /></Suspense>} />
                 <Route path="station" element={<Suspense fallback={<SpinnerLoading />}><Station /></Suspense>} />

@@ -1,4 +1,5 @@
 import axios from "axios"
+import JWTService from "./JWTService";
 import JwtService from "./JWTService"
 
 export default function http() {
@@ -33,7 +34,9 @@ export default function http() {
         (response) => response,
         (error) => {
             if (error.response.status === 403 && error.response.data.detail != 'Authentication credentials were not provided.' && error.response.data.detail != 'You are not staff') {
-                console.log("hola");
+                if (!localStorage.getItem('token')) {
+                    JWTService.destroyAllTokens();
+                }
                 JwtService.destroyToken();
                 window.location.reload();
             }

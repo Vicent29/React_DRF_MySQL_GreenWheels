@@ -17,24 +17,30 @@ from src.apps.rent.serializers import RentSerializer
 
 
 class RentView(viewsets.GenericViewSet):
+    # permission_classes = [IsAuthenticated,]
 
     def getOneRent(self, request, id):
         rent = Rent.objects.get(id=id)
         rent_serializer = RentSerializer(rent, many=False)
         return JsonResponse(rent_serializer.data, safe=False)
 
+    # def createRent(self, request):
+    #     rent_data = request.data
+    #     rent_serializer = RentSerializer(data=rent_data)
+    #     if (rent_serializer.is_valid(raise_exception=True)):
+    #         rent_serializer.save()
+    #     return JsonResponse(rent_serializer.data)
+
     def createRent(self, request):
-        rent_data = request.data
-        rent_serializer = RentSerializer(data=rent_data)
-        if (rent_serializer.is_valid(raise_exception=True)):
-            rent_serializer.save()
-        return JsonResponse(rent_serializer.data)
+        # return JsonResponse("hola", safe=False)
+        return JsonResponse(RentSerializer.create_rent(context=request.data),safe=False)
 
     def closeRent(self, request, id):
         serializer_context = {
             'id_rent': id,
             'id_bike': request.data['bike'],
             'id_user': request.data['user'],
+            'id_slot': request.data['slot'],
         }
         serializer = RentSerializer.close_rent(context=serializer_context)
         # return Response(serializer, content_type="application/json")
