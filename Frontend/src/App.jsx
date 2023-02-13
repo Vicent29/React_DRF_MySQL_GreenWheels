@@ -11,6 +11,12 @@ import "react-toastify/dist/ReactToastify.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 
+// fontAwesome
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+library.add(fas)
+
+
 // context
 import { AuthContextProvider } from "./context/AuthContext";
 import { StationsContextProvider } from "./context/StationsContext";

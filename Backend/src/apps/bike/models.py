@@ -10,7 +10,7 @@ class Bike(TimestampedModel, models.Model):
     slot = models.ForeignKey(Slot, on_delete=models.CASCADE ,null=True)
     status = models.BooleanField(blank=True, default=True)
     pfm = models.FloatField(max_length=255, blank=True, default=0.05)
-    img_bike = models.CharField(max_length=100,blank=True, default='img')
+    img_bike = models.CharField(max_length=100,blank=True, default='https://deepinmummymatters.com/wp-content/uploads/2019/05/bike-renting.jpg')
 
     class Meta:
         verbose_name_plural = 'Bikes'
