@@ -3,17 +3,17 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React, { Suspense } from 'react';
 import './App.css';
 
-// context
-import { AuthContextProvider } from "./context/AuthContext";
-import { StationsContextProvider } from "./context/StationsContext";
-
 // toastr
 import {ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 // bootstrap
 import 'bootstrap/dist/css/bootstrap.css';
-import "bootstrap/dist/js/bootstrap.min.js";
+import 'bootstrap/dist/js/bootstrap.bundle';
+
+// context
+import { AuthContextProvider } from "./context/AuthContext";
+import { StationsContextProvider } from "./context/StationsContext";
 
 // components
 import Header from './components/Header/Header'

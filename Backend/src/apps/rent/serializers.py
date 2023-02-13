@@ -38,14 +38,13 @@ class RentSerializer(serializers.ModelSerializer):
             'user': instance['user_id'],
         }
 
-    def create_rent(context):
+    def create_rent(context, request):
 
         test = Rent.objects.filter(
-            user=context['user']).order_by("data_fin").last()
-        print(test.data_fin)
+            user=request.user.id).order_by("data_fin").last()
         if test.cost == 0:
             raise serializers.ValidationError(
-                'You cant do a rent'
+                'You cant do a rent yet'
             )
 
         try:
@@ -55,6 +54,7 @@ class RentSerializer(serializers.ModelSerializer):
                 'Bike doesnt exist'
             )
 
+        context['user'] = request.user.id
         rent = RentSerializer(data=context)
         if (rent.is_valid(raise_exception=True)):
             rent.save()

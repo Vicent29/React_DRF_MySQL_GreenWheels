@@ -50,5 +50,5 @@ export function useBikes() {
         setBikes(bikes.filter(bike => bike.id !== id))
     })
 
-    return { loading, bikes, getBike, createBike, getBikesByStation/*, updateBike, changeStatusBike,*/, deleteBike }
+    return { loading, bikes, setBikes, getBike, createBike, getBikesByStation/*, updateBike, changeStatusBike,*/, deleteBike }
 }

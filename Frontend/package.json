@@ -10,7 +10,7 @@
     "bootstrap": "^5.2.3",
     "mapbox-gl": "^2.12.0",
     "react": "^18.2.0",
-    "react-bootstrap": "^2.7.0",
+    "react-bootstrap": "^2.7.1",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.42.1",
     "react-map-gl": "^7.0.21",

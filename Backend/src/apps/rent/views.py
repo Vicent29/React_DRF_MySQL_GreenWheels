@@ -17,7 +17,7 @@ from src.apps.rent.serializers import RentSerializer
 
 
 class RentView(viewsets.GenericViewSet):
-    # permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated,]
 
     def getOneRent(self, request, id):
         rent = Rent.objects.get(id=id)
@@ -33,7 +33,7 @@ class RentView(viewsets.GenericViewSet):
 
     def createRent(self, request):
         # return JsonResponse("hola", safe=False)
-        return JsonResponse(RentSerializer.create_rent(context=request.data),safe=False)
+        return JsonResponse(RentSerializer.create_rent(context=request.data, request=request), safe=False)
 
     def closeRent(self, request, id):
         serializer_context = {
