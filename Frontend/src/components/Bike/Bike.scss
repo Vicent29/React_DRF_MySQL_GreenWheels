@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
 .white {
     color: white;
 }
@@ -21,4 +23,46 @@
     to {
         transform: translateY(-0.5rem);
     }
+}
+
+.grey{
+background-color: #646464;
+color: white;
+font-weight: bold;
+text-transform: uppercase;
+font-family: "Lobster";
+}
+
+.mytable {
+    background-color: white;
+    width: 80%;
+}
+
+.td_table td{
+    display: flex;
+    justify-content: center;
+}
+
+.img_status_bike {
+    width: 35px;
+    text-align: center;
+    display: inline;
+}
+
+.img_bike_admin{
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    display: inline;
+}
+.btns{
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.align {
+    align-content: center;
+    vertical-align: baseline;
 }

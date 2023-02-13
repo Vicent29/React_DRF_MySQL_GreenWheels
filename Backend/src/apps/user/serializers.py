@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from src.apps.user.models import User
-import json
-from django.core.serializers import serialize
+from src.apps.profile_user.models import Profile
+               
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -64,6 +64,8 @@ class UserSerializer(serializers.ModelSerializer):
         except User.DoesNotExist:
             user = User.objects.create_user(
                 first_name, last_name, email, password)
+            # if user:   
+            #     profile = Profile.objects.create(user.id)
 
         return {
             'user': {
