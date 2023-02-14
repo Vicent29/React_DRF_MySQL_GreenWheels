@@ -12,11 +12,11 @@ export default function Header() {
     const [location, setLocation] = useState(alocation.pathname.replace('/', ''))
     const { user, isAdmin } = useContext(AuthContextProvider)
     const links = ["HOME"]
-    user ? isAdmin ? links.push("BIKE", "STATION", "LOGOUT") : links.push("LOGOUT") : links.push("SIGNIN", "SIGNUP");
+    user ? isAdmin ? links.push("BIKE", "STATION", "LOGOUT") : links.push("INCIDENT", "LOGOUT") : links.push("SIGNIN", "SIGNUP");
     const { logout } = useAuth()
 
     const changeCN = (item) => {
-        return alocation.pathname.replace('/', '') === item ? "menu-link is-active" : "menu-link";
+        return alocation.pathname.replace('/', '') === item.toLowerCase() ? "menu-link is-active" : "menu-link";
     }
 
     const print = links.map(item => {

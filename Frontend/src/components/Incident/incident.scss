@@ -1,0 +1,203 @@
+$brand-primary: tomato;
+$white: #fff;
+$grey-light: #ededed;
+%remain-steps {
+    &:before {
+        content: counter(stepNum);
+        font-family: inherit;
+        font-weight: 700;
+    }
+    &:after {
+        background-color: $grey-light;
+    }
+}
+.multi-steps {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    > li {
+        counter-increment: stepNum;
+        text-align: center;
+        display: table-cell;
+        position: relative;
+        color: $brand-primary;
+
+        &:before {
+            content: "\f00c";
+            content: "\2713";
+            content: "\10003";
+            content: "\10004";
+            content: "\2713";
+            border: 1px solid white;
+            border-radius: 50%;
+            background-color: black !important;
+            display: block;
+            margin: 0 auto 4px;
+            background-color: $white;
+            width: 36px;
+            height: 36px;
+            line-height: 32px;
+            text-align: center;
+            font-weight: bold;
+        }
+        &:after {
+            content: "";
+            height: 2px;
+            width: 100%;
+            background-color: $brand-primary;
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            z-index: -1;
+        }
+        &:last-child {
+            &:after {
+                display: none;
+            }
+        }
+
+        &.is-active {
+            @extend %remain-steps;
+            &:before {
+                background-color: $white;
+                border-color: $brand-primary;
+            }
+
+            ~ li {
+                color: #808080;
+                @extend %remain-steps;
+                &:before {
+                    background-color: $grey-light;
+                    border-color: $grey-light;
+                }
+            }
+        }
+    }
+}
+
+// form
+
+@mixin breakpoint($class) {
+    @if $class==xs {
+        @media (max-width: 767px) {
+            @content;
+        }
+    } @else if $class==sm {
+        @media (min-width: 768px) {
+            @content;
+        }
+    } @else if $class==md {
+        @media (min-width: 992px) {
+            @content;
+        }
+    } @else if $class==lg {
+        @media (min-width: 1200px) {
+            @content;
+        }
+    } @else {
+        @warn "Breakpoint mixin supports: xs, sm, md, lg";
+    }
+}
+
+$opensans: "Open Sans", sans-serif;
+$blue: #3498db;
+$blue--hover: #2980b9;
+$cloud: #ecf0f1;
+$cloud--hover: #bdc3c7;
+$transition: all 146ms ease;
+$shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.5);
+$radius: 3px;
+
+.form-field {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 0.5em;
+    &:last-child {
+        margin-bottom: 0;
+    }
+    .icon {
+        align-self: center;
+        fill: #2980b9;
+        padding: 0.5em 0.5em;
+    }
+    label {
+        align-self: center;
+        flex-shrink: 0;
+        flex-basis: 100%;
+        width: 100%;
+        @include breakpoint(sm) {
+            flex-basis: 80px;
+            width: 80px;
+        }
+    }
+    > section {
+        border: 1px solid #aaa;
+        border-radius: $radius;
+        display: flex;
+        flex: 1;
+        input {
+            border: 0;
+            border-left: 1px solid #ccc;
+            flex-grow: 1;
+            font-size: 1.1rem;
+            font-weight: 300;
+            padding: 0.35em 0.5em;
+        }
+    }
+}
+
+.icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+}
+
+.a-btn {
+    padding: 0.35em 1em;
+    box-shadow: $shadow;
+    cursor: pointer;
+    border: 1px solid $blue;
+    background-color: #fff;
+    transition: $transition;
+    font-size: 1.2rem;
+    border-radius: $radius;
+    color: $blue;
+    &:enabled:hover {
+        background-color: $blue;
+        color: #fff;
+        box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.3);
+    }
+    &--filled {
+        @extend .a-btn;
+        background-color: $blue;
+        border-color: $blue;
+        color: #fff;
+        &:enabled:hover {
+            background-color: $blue--hover;
+            border-color: $blue--hover;
+        }
+    }
+    &:disabled {
+        background-color: $cloud;
+        border-color: $cloud--hover;
+        color: #6a6a6a;
+    }
+}
+
+/* add a red asterisk after required labels 
+ without having to include it in the markup */
+
+.label--required:after {
+    content: "*";
+    color: red;
+    margin-left: 5px;
+}
+
+.formclass {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}

@@ -40,9 +40,10 @@ class RentSerializer(serializers.ModelSerializer):
 
     def create_rent(context, request):
 
-        test = Rent.objects.filter(
+        last_rent = Rent.objects.filter(
             user=request.user.id).order_by("data_fin").last()
-        if test.cost == 0:
+
+        if last_rent is not None and last_rent.cost == 0:
             raise serializers.ValidationError(
                 'You cant do a rent yet'
             )

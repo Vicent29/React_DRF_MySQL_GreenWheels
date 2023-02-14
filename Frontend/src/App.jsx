@@ -4,7 +4,7 @@ import React, { Suspense } from 'react';
 import './App.css';
 
 // toastr
-import {ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 // bootstrap
@@ -36,6 +36,7 @@ const AddBike = React.lazy(() => import("./pages/Bikes/CreateBike"))
 const Home = React.lazy(() => import("./pages/Home/Home"))
 const Station = React.lazy(() => import("./pages/Station/Stations"))
 const AddStation = React.lazy(() => import("./pages/Station/CreateStation"))
+const Incident = React.lazy(() => import("./pages/Incident/Incident"))
 const Signin = React.lazy(() => import("./pages/Login/Signin"))
 const Signup = React.lazy(() => import("./pages/Login/Signup"))
 
@@ -64,7 +65,7 @@ function App() {
                 <Route path="signup" element={<Suspense fallback={<SpinnerLoading />}><Signup /></Suspense>} />
               </Route>
               <Route element={<AuthGuard />}>
-                
+                <Route path="incident" element={<Suspense fallback={<SpinnerLoading />}><Incident /></Suspense>} />
               </Route>
             </Routes>
           </StationsContextProvider>

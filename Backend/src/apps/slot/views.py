@@ -20,6 +20,11 @@ from rest_framework.views import APIView
 
 class SlotView(viewsets.GenericViewSet):
 
+    def getSlots(self, request):
+        slot = Slot.objects.all()
+        slot_serializer = SlotSerializer(slot, many=True)
+        return JsonResponse(slot_serializer.data, safe=False)
+
     def getOneSlot(self, request, id):
         slot = Slot.objects.get(id=id)
         slot_serializer = SlotSerializer(slot, many=False)
@@ -32,11 +37,6 @@ class SlotView(viewsets.GenericViewSet):
 
 class OnlyAdmin(viewsets.GenericViewSet):
     permission_classes = [IsAuthenticated, IsAdmin]
-
-    def getSlots(self, request):
-        slot = Slot.objects.all()
-        slot_serializer = SlotSerializer(slot, many=True)
-        return JsonResponse(slot_serializer.data, safe=False)
 
     def createSlot(self, request):
         slot_data = request.data
