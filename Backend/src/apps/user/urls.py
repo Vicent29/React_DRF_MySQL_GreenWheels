@@ -10,4 +10,5 @@ urlpatterns = [
     path('user/<int:id>', UserView.as_view({'get': 'getOneUser'})),
     path('register', UserRegLog.as_view({'post': 'register'})),
     path('login', UserRegLog.as_view({'post': 'login'})),
+    path('logout', UserTk.as_view({'post': 'logout'})),
 ]
