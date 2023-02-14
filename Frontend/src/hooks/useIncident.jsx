@@ -1,29 +1,37 @@
-import { useEffect, useState, useCallback, useContext } from 'react'
+import { useCallback } from 'react'
 import { useNavigate } from "react-router-dom"
-import AuthContextProvider from '../context/AuthContext';
-import BikesService from "../services/BikesService";
+import { toast } from 'react-toastify';
+import IncidentService from "../services/IncidentSerice";
 
 export function useIncident() {
-    const [loading, setLoading] = useState(false);
-    const [bikes, setBikes] = useState([])
-    const { rftoken } = useContext(AuthContextProvider)
     const navigate = useNavigate();
 
     const createIncidence = useCallback((request) => {
-        console.log(request);
         if (request.incident == "bike") {
-            
+            IncidentService.createIncBike(request)
+                .then(({ data }) => {
+                    if (data) {
+                        navigate("/home")
+                    }
+                })
         } else if (request.incident == "slot") {
-
+            IncidentService.createIncSlot(request)
+                .then(({ data }) => {
+                    if (data) {
+                        navigate("/home")
+                    }
+                })
         } else {
-
+            IncidentService.createIncOther(request)
+                .then(({ data }) => {
+                    if (data) {
+                        navigate("/home")
+                    }
+                })
         }
-        // BikesService.createBike(request)
-        //     .then(({ data }) => {
-        //         if (data) {
-        //             navigate("/bike")
-        //         }
-        //     })
+        toast.success("Incidence created successfully", {
+            position: toast.POSITION.TOP_RIGHT,
+        });
     }, [navigate])
 
     return { createIncidence }

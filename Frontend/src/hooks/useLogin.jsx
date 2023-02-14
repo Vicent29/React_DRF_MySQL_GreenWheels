@@ -57,19 +57,21 @@ export function useAuth() {
             await checkAdmin()
         }
         loadData()
-        navigate('/');
+        navigate('/home');
     }, [setStatus, navigate])
 
 
     const logout = useCallback(() => {
         AuthService.logout()
             .then((res) => {
+                navigate('/home');
                 if (res.data == "Logout Backend user success") {
                     toast.info("LogOut backend succes", {
                         position: toast.POSITION.TOP_RIGHT
                     });
                 }
             }).catch((error) => {
+                navigate('/home');
                 console.log(error.response);
             });
         if (user) {

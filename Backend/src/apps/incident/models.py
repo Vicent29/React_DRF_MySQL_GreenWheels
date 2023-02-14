@@ -11,6 +11,7 @@ class IncidentSlot(TimestampedModel, models.Model):
     slot = models.ForeignKey(Slot, on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     desc = models.CharField(max_length=200, blank=True, default="")
+    status = models.CharField(max_length=100, blank=True, default="sended")
 
     class Meta:
         verbose_name_plural = 'ISlots'
@@ -24,6 +25,7 @@ class IncidentBike(TimestampedModel, models.Model):
     bike = models.ForeignKey(Slot, on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     desc = models.CharField(max_length=200, blank=True, default="")
+    status = models.CharField(max_length=100, blank=True, default="sended")
 
     class Meta:
         verbose_name_plural = 'IBikes'
@@ -37,6 +39,7 @@ class IncidentOther(TimestampedModel, models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     location = models.CharField(max_length=100, blank=True, default="")
     desc = models.CharField(max_length=200, blank=True, default="")
+    status = models.CharField(max_length=100, blank=True, default="sended")
 
     class Meta:
         verbose_name_plural = 'IOthers'
