@@ -33,11 +33,16 @@ class UserView(viewsets.GenericViewSet):
 
 
 class UserTk(viewsets.GenericViewSet):
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated]
 
     def getUserTk(self, request):
         request.user = UserSerializer.getUserTk(request.user.id)
         return JsonResponse(request.user, safe=False)
+
+    def logout(self, request):
+        if request.user:
+            request.user = None
+        return Response("Logout Backend user success")
 
 
 class OnlyAdmin(viewsets.GenericViewSet):
@@ -60,7 +65,7 @@ class OnlyAdmin(viewsets.GenericViewSet):
 
 
 class UserRegLog(viewsets.GenericViewSet):
-    # permission_classes = (AllowAny,)
+    # permission_classes = (AllowAny)
     serializer_class = UserSerializer
 
     def register(self, request):

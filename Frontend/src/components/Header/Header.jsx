@@ -2,7 +2,6 @@ import "./Header.scss"
 import { useLocation } from 'react-router-dom'
 import { useContext, useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
-import Home from "../../pages/Home/Home";
 import AuthContextProvider from "../../context/AuthContext";
 import { useAuth } from "../../hooks/useLogin";
 

@@ -50,7 +50,7 @@ export function useAuth() {
         setStatus({ loading: false, error: false });
         JWTService.saveToken(res.data.token, res.data.rftoken);
         toast.success("User " + res.data.user.first_name + " login successfully", {
-            position: toast.POSITION.TOP_CENTER
+            position: toast.POSITION.TOP_RIGHT
         });
         async function loadData() {
             await loadUser()
@@ -62,6 +62,16 @@ export function useAuth() {
 
 
     const logout = useCallback(() => {
+        AuthService.logout()
+            .then((res) => {
+                if (res.data == "Logout Backend user success") {
+                    toast.info("LogOut backend succes", {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                }
+            }).catch((error) => {
+                console.log(error.response);
+            });
         if (user) {
             setUser(null)
             setJWT(null)
