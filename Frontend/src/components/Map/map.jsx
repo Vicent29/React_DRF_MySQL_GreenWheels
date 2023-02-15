@@ -2,12 +2,14 @@ import Map, { GeolocateControl, Marker, Popup } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./map.scss"
 import { useState, Link } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function MyMap({ markers = [], clickonMap, setshow }) {
+    const navigate = useNavigate()
     const [selectedMarkerIndex, setSelectedMarkerIndex] = useState(null);
 
     return (
-        <div className="map300x300 text-black">
+        <div className="map300x300  text-black">
             <Map
                 mapboxAccessToken="pk.eyJ1Ijoic2FudGlpbWFydGluZXoiLCJhIjoiY2t6eWZlYzk2MGIyOTJ2cDdxc2dmcDkxaSJ9.IhYesNObwvyMWu_nQQQoiw"
                 initialViewState={{
@@ -27,7 +29,7 @@ export default function MyMap({ markers = [], clickonMap, setshow }) {
 
                 {markers.map((marker, index) => (
                     <Marker key={marker.id} latitude={marker.lat} longitude={marker.long}>
-                        <button onClick={() => { setSelectedMarkerIndex(index); clickonMap(markers[index].id); setshow(markers[index].id) }}>
+                        <button onClick={() => { setSelectedMarkerIndex(index); clickonMap(markers[index].id); setshow(markers[index].id); window.scrollTo(0, 0); }}>
                             <div style={{ backgroundColor: 'transparent', width: 25, height: 50, borderRadius: '50%' }} />
                         </button>
                     </Marker>

@@ -19,21 +19,21 @@ export default function HomeComponent() {
     }
 
     return (
-        <div className="d-flex">
-            <div className="text-white d-flex flex-column col-6">
+        <div className="d-flex flex-col-reverse lg:flex-row">
+            <div className="text-white d-flex flex-column col-12 col-lg-6">
                 <h1>Where are our bikes?</h1>
                 <MyMap markers={stations} clickonMap={getBikesByStation} setshow={setshow} />
 
             </div>
             {show !== null && (
-                <div data-bs-spy="scroll" data-bs-offset="0" tabIndex="0" className="text-white flex-column justify-center align-middle col-6 height-80 overflow-auto">
+                <div data-bs-spy="scroll" data-bs-offset="0" tabIndex="0" id="bikes" className="text-white flex-column justify-center align-middle col-12 col-lg-6 lg:mt-[5vh] h-[80vh] overflow-auto">
                     {bikes.map((bike, id) => {
                         return <BikeCard key={id} bike={bike} createRnt={createRnt} />
                     })}
                 </div>
             )}
             {show === null && (
-                <div data-bs-spy="scroll" data-bs-offset="0" tabIndex="0" className="text-white d-flex flex-column justify-center align-middle col-6 height-80 overflow-auto p-3">
+                <div data-bs-spy="scroll" data-bs-offset="0" tabIndex="0" className="text-white d-flex flex-column justify-center align-middle col-12 col-lg-6 lg:height-80 overflow-auto p-3">
                     <h1>About us</h1>
                     <p>
                         Greenwheels is an online bike rental company that offers modern and reliable bikes for your daily use.

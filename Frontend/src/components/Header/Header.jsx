@@ -24,7 +24,7 @@ export default function Header() {
 
     return (
         <>
-            <div className="header">
+            <div className="header" id="header">
                 <div className="logo"><Link to="Home"><img src="/assets/logos/graygreenwheels.png" alt="greenwheels" width="200vh" /></Link></div>
                 <div className="header-profile">
                     {user && (
