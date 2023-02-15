@@ -10,7 +10,7 @@ from django.contrib.auth.models import (
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, first_name,last_name, email, password=None, type='Client'):
+    def create_user(self, first_name,last_name, email, password=None, type='client'):
         """Create and return a `User` with an email, username and password."""
 
         user = self.model(first_name=first_name,
