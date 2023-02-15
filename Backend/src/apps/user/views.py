@@ -10,8 +10,8 @@ from rest_framework.permissions import (
     AllowAny, IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser,)
 from src.apps.core.permissions import IsAdmin
 
-from src.apps.user.models import User
-from src.apps.user.serializers import UserSerializer
+from src.apps.user.models import User, ProfileUsr
+from src.apps.user.serializers import UserSerializer, ProfileSerializer
 from rest_framework.views import APIView
 
 # Create your views here.
@@ -98,3 +98,30 @@ class UserRegLog(viewsets.GenericViewSet):
 
         serializer = UserSerializer.login(serializer_context)
         return Response(serializer, status=status.HTTP_200_OK)
+
+class ProfileView(viewsets.GenericViewSet):
+   def getProfiles(self, request):
+       profile = ProfileUsr.objects.all()
+       profile_serializer = ProfileSerializer(profile, many=True)
+       return JsonResponse(profile_serializer.data, safe=False)
+
+
+   def getOneProfile(self, request, id):
+       profile = ProfileUsr.objects.get(id=id)
+       profile_serializer = ProfileSerializer(profile, many=False)
+       return JsonResponse(profile_serializer.data, safe=False)
+
+
+   def createProfile(self, request):
+       profile_data = request.data
+       profile_serializer = ProfileSerializer(data=profile_data)
+       if (profile_serializer.is_valid(raise_exception=True)):
+           profile_serializer.save()
+       return Response(profile_serializer.data)
+  
+   def deleteProfile(self, request, id):
+       profile_data = request.data
+       profile_serializer = ProfileSerializer(data=profile_data)
+       if (profile_serializer.is_valid() == False):   
+           ProfileUsr.objects.get(id=id).delete()
+       return JsonResponse({'message': 'Profile eliminado Correctamente', "Profile": profile_serializer.data}, status=status.HTTP_204_NO_CONTENT)

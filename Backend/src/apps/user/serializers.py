@@ -1,7 +1,5 @@
 from rest_framework import serializers
-from src.apps.user.models import User
-from src.apps.profile_user.models import Profile
-               
+from src.apps.user.models import User, ProfileUsr
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -11,16 +9,19 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'uuid', 'first_name', 'last_name',
                   'email', 'password', 'is_active', 'type')
 
-    def to_users(instance):
+    def to_user(instance):
         return {
-            'id': instance.id,
-            'uuid': instance.uuid,
-            'first_name': instance.first_name,
-            'last_name': instance.last_name,
-            'email': instance.email,
-            'password': instance.password,
-            'is_active': instance.is_active,
-            'type': instance.type,
+            'user': {
+                'email': instance.email,
+                'first_name': instance.first_name,
+                'last_name': instance.last_name,
+                'is_active': instance.is_active,
+                'type': instance.type,
+                'avatar': instance.avatar,
+                'desc': instance.desc
+            },
+            'token': instance.token,
+            'rftoken': instance.refresh_token,
         }
 
     def to_user_admin(instance):
@@ -31,21 +32,15 @@ class UserSerializer(serializers.ModelSerializer):
             'is_active': instance.is_active,
             'type': instance.type,
         }
+    
 
     def getUserTk(context):
         user = User.objects.get(id=context)
-        return {
-            'user': {
-                'email': user.email,
-                'first_name': user.first_name,
-                'last_name': user.last_name,
-                'is_active': user.is_active,
-                'type': user.type
-            },
-            'token': user.token,
-            'rftoken': user.refresh_token,
-        }
-
+        if user:
+            profile = ProfileUsr.objects.get(user_id=user.id)
+            user.avatar = profile.avatar
+            user.desc = profile.biography
+        return UserSerializer.to_user(user)
 
     def register(context):
 
@@ -64,20 +59,14 @@ class UserSerializer(serializers.ModelSerializer):
         except User.DoesNotExist:
             user = User.objects.create_user(
                 first_name, last_name, email, password)
-            # if user:   
-            #     profile = Profile.objects.create(user.id)
-
-        return {
-            'user': {
-                'email': user.email,
-                'first_name': user.first_name,
-                'last_name': user.last_name,
-                'is_active': user.is_active,
-                'type': user.type
-            },
-            'token': user.token,
-            'rftoken': user.refresh_token,
-        }
+        if user:
+            data_profile_serialized = ProfileSerializer(data={'user':user.id})
+            if (data_profile_serialized.is_valid(raise_exception=True)):
+               profile = data_profile_serialized.save()
+               user.avatar = profile.avatar
+               user.desc = profile.biography
+        
+        return UserSerializer.to_user(user)
 
     def login(context):
 
@@ -86,23 +75,31 @@ class UserSerializer(serializers.ModelSerializer):
 
         try:
             user = User.objects.get(email=email)
+            if user:
+                profile = ProfileUsr.objects.get(user_id=user.id)
+                user.avatar = profile.avatar
+                user.desc = profile.biography
             if user.check_password(password):
-
-                return {
-                    'user': {
-                        'email': user.email,
-                        'first_name': user.first_name,
-                        'last_name': user.last_name,
-                        'is_active': user.is_active,
-                        'type': user.type
-                    },
-                    'token': user.token,
-                    'rftoken': user.refresh_token,
-                }
+                return UserSerializer.to_user(user)
             else:
                 raise serializers.ValidationError(
                     'email or password not correct'
-                )                
+                )
 
         except User.DoesNotExist:
             return "email not registered"
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProfileUsr
+        fields = ('id', 'user', 'avatar', 'biography')
+
+    def to_profile(instance):
+        return {
+            'id': instance.id,
+            'user': instance.user_id,
+            'avatar': instance.avatar,
+            'biography': instance.biography,
+        }

@@ -77,3 +77,14 @@ class User(AbstractBaseUser, TimestampedModel, models.Model):
         }, settings.SECRET_KEY, algorithm='HS256')
 
         return token.decode('utf-8')
+
+class ProfileUsr(TimestampedModel, models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    avatar = models.CharField(max_length=100,blank=True, default='https://i.postimg.cc/W41QygPj/descarga.png')
+    biography = models.CharField(max_length=100,blank=True, default='User active with rent bikes')
+
+    class Meta:
+        verbose_name_plural = 'Profiles'
+
+    def __str__(self):
+        return self.id

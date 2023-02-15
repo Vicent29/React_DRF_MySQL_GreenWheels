@@ -1,5 +1,5 @@
 from django.urls import path
-from src.apps.user.views import UserView, UserRegLog, OnlyAdmin,UserTk
+from src.apps.user.views import UserView, UserRegLog, OnlyAdmin,UserTk,ProfileView
 
 urlpatterns = [
     path('user', UserView.as_view({'post': 'createUser'})),
@@ -11,4 +11,8 @@ urlpatterns = [
     path('register', UserRegLog.as_view({'post': 'register'})),
     path('login', UserRegLog.as_view({'post': 'login'})),
     path('logout', UserTk.as_view({'post': 'logout'})),
+
+    path('profile', ProfileView.as_view( {'get': 'getProfiles', 'post': 'createProfile'})),
+    path('profile/<int:id>', ProfileView.as_view({'get': 'getOneProfile', 'delete': 'deleteProfile'})),
+    
 ]
