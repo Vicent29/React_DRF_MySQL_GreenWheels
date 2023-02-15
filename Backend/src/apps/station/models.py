@@ -9,6 +9,7 @@ class Station(TimestampedModel, models.Model):
    long = models.FloatField(blank=True, default='-0.608426')
    lat = models.FloatField(blank=True, default='38.821635')
    img = models.CharField(max_length=255, blank=True, default='img.png')
+   active = models.BooleanField(blank=True, default=True)
 
    class Meta:
        verbose_name_plural = 'Stations'

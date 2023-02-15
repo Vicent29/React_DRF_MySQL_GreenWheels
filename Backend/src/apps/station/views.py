@@ -10,8 +10,7 @@ from rest_framework.response import Response
 from src.apps.station.models import Station
 from src.apps.station.serializers import StationSerializer
 from rest_framework.views import APIView
-from rest_framework.permissions import (
-    AllowAny, IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser,)
+from rest_framework.permissions import (AllowAny, IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser,)
 from src.apps.core.permissions import IsAdmin
 
 
