@@ -37,6 +37,9 @@ export function useBikes() {
     }, [])
 
     const createBike = useCallback((request) => {
+        if (request.img_bike == "") {
+            request.img_bike = "https://www.emesa-m30.es/wp-content/uploads/2020/08/1-estaciones-bici-mad.jpg"
+        }
         BikesService.createBike(request)
             .then(({ data }) => {
                 if (data) {

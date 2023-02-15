@@ -21,7 +21,7 @@ export default function FormBike() {
                     return <option key={id} value={item.id}>{item.slug}</option>
                 })}
             </select>
-            <input type="text" {...register("img_bike", { required: true })} placeholder="Img Path" />
+            <input type="text" {...register("img_bike", { required: false })} placeholder="Img Path" />
             {errors.img_bike?.type === 'required' && <span>Img is required</span>}
             <input type="number" step="0.005" {...register("pfm", { required: true })} placeholder='Price for minute' />
             {errors.pfm?.type === 'required' && <span>PFM is required</span>}

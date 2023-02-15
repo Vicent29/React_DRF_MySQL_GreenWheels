@@ -5,6 +5,8 @@ import { useBikes } from './useBikes';
 
 export function useRent() {
 
+    const [rents, setRent] = useState([]);
+
     const createRent = useCallback(async (bikeRent) => {
         let returned = 0
         await RentService.createRent(bikeRent)
@@ -24,12 +26,17 @@ export function useRent() {
         return returned
     }, [])
 
-    const closeRent = useCallback((id) => {
-        RentService.closeRent(id)
-            .then(({ data }) => {
-                console.log(data);
-            })
+    const closeRent = useCallback(async (id, data) => {
+        await RentService.closeRent(id, data)
     }, [])
 
-    return { createRent, closeRent }
+    const getRentsByUser = useCallback(async () => {
+        await RentService.getRentsByUser()
+            .then(({ data }) => {
+                console.log(data);
+                setRent(data)
+            })
+    })
+
+    return { rents, setRent, createRent, closeRent, getRentsByUser }
 }

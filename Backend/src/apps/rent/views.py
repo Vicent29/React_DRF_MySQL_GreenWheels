@@ -39,12 +39,15 @@ class RentView(viewsets.GenericViewSet):
         serializer_context = {
             'id_rent': id,
             'id_bike': request.data['bike'],
-            'id_user': request.data['user'],
+            'id_user': request.user.id,
             'id_slot': request.data['slot'],
         }
         serializer = RentSerializer.close_rent(context=serializer_context)
         # return Response(serializer, content_type="application/json")
         return Response(serializer)
+
+    def getRentByUser(self, request):
+        return JsonResponse(RentSerializer.getRentByUser(request=request), safe=False)
 
 
 class OnlyAdmin(viewsets.GenericViewSet):

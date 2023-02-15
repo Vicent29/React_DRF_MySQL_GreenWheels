@@ -9,7 +9,7 @@ export default function Signin() {
 
     return (
         <div className="login-box login">
-                <div className="card">
+            <div className="card">
                 <h2>Login</h2>
                 <form onSubmit={handleSubmit(signin)}>
                     <div className="user-box">

@@ -18,8 +18,8 @@ export function useSlots() {
             })
     }, [])
 
-    const getSlotsnoBike = useCallback(() => {
-        SlotsService.getSlotsnoBike()
+    const getSlotsnoBike = useCallback(async () => {
+        await SlotsService.getSlotsnoBike()
             .then(({ data }) => {
                 if (data) {
                     setSlots(data)
@@ -27,5 +27,5 @@ export function useSlots() {
             })
     }, [])
 
-    return { loading, slots, getSlotsnoBike/*, getBike, createBike/*, updateBike, changeStatusBike,, deleteBike*/ }
+    return { loading, slots, setSlots, getSlotsnoBike/*, getBike, createBike/*, updateBike, changeStatusBike,, deleteBike*/ }
 }

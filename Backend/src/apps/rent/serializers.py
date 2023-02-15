@@ -19,7 +19,7 @@ class RentSerializer(serializers.ModelSerializer):
     def to_rents(instance):
         return {
             'id': instance.id,
-            'bike': instance.bike,
+            'bike': instance.bike_id,
             'user': instance.user_id,
             'data_ini': instance.data_ini,
             'data_fin': instance.data_fin,
@@ -98,6 +98,8 @@ class RentSerializer(serializers.ModelSerializer):
 
             calculate_cost = round(
                 int(Day)*1440 + int(Hour)*60 + int(Minutes)*fields_bike['pfm'], 2)
+            if calculate_cost == 0:
+                calculate_cost = fields_bike['pfm']
 
             Rent.objects.filter(id=context['id_rent']).update(
                 data_fin=date,
@@ -106,3 +108,16 @@ class RentSerializer(serializers.ModelSerializer):
 
             rent = Rent.objects.get(id=id_rent)
             return RentSerializer.to_rents(rent)
+
+    def getRentByUser(request):
+        serialized = []
+        try:
+            rents = Rent.objects.filter(
+                user=request.user.id).order_by("-data_fin")
+        except Rent.DoesNotExist:
+            return serialized
+
+        for rent in rents.iterator():
+            fields = RentSerializer.to_rents(rent)
+            serialized.append(fields)
+        return serialized
