@@ -35,7 +35,7 @@ export default function Header() {
                                     <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" />
                                 </svg>
                             </div>
-                            {user.avatar != null ? <img className="profile-img" src={user.avatar} alt="" /> : <img className="profile-img" src="https://i.postimg.cc/4Nc0VCjD/image.jpg" alt="" />}
+                            <Link to="profile"><img className="profile-img" src={user.avatar ? user.avatar : 'https://i.postimg.cc/T3g6d9nk/image.png'} alt="Avatar user"/></Link>
                         </>
                     )}
                 </div>

@@ -23,7 +23,7 @@ users_last_name = ['', '', 'Martinez Albert', 'Esteve Ferre']
 users_email = ['client@gmail.com', 'admin@gmail.com', 'santi@gmail.com', 'vicent@gmail.com']
 users_password_one = ['1234', '1234', '1234', '1234']
 users_type = ['client', 'admin', 'client', 'client']
-users_avatar = ['', 'https://i.postimg.cc/tJQRMp7R/3934107.png', 'https://i.postimg.cc/4Nc0VCjD/image.jpg', 'https://i.postimg.cc/V6gn0WM2/myAvatar.png']
+users_avatar = ['https://i.postimg.cc/T3g6d9nk/image.png', 'https://i.postimg.cc/TYGdKBYz/admin.png', 'https://i.postimg.cc/4Nc0VCjD/image.jpg', 'https://i.postimg.cc/V6gn0WM2/myAvatar.png']
 
 
 def create_stations(n_stations, n_slot):

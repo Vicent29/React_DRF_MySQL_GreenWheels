@@ -81,7 +81,7 @@ class User(AbstractBaseUser, TimestampedModel, models.Model):
 
 class ProfileUsr(TimestampedModel, models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    avatar = models.CharField(max_length=100,blank=True, default='https://i.postimg.cc/W41QygPj/descarga.png')
+    avatar = models.CharField(max_length=100,blank=True, default='https://i.postimg.cc/T3g6d9nk/image.png')
     biography = models.CharField(max_length=100,blank=True, default='User active with rent bikes')
 
     class Meta:

@@ -39,6 +39,7 @@ const AddStation = React.lazy(() => import("./pages/Station/CreateStation"))
 const Incident = React.lazy(() => import("./pages/Incident/Incident"))
 const Signin = React.lazy(() => import("./pages/Login/Signin"))
 const Signup = React.lazy(() => import("./pages/Login/Signup"))
+const Profile = React.lazy(() => import("./pages/User/Profile"))
 
 function App() {
   return (
@@ -66,6 +67,7 @@ function App() {
               </Route>
               <Route element={<AuthGuard />}>
                 <Route path="incident" element={<Suspense fallback={<SpinnerLoading />}><Incident /></Suspense>} />
+                <Route path="profile" element={<Suspense fallback={<SpinnerLoading />}><Profile /></Suspense>} />
               </Route>
             </Routes>
           </StationsContextProvider>
