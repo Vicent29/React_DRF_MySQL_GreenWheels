@@ -22,11 +22,14 @@ const AuthService = {
     isAdmin() {
         return http().get("/api/user/isadmin")
     },
-    changePassword(data){
+    changePassword(data) {
         return http().put(`/api/change_password/`, data)
     },
     deleteUser(id) {
         return http().delete(`/api/user/${id}`)
+    },
+    allchatid() {
+        return http().get("/api/allchatid")
     },
 }
 export default AuthService;

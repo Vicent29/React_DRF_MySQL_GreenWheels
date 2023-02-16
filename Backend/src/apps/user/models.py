@@ -10,13 +10,13 @@ from django.contrib.auth.models import (
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, first_name,last_name, email, password=None, type='client'):
+    def create_user(self, first_name, last_name, email, password=None, type='client'):
         """Create and return a `User` with an email, username and password."""
 
         user = self.model(first_name=first_name,
                           last_name=last_name,
                           email=self.normalize_email(email),
-                          type= type)
+                          type=type)
         user.set_password(password)
         user.save()
 
@@ -42,6 +42,7 @@ class User(AbstractBaseUser, TimestampedModel, models.Model):
     password = models.CharField(max_length=200, blank=False)
     is_active = models.BooleanField(blank=True, default=True)
     type = models.CharField(max_length=30, blank=True, default="client")
+    chatID = models.CharField(max_length=100, blank=True, default="")
 
     objects = UserManager()
 
@@ -60,7 +61,7 @@ class User(AbstractBaseUser, TimestampedModel, models.Model):
         a "dynamic property".
         """
         return self._generate_jwt_token(10)
-    
+
     @property
     def refresh_token(self):
         return self._generate_jwt_token(60)
@@ -79,10 +80,13 @@ class User(AbstractBaseUser, TimestampedModel, models.Model):
 
         return token.decode('utf-8')
 
+
 class ProfileUsr(TimestampedModel, models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    avatar = models.CharField(max_length=100,blank=True, default='https://i.postimg.cc/T3g6d9nk/image.png')
-    biography = models.CharField(max_length=100,blank=True, default='User active with rent bikes')
+    avatar = models.CharField(
+        max_length=100, blank=True, default='https://i.postimg.cc/T3g6d9nk/image.png')
+    biography = models.CharField(
+        max_length=100, blank=True, default='User active with rent bikes')
 
     class Meta:
         verbose_name_plural = 'Profiles'

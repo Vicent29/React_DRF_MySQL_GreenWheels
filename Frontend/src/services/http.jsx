@@ -1,12 +1,12 @@
 import axios from "axios"
-import JWTService from "./JWTService";
 import JwtService from "./JWTService"
+import secret from "./secret";
 
 export default function http() {
     let api
     if (JwtService.getToken()) {
         api = axios.create({
-            baseURL: "http://localhost:3001/",
+            baseURL: secret.DJANGO_APP_URL,
             headers: {
                 "Content-type": "application/json",
                 "Authorization": `Bearer ${JwtService.getToken()}`
@@ -14,7 +14,7 @@ export default function http() {
         });
     } else if (localStorage.getItem('rftoken')) {
         api = axios.create({
-            baseURL: "http://localhost:3001/",
+            baseURL: secret.DJANGO_APP_URL,
             headers: {
                 "Content-type": "application/json",
                 "Authorization": `Bearer ${localStorage.getItem('rftoken')}`
@@ -23,7 +23,7 @@ export default function http() {
     }
     else {
         api = axios.create({
-            baseURL: "http://localhost:3001/",
+            baseURL: secret.DJANGO_APP_URL,
             headers: {
                 "Content-type": "application/json",
             }

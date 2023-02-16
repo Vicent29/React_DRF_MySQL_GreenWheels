@@ -4,6 +4,8 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
 import AuthContextProvider from "../../context/AuthContext";
 import { useAuth } from "../../hooks/useLogin";
+import Notifications from "../Notifications/Notifications";
+import Announce from "../Notifications/Announce";
 
 export default function Header() {
 
@@ -29,17 +31,15 @@ export default function Header() {
                 <div className="header-profile">
                     {user && (
                         <>
-                            <div className="notification campana">
-                                <span className="notification-number">3</span>
-                                <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-bell">
-                                    <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" />
-                                </svg>
-                            </div>
-                            <Link to="profile"><img className="profile-img" src={user.avatar ? user.avatar : 'https://i.postimg.cc/T3g6d9nk/image.png'} alt="Avatar user"/></Link>
+                            <Notifications />
+                            <Link to="profile"><img className="profile-img" src={user.avatar ? user.avatar : 'https://i.postimg.cc/T3g6d9nk/image.png'} alt="Avatar user" /></Link>
                         </>
                     )}
                 </div>
                 <div className="header-menu">
+                    {isAdmin && (
+                        <Announce />
+                    )}
                     {print}
                 </div>
                 {/* <div className="search-bar">

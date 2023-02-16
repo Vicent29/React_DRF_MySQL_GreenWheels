@@ -11,6 +11,7 @@ urlpatterns = [
     path('register', UserRegLog.as_view({'post': 'register'})),
     path('login', UserRegLog.as_view({'post': 'login'})),
     path('logout', UserTk.as_view({'post': 'logout'})),
+    path('allchatid', OnlyAdmin.as_view({'get': 'allchatID'})),
 
     path('profile', ProfileView.as_view( {'get': 'getProfiles', 'post': 'createProfile'})),
     path('profile/<int:id>', ProfileView.as_view({'get': 'getOneProfile', 'delete': 'deleteProfile'})),

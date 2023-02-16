@@ -33,7 +33,6 @@ export function useRent() {
     const getRentsByUser = useCallback(async () => {
         await RentService.getRentsByUser()
             .then(({ data }) => {
-                console.log(data);
                 setRent(data)
             })
     })

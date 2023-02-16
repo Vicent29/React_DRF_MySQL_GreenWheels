@@ -41,6 +41,10 @@ class UserSerializer(serializers.ModelSerializer):
             user.avatar = profile.avatar
             user.desc = profile.biography
         return UserSerializer.to_user(user)
+    
+    def allchatID():
+        chat_ids = User.objects.filter(chatID__gt="").values_list('chatID', flat=True)
+        return chat_ids
 
     def register(context):
 
