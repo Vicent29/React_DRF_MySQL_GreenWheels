@@ -87,6 +87,7 @@ class ProfileUsr(TimestampedModel, models.Model):
         max_length=100, blank=True, default='https://i.postimg.cc/T3g6d9nk/image.png')
     biography = models.CharField(
         max_length=100, blank=True, default='User active with rent bikes')
+    notis = models.IntegerField(blank=True, default=0)
 
     class Meta:
         verbose_name_plural = 'Profiles'

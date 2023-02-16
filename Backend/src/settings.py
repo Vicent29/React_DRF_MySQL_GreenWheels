@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'src.apps.user',
     'src.apps.rent',
     'src.apps.incident',
+    'src.apps.notifications',
     'corsheaders',
 ]
 
