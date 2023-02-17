@@ -8,5 +8,8 @@ urlpatterns = [
     path('IncBikes', Incident.as_view({'post': 'createIBike'})),
     path('IncSlots', Incident.as_view({'post': 'createISlot'})),
     path('IncOthers', Incident.as_view({'post': 'createIOther'})),
+    path('allInc', OnlyAdmin.as_view({'get': 'getAllIncidents'})),
+    path('closeInc', OnlyAdmin.as_view({'post': 'closeIncidence'})),
+    
     # path('restaurants', GetRestaurants.as_view()),
 ]

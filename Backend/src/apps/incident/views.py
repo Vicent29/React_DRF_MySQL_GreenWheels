@@ -6,7 +6,7 @@ from rest_framework import status, viewsets
 from rest_framework.response import Response
 
 from src.apps.incident.models import IncidentBike, IncidentSlot, IncidentOther
-from src.apps.incident.serializers import IncBikeSerializer, IncOtherSerializer, IncSlotSerializer
+from src.apps.incident.serializers import IncBikeSerializer, IncOtherSerializer, IncSlotSerializer, IncidentsSerializer
 from rest_framework.permissions import (
     AllowAny, IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser,)
 from src.apps.core.permissions import IsAdmin
@@ -44,7 +44,7 @@ class Incident(viewsets.GenericViewSet):
 
 
 class OnlyAdmin(viewsets.GenericViewSet):
-    permission_classes = [IsAuthenticated, IsAdmin]
+    # permission_classes = [IsAuthenticated, IsAdmin]
 
     def getAllIncidentsBikes(self, request):
         iBike = IncidentBike.objects.all()
@@ -60,3 +60,15 @@ class OnlyAdmin(viewsets.GenericViewSet):
         iOther = IncidentOther.objects.all()
         iother_serializer = IncOtherSerializer(iOther, many=True)
         return JsonResponse(iother_serializer.data, safe=False)
+
+    def getAllIncidents(self, request):
+        return JsonResponse(IncidentsSerializer.getAllIncidents(), safe=False)
+
+    def closeIncidence(self, request):
+        context = {
+            'id': request.data['id'],
+            'desc': request.data['message'],
+            'type': request.data['type'],
+            'user': request.data['user']
+        }
+        return JsonResponse(IncidentsSerializer.closeIncidence(context=context), safe=False)

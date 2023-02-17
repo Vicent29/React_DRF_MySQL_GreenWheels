@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import UpdateUser from "../../components/User/UpdateUser";
 import UserRentProfile from '../../components/User/UserRentProfile';
+import UserAdminProfile from '../../components/User/UserAdminProfile';
+import AuthContextProvider from '../../context/AuthContext';
 
 export default function Profile() {
+  const { isAdmin } = useContext(AuthContextProvider)
 
   return (
     <>
@@ -18,7 +21,12 @@ export default function Profile() {
             </div>
             <div className="col-lg-8 h-[80vh] overflow-auto">
               <div className="card mb-4 bg-dark">
-                <UserRentProfile />
+                {isAdmin && (
+                  <UserAdminProfile />
+                )}
+                {!isAdmin && (
+                  <UserRentProfile />
+                )}
               </div>
             </div>
           </div>

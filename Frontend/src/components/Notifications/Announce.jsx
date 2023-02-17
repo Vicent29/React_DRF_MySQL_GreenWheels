@@ -26,7 +26,7 @@ export default function Announce() {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            <input type="text" className="border" placeholder="message" {...register("message", { required: true })} />
+                            <input type="text" className="border" placeholder="message" {...register("message", { required: true })} autoComplete="off" />
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>

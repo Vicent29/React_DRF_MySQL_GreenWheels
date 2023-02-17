@@ -1,10 +1,11 @@
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import { toast } from 'react-toastify';
-import IncidentService from "../services/IncidentSerice";
+import IncidentService from "../services/IncidentService";
 
 export function useIncident() {
     const navigate = useNavigate();
+    const [incs, setInc] = useState([])
 
     const createIncidence = useCallback((request) => {
         if (request.incident == "bike") {
@@ -34,5 +35,16 @@ export function useIncident() {
         });
     }, [navigate])
 
-    return { createIncidence }
+    const getAllInc = useCallback(() => {
+        IncidentService.getAllInc()
+            .then(({ data }) => {
+                setInc(data)
+            })
+    }, [])
+
+    const closeInc = useCallback(async (data) => {
+        await IncidentService.closeInc(data)
+    }, [])
+
+    return { incs, setInc, createIncidence, getAllInc,closeInc }
 }
