@@ -8,10 +8,10 @@ export default function Profile() {
     <>
       <section>
         <div className="container py-5">
-          <div className="row">
+          <div className="row justify-content-center">
             <div className="col-lg-4">
               <div className="card mb-4">
-                <div className="card-body text-center">
+                <div className="card-body  bg-gray-300 rounded  text-center">
                   <UpdateUser />
                 </div>
               </div>

@@ -8,7 +8,7 @@ export default function SignUp() {
 
     return (
         <div className="login-box register">
-            <div className="card">
+            <div className="card log">
                 <h2>Register</h2>
                 <form onSubmit={handleSubmit(signup)}>
                     <div className="flex justify-between">

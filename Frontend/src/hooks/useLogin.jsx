@@ -61,8 +61,8 @@ export function useAuth() {
     }, [setStatus, navigate])
 
 
-    const logout = useCallback(() => {
-        AuthService.logout()
+    const logout = useCallback( async() => {
+       await AuthService.logout()
             .then((res) => {
                 navigate('/home');
                 if (res.data == "Logout Backend user success") {

@@ -17,3 +17,94 @@
 ::-webkit-scrollbar-thumb:hover {
     background-color: #a8bbbf;
 }
+
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
+.img_profile {
+    width: 150px;
+}
+
+.img_tele {
+    width: 35px;
+}
+
+.img_nube {
+    width: 32px;
+    border-radius: 4px;
+}
+
+.btn_nube {
+    border: 0px;
+    width: auto;
+    max-width: 35px;
+    background-color: black;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.U_icon {
+    width: 35px;
+    color: white;
+}
+
+.p_icon {
+    background-color: black;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.p_avatar {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    background-color: wheat;
+    position: relative;
+    z-index: 1;
+}
+
+.up_div{
+    margin-bottom: -20% !important;
+}
+
+.avatar {
+    margin: 0px;
+    width: 35px;
+    height: 35px;
+    margin-left: -3.3%;
+    margin-top: 4.5%;
+    border-radius: 4px;
+    position: relative;
+    z-index: 2;
+}
+
+.btn_edit {
+    background-color: transparent;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    border: 0px;
+    font-size: x-large;
+}
+
+.edit_icon {
+    color: black;
+}
+
+.check_icon:hover {
+    font-size: large;
+    color: green;
+}
+
+.title{
+    font-family: "Lobster", cursive;
+    text-align: center;
+    text-decoration: underline;
+}

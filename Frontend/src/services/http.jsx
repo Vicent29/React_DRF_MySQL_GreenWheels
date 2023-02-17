@@ -1,15 +1,15 @@
 import axios from "axios"
-import JwtService from "./JWTService"
+import JWTService from "./JWTService";
 import secret from "./secret";
 
 export default function http() {
     let api
-    if (JwtService.getToken()) {
+    if (JWTService.getToken()) {
         api = axios.create({
             baseURL: secret.DJANGO_APP_URL,
             headers: {
                 "Content-type": "application/json",
-                "Authorization": `Bearer ${JwtService.getToken()}`
+                "Authorization": `Bearer ${JWTService.getToken()}`
             }
         });
     } else if (localStorage.getItem('rftoken')) {
@@ -37,7 +37,7 @@ export default function http() {
                 if (!localStorage.getItem('token')) {
                     JWTService.destroyAllTokens();
                 }
-                JwtService.destroyToken();
+                JWTService.destroyToken();
                 window.location.reload();
             }
             return Promise.reject(error);

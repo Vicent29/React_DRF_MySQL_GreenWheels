@@ -184,7 +184,7 @@
     --card-width: calc(var(--card-height) / 1.5);
 }
 
-.card {
+.log {
     background: #12131b;
     padding: 3px;
     position: relative;
@@ -199,7 +199,7 @@
     font-family: cursive;
 }
 
-.card::before {
+.log::before {
     content: "";
     width: 104%;
     height: 102%;
@@ -212,7 +212,7 @@
     animation: spin 2.5s linear infinite;
 }
 
-.card::after {
+.log::after {
     position: absolute;
     content: "";
     top: calc(var(--card-height) / 6);
