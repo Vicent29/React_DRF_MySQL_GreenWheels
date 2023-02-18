@@ -53,6 +53,7 @@ export default function UpdateUser() {
 
     const saveChatId = () => {
       //Enviar datos al Auth Service
+      console.log(form.chat_id);
       setCheck({ chat_id: '' });
     };
   
@@ -63,41 +64,59 @@ export default function UpdateUser() {
     });
 
     const chechErrors = () => { 
-      setErr({ email: "*Format email incorrect" });
+      
       const regex_email = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
       const regex_passwd = /^[A-Z0-9._@%&+-]{4,}/i;
-      /* if (!regex_email.test(form.email) && !regex_passwd.test(form.password )) {
-        console.log("Error uno");
-        setErr({ email: "*Format email incorrect" });
-        setErr({ passwd: "*Format password incorrect" });
-      }else {
-        setErr({ email: '' });
-        setErr({ passwd: '' });
-      } */
-      if (!regex_email.test(form.email)) {
-        console.log("Error 2");
-        setErr({ email: "*Format email incorrect" });
-        console.log(err.email)
-      }else {
-        setErr({ email: '' });
+      if (form.email) {
+        if (!regex_email.test(form.email)) {
+            if (form.password.length==0) {
+              setErr({ email: '*Wrong email format ', passwd: ''});
+            }
+        }else {
+          console.log("EMAIL BIEN");
+          if (form.password.length==0) {
+            setErr({ email: '', passwd: ''});
+          }
+        }
       }
-      if (!regex_passwd.test(form.password)) {
-        setErr({ passwd: "*Format password incorrect" });
+
+      if (!regex_passwd.test(form.password) && form.password.length!=0) {
+        if (form.password.length==0) {
+          setErr({ email: '', passwd: '*Minimum 4 characters'});
+        } else {
+          setErr({ ...err, passwd: '*Minimum 4 characters'});
+        }
       }else {
-        setErr({ passwd: '' });
+        if(form.email){
+          if (!regex_email.test(form.email)) {
+            setErr({ email: '*Wrong email format ', passwd: ''});
+          }else {
+            setErr({ email: '', passwd: ''});
+          }
+        }
+       
+      }
+
+      if (form.email == '' && form.password == '') {
+        setErr({ email: '', passwd: ''});
       }
     };
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   setCheckState({
-  //     name: false,
-  //     email: false,
-  //     password: false,
-  //     img: false
-  //   });
-  //   dispatch({ type: USER_UPDATE, payload: formState });
-  // }
+    useEffect(() => {
+        chechErrors()
+    }, [form.email, form.password])
+
+  // Update fields profile
+    // const handleSubmit = (event) => {
+    //   event.preventDefault();
+    //   setCheckState({
+    //     name: false,
+    //     email: false,
+    //     password: false,
+    //     img: false
+    //   });
+    //   dispatch({ type: USER_UPDATE, payload: formState });
+    // }
 
 
   return (
@@ -150,7 +169,7 @@ export default function UpdateUser() {
                 </p>
               )}
               {check.email && (
-                <p onClick={() => {setCheck({ email: '' }); {form.email && chechErrors()}}} className="p_icon">
+                <p onClick={() => {setCheck({ email: '' }); {chechErrors}}} className="p_icon">
                   <FontAwesomeIcon className="U_icon check_icon" icon="fa-solid fa-check" />
                 </p>
               )}
@@ -178,7 +197,7 @@ export default function UpdateUser() {
                 </p>
               )}
               {check.password && (
-                <p onClick={() => {setCheck({ password: '' }); {form.password && chechErrors()}}} className="p_icon">
+                <p onClick={() => {setCheck({ password: '' })} }className="p_icon">
                   <FontAwesomeIcon className="U_icon check_icon" icon="fa-solid fa-check" />
                 </p>
               )}
@@ -187,14 +206,13 @@ export default function UpdateUser() {
             <span className='text-red-500'>{err.passwd}</span>
             )}
           </div>
-          <hr className='w-[100%] mb-[-4%]'/>
+          <hr className='w-[100%]'/>
           {/* Avatar */}
           <div className="form-outline mt-3 row justify-content-center">
             <div className="row ml-2">
-              <p>
-                <img  src={change ? change :user.avatar} alt="avatar" className="avatar up_div"/>  
-              </p>
-              <p className="p_avatar"></p>
+              <div className="p_avatar">
+                 <img  src={change ? change :user.avatar} alt="avatar" className="avatar"/>  
+              </div>
               {!check.avatar && (
                 <h5 className="d-flex align-items-center col-8 ml-2 mr-2">{`${user.first_name.toLowerCase()}_avatar.png`}</h5>
               )}
@@ -216,14 +234,13 @@ export default function UpdateUser() {
               
             </div>
           </div>
-          {/* <hr className='w-[100%] mb-[-4%]'/> */}
+          <hr className='w-[100%]'/>
           {/* Telegram */}
-          {/* <div className="form-outline mt-3 row justify-content-center">
+          <div className="form-outline mt-3 row justify-content-center">
             <div className="row ml-2">
-              <p onClick={ClickTelegram}>
-                <img src="https://i.postimg.cc/L5J3J8kf/telegram.png" alt="icon_telegram" className="avatar up_div"/>  
-              </p>
-              <p className="p_avatar"></p>
+              <div className="p_avatar" onClick={ClickTelegram}>
+                 <img  src="https://i.postimg.cc/L5J3J8kf/telegram.png" alt="avatar" className="avatar"/>  
+              </div>
               {check.chat_id  && (
                 <div className='col'>
                   <input className="text-center form-control form-control-md" readOnly type="text" value={form.chat_id} placeholder={`${user.first_name.toLowerCase()}_avatar.png`} id="avatar"/>
@@ -236,10 +253,8 @@ export default function UpdateUser() {
               )}
             </div>
           </div>
-          <hr className='w-[100%]'/> */}
-          {/* Update From */}
 
-         
+          {/* Buttons From */}
           {(err.email || err.passwd) && (
             <>
               <hr className='w-[100%]'/>
@@ -251,7 +266,7 @@ export default function UpdateUser() {
             <>
               <hr className='w-[100%]'/>
               <a className="relative p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md no-underline">
-              <span class="w-full h-full bg-gradient-to-br from-[#5ef1a9] via-[#5ef0f1] to-[#5ea6f1] group-hover:from-[#070707] group-hover:via-[#000000] group-hover:to-[#000000] absolute"></span>
+              <span className="w-full h-full bg-gradient-to-br from-[#5ef1a9] via-[#5ef0f1] to-[#5ea6f1] group-hover:from-[#070707] group-hover:via-[#000000] group-hover:to-[#000000] absolute"></span>
                 <span className="relative px-6 py-3 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400 border-2 border-transparent hover:border-green-500">
                 <span className="relative text-white hover:text-black">Save Profile</span>
                 </span>
