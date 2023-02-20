@@ -1,13 +1,14 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
-import "./User.scss";
-import AuthContext from '../../context/AuthContext'
+import AuthContextProvider from '../../context/AuthContext'
 import { useAuth } from "../../hooks/useAuth";
-// import { toast } from 'react-toastify';
+
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import "./User.scss";
 
 export default function UpdateUser() {
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContextProvider);
   const { updateUser } = useAuth();
 
   // Save Data Form
@@ -237,12 +238,15 @@ export default function UpdateUser() {
             </div>
           </div>
           <hr className='w-[100%]'/>
-          {/* Telegram */}
+          {/* Telegram and Buton Incidents and Rent*/}
           <div className="form-outline mt-3 row justify-content-center">
             <div className="row ml-2">
-              <div className="p_avatar" onClick={ClickTelegram}>
-                 <img  src="https://i.postimg.cc/L5J3J8kf/telegram.png" alt="avatar" className="avatar"/>  
+              {check.chat_id  && (
+              <div className="p_avatar" onClick={() => {setCheck({...check, chat_id: '' })} }c>
+                <img  src="https://i.postimg.cc/L5J3J8kf/telegram.png" alt="Icon Telegram" className="avatar"/>  
               </div>
+              )}
+
               {check.chat_id  && (
                 <div className='col'>
                   <input className="text-center form-control form-control-md" readOnly type="text" value={form. chatID} placeholder={`${user.first_name.toLowerCase()}_avatar.png`} id="avatar"/>
@@ -253,6 +257,23 @@ export default function UpdateUser() {
                   <FontAwesomeIcon className="U_icon check_icon" icon="fa-solid fa-check" />
                 </p>
               )}
+
+            {!check.chat_id && (
+              <>
+              <div className='d-flex justify-center'>
+                <div className="p_avatar btn_profile bg-white" onClick={ClickTelegram}>
+                  <img  src="https://i.postimg.cc/L5J3J8kf/telegram.png" alt="Icon Telegram" className="avatar"/>  
+                </div>
+                <div className="p_avatar btn_profile ml-9" onClick={() => {setUser({...user, opt_profile : true })} }c>
+                  <img  src="https://i.postimg.cc/SKpnJLj4/image-1.png" alt="Icon incidences" className="avatar"/>  
+                </div>
+                <div className="p_avatar btn_profile ml-9" onClick={() => {setUser({...user, opt_profile : false })} }c>
+                  <img  src="https://i.postimg.cc/Pf159vqv/image.png" alt="Icon List Rent" className="avatar"/>  
+                </div>
+              </div>
+               
+              </>
+            )}
             </div>
           </div>
 

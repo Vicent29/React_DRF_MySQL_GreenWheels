@@ -3,9 +3,10 @@ import UpdateUser from "../../components/User/UpdateUser";
 import UserRentProfile from '../../components/User/UserRentProfile';
 import UserAdminProfile from '../../components/User/UserAdminProfile';
 import AuthContextProvider from '../../context/AuthContext';
+import Incident from "../../components/Incident/Incident";
 
 export default function Profile() {
-  const { isAdmin } = useContext(AuthContextProvider)
+  const { isAdmin, user } = useContext(AuthContextProvider)
 
   return (
     <>
@@ -19,16 +20,29 @@ export default function Profile() {
                 </div>
               </div>
             </div>
-            <div className="col-lg-8 h-[80vh] overflow-auto">
-              <div className="card mb-4 bg-dark">
-                {isAdmin && (
-                  <UserAdminProfile />
-                )}
-                {!isAdmin && (
-                  <UserRentProfile />
-                )}
+            {/* Rent Profile or User Admin */}
+            {!user.opt_profile && (
+              <div className="col-lg-8 h-[80vh] overflow-auto">
+                <div className="card mb-4 bg-dark">
+                    {isAdmin && (
+                      <UserAdminProfile />
+                    )}
+                    {!isAdmin && (
+                      <UserRentProfile />
+                    )}
+                </div>
               </div>
-            </div>
+            )}
+            {/* Incident */}
+            {user.opt_profile && (
+              <>
+                <div className="col-lg-8 h-[80vh]">
+                  <div className="card mb-4 bg-black ">
+                    <Incident />
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </section>

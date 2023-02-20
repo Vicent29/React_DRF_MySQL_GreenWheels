@@ -24,25 +24,6 @@
     width: 150px;
 }
 
-.img_tele {
-    width: 35px;
-}
-
-.img_nube {
-    width: 32px;
-    border-radius: 4px;
-}
-
-.btn_nube {
-    border: 0px;
-    width: auto;
-    max-width: 35px;
-    background-color: black;
-    border-radius: 4px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 .U_icon {
     width: 35px;
@@ -64,6 +45,12 @@
     padding: 0px !important;
     border-radius: 4px;
     overflow: hidden;
+}
+
+.btn_profile{
+    background-color: black;
+    width: 40px;
+    height: 40px;
 }
 
 .avatar {
@@ -95,3 +82,4 @@ height: 100%;
     text-align: center;
     text-decoration: underline;
 }
+
