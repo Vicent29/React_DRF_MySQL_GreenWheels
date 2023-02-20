@@ -87,18 +87,28 @@ export function useAuth() {
 
 
     const updateUser = useCallback((data) => {
-        console.log("Dentro del Update user");
-        // setStatus({ loading: true, error: false });
-        // AuthService.updateUser(data) 
-        // .then((response) => {
-        //     setStatus({ loading: false, error: false });
-        //     navigate('/');
-        // }).catch((error) => {
-        //     setStatus({ loading: false, error: true });
-        // });
-    }, [navigate]);
-
-
+        setStatus({ loading: true, error: false });
+        AuthService.updateUser(data)
+        .then((response) => {
+            setStatus({ loading: false, error: false });
+            setUser(response.data.user)
+            JWTService.saveToken(response.data.token, response.data.rftoken);
+            toast.success( response.data.user.first_name + " has been updated successfully", {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        }).catch((error) => {
+            setStatus({ loading: false, error: true });
+            if (error.response.data == "Email exist") {
+                toast.error("Error with email", {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+            }else {
+                toast.error("Error Update User", {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+            }
+        });
+    }, [user]);
 
     return { status, signup, signin, setUserLoged, logout, updateUser, loadUser, checkAdmin, setJWT, setUser }
 }

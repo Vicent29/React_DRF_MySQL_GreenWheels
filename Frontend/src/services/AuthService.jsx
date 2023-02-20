@@ -13,6 +13,9 @@ const AuthService = {
     registerUser(data) {
         return http().post(`/api/register`, data)
     },
+    updateUser(data) {
+        return http().put(`/api/user/update`, data)
+    },
     loginUser(data) {
         return http().post(`/api/login`, data)
     },
@@ -22,9 +25,7 @@ const AuthService = {
     isAdmin() {
         return http().get("/api/user/isadmin")
     },
-    changePassword(data) {
-        return http().put(`/api/change_password/`, data)
-    },
+
     deleteUser(id) {
         return http().delete(`/api/user/${id}`)
     },

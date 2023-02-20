@@ -32,7 +32,7 @@ class UserView(viewsets.GenericViewSet):
         return Response(user_serializer.data)
 
 
-class UserTk(viewsets.GenericViewSet):
+class OnlyUser(viewsets.GenericViewSet):
     permission_classes = [IsAuthenticated]
 
     def getUserTk(self, request):
@@ -43,6 +43,13 @@ class UserTk(viewsets.GenericViewSet):
         if request.user:
             request.user = None
         return Response("Logout Backend user success")
+
+    def updateUser(self, request):
+        current_user = request.user
+        update_data = request.data
+        serializer_user = UserSerializer.updateUser(current_user, update_data)
+        return Response(serializer_user)
+        # return Response("Update User Backend")
 
 
 class OnlyAdmin(viewsets.GenericViewSet):

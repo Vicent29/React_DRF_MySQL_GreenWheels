@@ -90,13 +90,42 @@ class UserSerializer(serializers.ModelSerializer):
             if user.check_password(password):
                 return UserSerializer.to_user(user)
             else:
-                raise serializers.ValidationError(
-                    'email or password not correct'
-                )
+                raise serializers.ValidationError('email or password not correct')
 
         except User.DoesNotExist:
             return "email not registered"
+    
+    def updateUser(current_user, context):
+        user= User.objects.get(id=current_user.id)
+        if user:
+            if 'avatar' in context:
+                profile = ProfileUsr.objects.get(user_id=user.id)
+                setattr(profile, "avatar", context['avatar'])
+                profile.save()
 
+            if 'email' in context:
+                try:
+                    usuario = User.objects.get(email=context['email'])
+                    if usuario:
+                        raise serializers.ValidationError('Email exist')
+                except User.DoesNotExist:
+                    email_NotExist = True   
+            if 'password' in context:
+                user.set_password(context['password'])
+                context['password'] = user.password
+            
+            for key, value in context.items():
+                if hasattr(user, key):
+                    setattr(user, key, value)
+        else:
+            raise serializers.ValidationError('User not exist')
+        user.save()
+        user_save= User.objects.get(id=current_user.id)
+        profile_save = ProfileUsr.objects.get(user_id=user_save.id)  
+        user_save.avatar = profile_save.avatar
+        user_save.desc = profile_save.biography
+        user_save.noti = profile_save.notis
+        return UserSerializer.to_user(user_save)
 
 class ProfileSerializer(serializers.ModelSerializer):
 

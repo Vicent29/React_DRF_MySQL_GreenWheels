@@ -2,21 +2,16 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
 import "./User.scss";
 import AuthContext from '../../context/AuthContext'
-// import AuthService from '../../services/AuthService';
+import { useAuth } from "../../hooks/useAuth";
 // import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function UpdateUser() {
   const { user } = useContext(AuthContext);
+  const { updateUser } = useAuth();
 
   // Save Data Form
-    const [form, setForm] = useState({
-      name: "",
-      email: "",
-      password: "",
-      avatar: "",
-      chat_id: "",
-    });
+    const [form, setForm] = useState({});
 
   // Control Edit inputs fields
     const [check, setCheck] = useState({
@@ -27,12 +22,27 @@ export default function UpdateUser() {
       chat_id: "",
     });
 
+  //Temporary fields to set the name and avatar
+    const [change, setchange] = useState({
+      temp_avatar: "",
+      temp_name: ""
+    });
 
-  const [change, setchange] = useState();
-  const change_img = () => {
-    setCheck({ avatar: '' });
-    setchange(form.avatar)
-  };
+    const change_img = () => {
+      setCheck({...check, avatar: '' });
+      setchange({...change, temp_avatar : form.avatar });
+    };
+
+    const SetName_LastName = () => {
+      setCheck({...check, name: '' });
+      const fullNameSplit= change.temp_name.split(' ');
+      if (fullNameSplit.length > 1){
+        setForm({...form, first_name : fullNameSplit[0], last_name: fullNameSplit.slice(1).join(" ")})
+      }
+      else{
+        setForm({...form, first_name : fullNameSplit[0], last_name: ""})
+      }
+    };
 
   
   // Telegram Feature
@@ -47,14 +57,15 @@ export default function UpdateUser() {
 
     const ClickTelegram = () => {
       const newChatId = generateChatId();
-      setForm({ chat_id: newChatId });
-      setCheck({ chat_id: true });
+      setForm({...form, chatID: newChatId });
+      setCheck({...check, chat_id: true });
     };
 
-    const saveChatId = () => {
-      //Enviar datos al Auth Service
-      console.log(form.chat_id);
-      setCheck({ chat_id: '' });
+    const saveChatId = async () => {
+      setCheck({...check, chat_id: '' });
+      await navigator.clipboard.writeText(form.chatID);
+      updateUser(form);
+      window.open("https://web.telegram.org/z/#5944160111", "_blank");
     };
   
   // Control Regex errors
@@ -69,24 +80,21 @@ export default function UpdateUser() {
       const regex_passwd = /^[A-Z0-9._@%&+-]{4,}/i;
       if (form.email) {
         if (!regex_email.test(form.email)) {
+          if(form.password) {
             if (form.password.length==0) {
               setErr({ email: '*Wrong email format ', passwd: ''});
             }
+          }
         }else {
-          console.log("EMAIL BIEN");
-          if (form.password.length==0) {
+          if (!form.password) {
             setErr({ email: '', passwd: ''});
           }
         }
       }
 
       if (!regex_passwd.test(form.password) && form.password.length!=0) {
-        if (form.password.length==0) {
-          setErr({ email: '', passwd: '*Minimum 4 characters'});
-        } else {
-          setErr({ ...err, passwd: '*Minimum 4 characters'});
-        }
       }else {
+        setErr({ ...err, passwd: ''});
         if(form.email){
           if (!regex_email.test(form.email)) {
             setErr({ email: '*Wrong email format ', passwd: ''});
@@ -94,7 +102,6 @@ export default function UpdateUser() {
             setErr({ email: '', passwd: ''});
           }
         }
-       
       }
 
       if (form.email == '' && form.password == '') {
@@ -106,24 +113,19 @@ export default function UpdateUser() {
         chechErrors()
     }, [form.email, form.password])
 
+
   // Update fields profile
-    // const handleSubmit = (event) => {
-    //   event.preventDefault();
-    //   setCheckState({
-    //     name: false,
-    //     email: false,
-    //     password: false,
-    //     img: false
-    //   });
-    //   dispatch({ type: USER_UPDATE, payload: formState });
-    // }
+    const Update_fields = () => {
+      setCheck({...check,name:'',email:'',password:'',avatar:''});
+      updateUser(form);
+    }
 
 
   return (
     <>
       <div>
         <div className="d-flex justify-center align-baseline">
-          <img src={change ? change :user.avatar} alt="avatar" className="img_profile text-center rounded-circle img-fluid"></img>
+          <img src={change.temp_avatar ? change.temp_avatar : user.avatar} alt="avatar" className="img_profile text-center rounded-circle img-fluid"></img>
         </div>
         <form className='form-outline mb-4'>
           {/* Username */}
@@ -131,11 +133,11 @@ export default function UpdateUser() {
             <div className="row ml-2">
               <p className="p_icon"><FontAwesomeIcon className="U_icon" icon="fa-solid fa-user" /></p>
               {!check.name && (
-                <h5 className="d-flex align-items-center col-8 ml-2 mr-2">{form.name ? form.name : (user.first_name + ' ' + user.last_name)}</h5>
+                <h5 className="d-flex align-items-center col-8 ml-2 mr-2">{change.temp_name ? change.temp_name : (user.first_name + ' ' + user.last_name)}</h5>
               )}
               {check.name  && (
                 <div className='col'>
-                  <input className="text-center form-control form-control-md" type="text" value={form.name} onChange={(e) => setForm({...form, name: e.target.value})} placeholder={form.name ? form.name : (user.first_name + ' ' + user.last_name)} id="name"/>
+                  <input className="text-center form-control form-control-md" type="text" value={form.name} onChange={(e) => setchange({...change, temp_name: e.target.value})} placeholder={change.temp_name ? change.temp_name : (user.first_name + ' ' + user.last_name)} id="name"/>
                 </div>
               )}
               {!check.name && (
@@ -144,7 +146,7 @@ export default function UpdateUser() {
                 </p>
               )}
               {check.name && (
-                <p onClick={() => setCheck({ name: '' })} className="p_icon">
+                <p onClick={SetName_LastName} className="p_icon">
                   <FontAwesomeIcon className="U_icon check_icon" icon="fa-solid fa-check" />
                 </p>
               )}
@@ -160,7 +162,7 @@ export default function UpdateUser() {
               )}
               {check.email  && (
                 <div className='col'>
-                  <input className="text-center form-control form-control-md" type="email" value={form.email} onChange={(e) => setForm({...form, email: e.target.value})} placeholder={form.email ? form.email : user.email} id="email"/>
+                  <input className="text-center form-control form-control-md" autoComplete='off' type="email" value={form.email} onChange={(e) => setForm({...form, email: e.target.value})} placeholder={form.email ? form.email : user.email} id="email"/>
                 </div>
               )}
               {!check.email && (
@@ -169,7 +171,7 @@ export default function UpdateUser() {
                 </p>
               )}
               {check.email && (
-                <p onClick={() => {setCheck({ email: '' }); {chechErrors}}} className="p_icon">
+                <p onClick={() => {setCheck({...check, email: '' }); {chechErrors}}} className="p_icon">
                   <FontAwesomeIcon className="U_icon check_icon" icon="fa-solid fa-check" />
                 </p>
               )}
@@ -188,7 +190,7 @@ export default function UpdateUser() {
               )}
               {check.password  && (
                 <div className='col'>
-                  <input className="text-center form-control form-control-md" type="password" value={form.password} onChange={(e) => setForm({...form, password: e.target.value})} placeholder='*******' id="password"/>
+                  <input className="text-center form-control form-control-md" autoComplete='off' type="password" value={form.password} onChange={(e) => setForm({...form, password: e.target.value})} placeholder='*******' id="password"/>
                 </div>
               )}
               {!check.password && (
@@ -197,7 +199,7 @@ export default function UpdateUser() {
                 </p>
               )}
               {check.password && (
-                <p onClick={() => {setCheck({ password: '' })} }className="p_icon">
+                <p onClick={() => {setCheck({...check, password: '' })} }className="p_icon">
                   <FontAwesomeIcon className="U_icon check_icon" icon="fa-solid fa-check" />
                 </p>
               )}
@@ -211,7 +213,7 @@ export default function UpdateUser() {
           <div className="form-outline mt-3 row justify-content-center">
             <div className="row ml-2">
               <div className="p_avatar">
-                 <img  src={change ? change :user.avatar} alt="avatar" className="avatar"/>  
+                 <img  src={change.temp_avatar ? change.temp_avatar :user.avatar} alt="avatar" className="avatar"/>  
               </div>
               {!check.avatar && (
                 <h5 className="d-flex align-items-center col-8 ml-2 mr-2">{`${user.first_name.toLowerCase()}_avatar.png`}</h5>
@@ -243,7 +245,7 @@ export default function UpdateUser() {
               </div>
               {check.chat_id  && (
                 <div className='col'>
-                  <input className="text-center form-control form-control-md" readOnly type="text" value={form.chat_id} placeholder={`${user.first_name.toLowerCase()}_avatar.png`} id="avatar"/>
+                  <input className="text-center form-control form-control-md" readOnly type="text" value={form. chatID} placeholder={`${user.first_name.toLowerCase()}_avatar.png`} id="avatar"/>
                 </div>
               )}
               {check.chat_id && (
@@ -262,12 +264,12 @@ export default function UpdateUser() {
             </>
           )}
           
-          {((form.name || form.email || form.password || form.avatar) && !err.email && !err.passwd ) && (
+          {((form.first_name || form.last_name || form.email || form.password || form.avatar) && !err.email && !err.passwd ) && (
             <>
               <hr className='w-[100%]'/>
               <a className="relative p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md no-underline">
               <span className="w-full h-full bg-gradient-to-br from-[#5ef1a9] via-[#5ef0f1] to-[#5ea6f1] group-hover:from-[#070707] group-hover:via-[#000000] group-hover:to-[#000000] absolute"></span>
-                <span className="relative px-6 py-3 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400 border-2 border-transparent hover:border-green-500">
+                <span onClick={Update_fields} className="relative px-6 py-3 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400 border-2 border-transparent hover:border-green-500">
                 <span className="relative text-white hover:text-black">Save Profile</span>
                 </span>
               </a>
