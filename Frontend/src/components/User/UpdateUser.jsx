@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import "./User.scss";
 
 export default function UpdateUser() {
-  const { user, setUser } = useContext(AuthContextProvider);
+  const { user, setUser, isAdmin } = useContext(AuthContextProvider);
   const { updateUser } = useAuth();
 
   // Save Data Form
@@ -267,9 +267,16 @@ export default function UpdateUser() {
                 <div className="p_avatar btn_profile ml-9" onClick={() => {setUser({...user, opt_profile : true })} }c>
                   <img  src="https://i.postimg.cc/SKpnJLj4/image-1.png" alt="Icon incidences" className="avatar"/>  
                 </div>
-                <div className="p_avatar btn_profile ml-9" onClick={() => {setUser({...user, opt_profile : false })} }c>
-                  <img  src="https://i.postimg.cc/Pf159vqv/image.png" alt="Icon List Rent" className="avatar"/>  
-                </div>
+                {isAdmin && (
+                  <div className="p_avatar btn_profile ml-9" onClick={() => {setUser({...user, opt_profile : false })} }c>
+                    <img  src="https://i.postimg.cc/cLF8W2MP/list-incidents-people.png" alt="Icon List Rent" className="avatar"/>  
+                  </div>
+                )}
+                {!isAdmin && (
+                  <div className="p_avatar btn_profile ml-9" onClick={() => {setUser({...user, opt_profile : false })} }c>
+                    <img  src="https://i.postimg.cc/Pf159vqv/image.png" alt="Icon List Rent" className="avatar"/>  
+                  </div>
+                )}
               </div>
                
               </>

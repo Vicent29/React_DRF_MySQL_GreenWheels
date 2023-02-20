@@ -19,7 +19,7 @@ $grey-light: #ededed;
         counter-increment: stepNum;
         text-align: center;
         display: table-cell;
-        position: relative;
+        position: sticky;
         color: $brand-primary;
 
         &:before {
