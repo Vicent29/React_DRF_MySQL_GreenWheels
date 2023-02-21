@@ -18,6 +18,10 @@ from rest_framework.views import APIView
 # @api_view(['GET', 'POST', 'DELETE'])
 
 
+def checkChatIDpy(id, text):
+    return UserSerializer.checkChatIDpy(id, text)
+
+
 class UserView(viewsets.GenericViewSet):
     def getOneUser(self, request, id):
         user = User.objects.get(id=id)
@@ -30,6 +34,9 @@ class UserView(viewsets.GenericViewSet):
         if (user_serializer.is_valid(raise_exception=True)):
             user_serializer.save()
         return Response(user_serializer.data)
+
+    def checkChatID(self, request):
+        return JsonResponse(UserSerializer.checkChatID(context=request.data), safe=False)
 
 
 class OnlyUser(viewsets.GenericViewSet):
@@ -49,7 +56,6 @@ class OnlyUser(viewsets.GenericViewSet):
         update_data = request.data
         serializer_user = UserSerializer.updateUser(current_user, update_data)
         return Response(serializer_user)
-        # return Response("Update User Backend")
 
 
 class OnlyAdmin(viewsets.GenericViewSet):

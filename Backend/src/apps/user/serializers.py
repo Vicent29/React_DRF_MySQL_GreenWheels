@@ -90,17 +90,21 @@ class UserSerializer(serializers.ModelSerializer):
             if user.check_password(password):
                 return UserSerializer.to_user(user)
             else:
-                raise serializers.ValidationError('email or password not correct')
+                raise serializers.ValidationError(
+                    'email or password not correct')
 
         except User.DoesNotExist:
             return "email not registered"
-    
+
     def updateUser(current_user, context):
-        user= User.objects.get(id=current_user.id)
+        user = User.objects.get(id=current_user.id)
         if user:
-            if 'avatar' in context:
+            if 'avatar' in context or 'notis' in context:
                 profile = ProfileUsr.objects.get(user_id=user.id)
-                setattr(profile, "avatar", context['avatar'])
+                if 'avatar' in context:
+                    setattr(profile, "avatar", context['avatar'])
+                if 'notis' in context:
+                    profile.notis = context['notis']
                 profile.save()
 
             if 'email' in context:
@@ -109,23 +113,43 @@ class UserSerializer(serializers.ModelSerializer):
                     if usuario:
                         raise serializers.ValidationError('Email exist')
                 except User.DoesNotExist:
-                    email_NotExist = True   
+                    email_NotExist = True
             if 'password' in context:
                 user.set_password(context['password'])
                 context['password'] = user.password
-            
+
             for key, value in context.items():
                 if hasattr(user, key):
                     setattr(user, key, value)
         else:
             raise serializers.ValidationError('User not exist')
         user.save()
-        user_save= User.objects.get(id=current_user.id)
-        profile_save = ProfileUsr.objects.get(user_id=user_save.id)  
+        user_save = User.objects.get(id=current_user.id)
+        profile_save = ProfileUsr.objects.get(user_id=user_save.id)
         user_save.avatar = profile_save.avatar
         user_save.desc = profile_save.biography
         user_save.noti = profile_save.notis
         return UserSerializer.to_user(user_save)
+
+    def checkChatID(context):
+        try:
+            user = User.objects.get(chatID=context['text'])
+        except User.DoesNotExist:
+            raise serializers.ValidationError('chatID not connected')
+        user.chatID = context['chatID']
+        user.save()
+        return "User connected"
+
+    def checkChatIDpy(id, text):
+        print("entra test")
+        try:
+            user = User.objects.get(chatID=text)
+        except User.DoesNotExist:
+            return 'chatID not connected'
+        user.chatID = id
+        user.save()
+        return "User connected"
+
 
 class ProfileSerializer(serializers.ModelSerializer):
 

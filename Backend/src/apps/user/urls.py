@@ -13,6 +13,7 @@ urlpatterns = [
     path('user/update', OnlyUser.as_view({'put': 'updateUser'})),
     path('logout', OnlyUser.as_view({'post': 'logout'})),
     path('allchatid', OnlyAdmin.as_view({'get': 'allchatID'})),
+    path('checkid', UserView.as_view({'post': 'checkChatID'})),
 
     path('profile', ProfileView.as_view( {'get': 'getProfiles', 'post': 'createProfile'})),
     path('profile/<int:id>', ProfileView.as_view({'get': 'getOneProfile', 'delete': 'deleteProfile'})),

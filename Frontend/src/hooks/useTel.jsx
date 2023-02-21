@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useCallback } from 'react';
 import AuthService from '../services/AuthService';
 import secret from '../services/secret';
 
@@ -19,10 +20,20 @@ export function useTel() {
     const allchatid = async () => {
         let retn = []
         await AuthService.allchatid()
-            .then(({data}) => {
+            .then(({ data }) => {
                 retn = data
             })
         return retn
     }
-    return { sendMessage, allchatid }
+
+    const checkChatID = useCallback(async (res) => {
+        await AuthService.checkChatID(res)
+            .then(({ data }) => {
+                sendMessage(res.chatID, data)
+            })
+            .catch(({ response }) => {
+                sendMessage(res.chatID, response.data[0])
+            })
+    }, [])
+    return { sendMessage, allchatid, checkChatID }
 }

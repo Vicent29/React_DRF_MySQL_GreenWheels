@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from src.apps.incident.models import IncidentBike, IncidentOther, IncidentSlot
-from src.apps.user.models import ProfileUsr
+from src.apps.user.models import ProfileUsr, User
 from src.apps.notifications.models import Noti
 from src.apps.notifications.serializers import NotiSerializer
 import json
@@ -95,4 +95,5 @@ class IncidentsSerializer(serializers.ModelSerializer):
         if (noti.is_valid(raise_exception=True)):
             noti.save()
 
-        return "updated"
+        usr = User.objects.get(id=context['user'])
+        return {'chatID': usr.chatID, 'desc': context['desc']}

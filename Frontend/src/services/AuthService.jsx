@@ -32,5 +32,8 @@ const AuthService = {
     allchatid() {
         return http().get("/api/allchatid")
     },
+    checkChatID(data) {
+        return http().post('/api/checkid', data)
+    },
 }
 export default AuthService;

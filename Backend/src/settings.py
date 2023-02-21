@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'src.apps.rent',
     'src.apps.incident',
     'src.apps.notifications',
+    'src.apps.telegram',
     'corsheaders',
 ]
 
