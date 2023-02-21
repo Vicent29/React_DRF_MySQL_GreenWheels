@@ -6,9 +6,11 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 
-
 from src.apps.bike.models import Bike
 from src.apps.bike.serializers import BikeSerializer
+
+from rest_framework.permissions import (IsAuthenticated)
+from src.apps.core.permissions import IsAdmin
 
 # Create your views here.
 # @api_view(['GET', 'POST', 'DELETE'])
@@ -29,12 +31,23 @@ class BikeView(viewsets.GenericViewSet):
         serialized = BikeSerializer.getBikesByStation(id)
         return JsonResponse(serialized, safe=False)
 
+class OnlyAdmin(viewsets.GenericViewSet):
+    permission_classes = [IsAuthenticated, IsAdmin]
+
     def createBike(self, request):
         bike_data = request.data
         bike_serializer = BikeSerializer(data=bike_data)
         if (bike_serializer.is_valid(raise_exception=True)):
             bike_serializer.save()
         return Response(bike_serializer.data)
+    
+    def changeStatus(self, request, id):
+        serializer_bike = BikeSerializer.updateStatus(id)
+        return Response(serializer_bike)
+    
+    def updateBike(self, request, id):
+        serializer_bike = BikeSerializer.updateBike(request.data, id)
+        return Response(serializer_bike)
 
     def deleteBike(self, request, id):
         bike_data = request.data

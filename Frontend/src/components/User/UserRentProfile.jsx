@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
 import { useRent } from "../../hooks/useRent";
 import { useSlots } from "../../hooks/useSlots";
 import "./User.scss";
@@ -55,7 +54,7 @@ export default function UserRentProfile() {
                                         </>
                                         :
                                         <>
-                                            <td>{rent.cost}</td>
+                                            <td>{rent.cost + " €"}</td>
                                             <td>No options</td>
                                         </>
                                     }

@@ -28,3 +28,22 @@ class BikeSerializer(serializers.ModelSerializer):
             fields = BikeSerializer.to_bikes(bike)
             serialized.append(fields)
         return serialized
+
+    def updateStatus(id):
+        bike= Bike.objects.get(id=id)
+        if bike.status == 1:
+            bike.status = 0
+        else:
+            bike.status = 1
+        bike.save()
+        resp_bike = Bike.objects.get(id=id)
+        return BikeSerializer.to_bikes(resp_bike)
+
+    def updateBike(context, id):
+        bike= Bike.objects.get(id=id)
+        for key, value in context.items():
+                if hasattr(bike, key):
+                    setattr(bike, key, value)
+        bike.save()
+        resp_bike = Bike.objects.get(id=id)
+        return BikeSerializer.to_bikes(resp_bike)

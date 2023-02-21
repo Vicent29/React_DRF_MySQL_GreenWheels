@@ -3,15 +3,12 @@ import { Link } from "react-router-dom";
 import BikesLine from "./BikesLine";
 import "./Bike.scss";
 
-export default function BikesTable({
-  bikes,
-  deleteBike /*, changeStatusBike */,
-}) {
+export default function BikesTable({bikes, slots, deleteBike , changeStatusBike, updateBike}) {
   return (
-    <div className="d-flex justify-center">
+    <div className="d-flex justify-center overflow-auto max-h-screen">
       <table className="mytable table table-striped col-10 text-center bg-light mt-4">
-        <thead>
-          <tr className="grey">
+        <thead className="sticky top-0" >
+          <tr className="grey className="fixed>
             <th>ID</th>
             <th>ID_slot</th>
             <th>Status</th>
@@ -19,7 +16,8 @@ export default function BikesTable({
             <th>Img_bike</th>
             <th scope="col">
               <Link to="/addbike">
-                <button className="btn btn-outline-info">New Bike</button>
+                <button className="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#ModalNewBike">New Bike</button>
+
               </Link>
             </th>
           </tr>
@@ -28,7 +26,7 @@ export default function BikesTable({
           {bikes.map((item) => {
             return (
               <tr key={item.id}>
-                <BikesLine bike={item} deleteBike={deleteBike} />
+                <BikesLine bike={item} slots={slots} deleteBike={deleteBike} changeStatusBike={changeStatusBike} updateBike={updateBike}/>
               </tr>
             );
           })}

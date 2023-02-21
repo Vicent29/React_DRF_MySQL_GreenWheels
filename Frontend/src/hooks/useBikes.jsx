@@ -2,6 +2,8 @@ import { useEffect, useState, useCallback, useContext } from 'react'
 import { useNavigate } from "react-router-dom"
 import AuthContextProvider from '../context/AuthContext';
 import BikesService from "../services/BikesService";
+import { toast } from 'react-toastify';
+import { set } from 'react-hook-form';
 
 export function useBikes() {
     const [loading, setLoading] = useState(false);
@@ -43,6 +45,9 @@ export function useBikes() {
         BikesService.createBike(request)
             .then(({ data }) => {
                 if (data) {
+                    toast.success("Bike "+ data.id  +" create success", {
+                        position: toast.POSITION.TOP_RIGHT
+                    })
                     navigate("/bike")
                 }
             })
@@ -50,8 +55,40 @@ export function useBikes() {
 
     const deleteBike = ((id) => {
         BikesService.deleteBike(id)
+        .then(() => {
+            toast.success("Delete bike success", {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        })
         setBikes(bikes.filter(bike => bike.id !== id))
     })
 
-    return { loading, bikes, setBikes, getBike, createBike, getBikesByStation/*, updateBike, changeStatusBike,*/, deleteBike }
+    const changeStatusBike = ((id) => {
+        BikesService.changeStatusBike(id)
+        .then (({data}) => {
+            setLoading(true)
+            BikesService.getBikes()
+            .then(({ data }) => {
+                setBikes(data)
+                setLoading(false)
+            })
+            // setBikes(bikes.filter(bike => {return bike.id === data.id  ? bike.status = data.status : bike.status = bike.status}))
+        })
+    })
+
+    const updateBike = ((request, id) => {
+        BikesService.updateBike(request, id)
+        .then(({data}) => {
+            toast.success("Update bike " +data.id+ " success", {
+                position: toast.POSITION.TOP_RIGHT
+            });
+            BikesService.getBikes()
+            .then(({ data }) => {
+                setBikes(data)
+                setLoading(false)
+            })
+        })
+    })
+
+    return { loading, bikes, setBikes, getBike, createBike, getBikesByStation, changeStatusBike, updateBike, deleteBike }
 }
