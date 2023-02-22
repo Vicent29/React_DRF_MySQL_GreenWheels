@@ -35,6 +35,7 @@ const Bikes = React.lazy(() => import("./pages/Bikes/Bikes"))
 const AddBike = React.lazy(() => import("./pages/Bikes/CreateBike"))
 const Home = React.lazy(() => import("./pages/Home/Home"))
 const Station = React.lazy(() => import("./pages/Station/Stations"))
+const Slot = React.lazy(() => import("./pages/Slot/Slots"))
 const AddStation = React.lazy(() => import("./pages/Station/CreateStation"))
 const Incident = React.lazy(() => import("./pages/Incident/Incident"))
 const Signin = React.lazy(() => import("./pages/Login/Signin"))
@@ -59,6 +60,7 @@ function App() {
                 <Route path="addbike" element={<Suspense fallback={<SpinnerLoading />}><AddBike /></Suspense>} />
                 <Route path="station" element={<Suspense fallback={<SpinnerLoading />}><Station /></Suspense>} />
                 <Route path="addstation" element={<Suspense fallback={<SpinnerLoading />}><AddStation /></Suspense>} />
+                <Route path="slot" element={<Suspense fallback={<SpinnerLoading />}><Slot /></Suspense>} />
               </Route>
               {/* Regsiter and Login */}
               <Route element={<NoAuthGuard />}>

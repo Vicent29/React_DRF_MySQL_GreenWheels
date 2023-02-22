@@ -22,12 +22,12 @@ export default function CreateStation() {
 
     return (
         <>
-            <div className="text-white d-flex col-11">
-                <div className="map text-white d-flex flex-column col-6">
+            <div className="text-white d-flex col-12 flex-col-reverse md:flex-row">
+                <div className="map text-white d-flex flex-column col-12 md:col-6">
                     <h1>Click to set Station</h1>
                     <MyMap onclickmap={location} />
                 </div>
-                <div className="form text-white d-flex flex-column justify-center align-items-center col-6">
+                <div className="form text-white d-flex flex-column justify-center align-items-center col-12 md:col-6">
                     <FormStation createStation={createStationForm} />
                 </div>
             </div>

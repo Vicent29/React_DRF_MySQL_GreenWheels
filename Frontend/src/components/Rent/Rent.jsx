@@ -4,7 +4,7 @@ export default function Rent({ bike, changestatus, createRnt }) {
 
     return (
         <div className='d-flex justify-center align-middle m-1'>
-            <div className="flex flex-col items-center rounded-lg shadow md:flex-row md:max-w-xl border-gray-700 bg-gray-700 hover:bg-black hover-border-white hover-up w-full">
+            <div className="flex flex-col items-center w-[80%] rounded-lg shadow md:flex-row md:max-w-xl border-gray-700 bg-gray-700 hover:bg-black hover-border-white hover-up">
                 <img className="object-cover md:h-full md:w-48 md:rounded-none md:rounded-l-lg" src={bike.img_bike} alt="img" />
                 <div className="flex flex-col justify-between p-4 leading-normal w-full">
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">{bike.slug}</h5>

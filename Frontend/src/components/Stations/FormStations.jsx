@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 
-export default function CreateStation({createStation}) {
+export default function CreateStation({ createStation }) {
 
     const { register, handleSubmit, formState: { errors } } = useForm()
 

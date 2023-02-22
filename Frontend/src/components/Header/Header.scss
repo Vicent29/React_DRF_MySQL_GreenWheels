@@ -74,7 +74,7 @@ body {
       color: var(--inactive-color);
       border-bottom: 2px solid transparent;
       transition: 0.3s;
-      @media screen and (max-width: 610px) {
+      @media screen and (max-width: 680px) {
         &:not(.main-header-link) {
           display: none;
         }
@@ -168,4 +168,21 @@ body {
 .campana {
   display: flex;
   align-items: center;
+}
+
+.muestra {
+  position: relative;
+  z-index: 100;
+  a {
+    padding: 20px 30px;
+    text-decoration: none;
+    color: var(--inactive-color);
+    border-bottom: 2px solid transparent;
+    transition: 0.3s;
+    &.is-active,
+    &:hover {
+      color: var(--theme-color);
+      border-bottom: 1px solid var(--theme-color);
+    }
+  }
 }
