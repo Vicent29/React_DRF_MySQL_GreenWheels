@@ -16,5 +16,8 @@ const StationsService = {
     deleteStation(id, data) {
         return http().delete(`/api/astation/${id}`)
     },
+    updateStation(data, slug) {
+        return http().put(`/api/aupdate/${slug}`, data)
+    },  
 }
 export default StationsService;

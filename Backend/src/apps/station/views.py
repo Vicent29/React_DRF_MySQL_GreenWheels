@@ -49,3 +49,7 @@ class OnlyAdmin(viewsets.GenericViewSet):
         if (station_serializer.is_valid()):
             Station.objects.get(id=id).delete()
         return JsonResponse({'message': 'Station eliminada Correctamente', "Station": station_serializer.data}, status=status.HTTP_204_NO_CONTENT)
+    
+    def updateStation(self, request, slug):
+        serializer_station = StationSerializer.updateStation(request.data, slug)
+        return Response(serializer_station)

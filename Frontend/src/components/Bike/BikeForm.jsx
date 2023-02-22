@@ -46,7 +46,7 @@ export default function FormBike() {
                             </label>
 
                             <div className=" mt-4 modal-footer">
-                                <button className="btn btn-outline-success" type='submit'>Create</button>
+                                <button className="btn btn-outline-success" type='submit' data-bs-dismiss="modal">Create</button>
                                 <button type="button" className="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                             </div>
 

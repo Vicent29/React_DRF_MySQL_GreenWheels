@@ -1,15 +1,45 @@
-import React from 'react'
+import React, {useState} from 'react'
+import { useForm } from "react-hook-form";
 
-export default function StationLine({ station, deleteStation }) {
+export default function StationLine({ station, deleteStation, updateStation }) {
+
+    const [checkUpdate, setcheckUpdate] = useState(false);
+    const { register, getValues } = useForm();
+
+    const Update_fields = () => {
+        setcheckUpdate(false);
+        updateStation(getValues(), station.slug);
+    }
+
     return (
         <>
-            <td>{station.id}</td>
-            <td>{station.slug}</td>
-            <td>{station.name}</td>
-            <td>{station.long}</td>
-            <td>{station.lat}</td>
-            <td>{station.img}</td>
-            <td onClick={(e) => deleteStation(station.id)}><button>delete</button></td>
+
+            {!checkUpdate && (
+                <>
+                    <td className='align'>{station.id}</td>
+                    <td className='align'>{station.name}</td>
+                    <td className='align'>{station.long}</td>
+                    <td className='align'>{station.lat}</td>
+                    <td className='align'><img src={station.img ? station.img : "https://www.seekpng.com/png/detail/305-3050927_png-file-svg-bike-parking-icon-png.png"} alt="img_bike_rent" className='img_bike_admin rounded-circle img-fluid' /></td>
+                    <td scope="col" className="btns">
+                        <button type="button" className="btn btn-outline-success border-radius mr-3" onClick={() => setcheckUpdate(true)}>Update</button>
+                        <button type="button" className="btn btn-outline-danger border-radius ml-3" onClick={(e) => deleteStation(station.id)}>Delete</button>
+                    </td>
+                </>
+            )}
+            {checkUpdate && (
+                <>  
+                    <td className='align'>{station.id}</td>
+                    <td className='align'><input autoComplete='off' className='text-center bg-transparent' type="text" {...register("name")} placeholder={station.name} /></td>
+                    <td className='align'>{<input autoComplete='off' className='text-center col-4 bg-transparent' type="text" {...register("long")} placeholder={station.long} />}</td>
+                    <td className='align'><input autoComplete='off' className='text-center col-4 bg-transparent' type="text" {...register("lat")} placeholder={station.lat} /></td>
+                    <td className='align'><input className='text-center bg-transparent' type="text" {...register("img")} placeholder={station.img} /></td>
+                    <td scope="col" className="btns">
+                        <button type="button" className="btn btn-outline-success border-radius mr-3" onClick={Update_fields}>Update</button>
+                        <button type="button" className="btn btn-outline-danger border-radius ml-3" onClick={(e) => deleteStation(station.id)}>Delete</button>
+                    </td>
+                </>
+            )}
         </>
     )
 }

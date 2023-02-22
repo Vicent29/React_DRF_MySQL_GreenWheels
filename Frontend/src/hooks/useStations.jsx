@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import StationsContext from '../context/StationsContext';
 import StationsService from "../services/StationsService";
 import AuthContextProvider from '../context/AuthContext';
+import { toast } from 'react-toastify';
 
 export function useStations() {
     const [loading, setLoading] = useState(false);
@@ -46,15 +47,40 @@ export function useStations() {
         StationsService.createStation(request)
             .then(({ data }) => {
                 if (data) {
+                    toast.success("Created station " +data.slug+ " success", {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
                     navigate("/station")
                 }
             })
     }, [navigate])
 
-    const deleteStation = ((id) => {
-        StationsService.deleteStation(id)
-        setStations(stations.filter(station => station.id !== id))
+    const updateStation = ((request, slug) => {
+        console.log(request);
+        StationsService.updateStation(request, slug)
+        .then(({data}) => {
+            toast.success("Update station " +data.slug+ " success", {
+                position: toast.POSITION.TOP_RIGHT
+            });
+            StationsService.getStationsMap()
+            .then(({ data }) => {
+                setStations(data)
+                setLoading(false)
+            })
+        })
     })
 
-    return { loading, stations, getStation, createStation, getStationsMap,/*, updateBike, changeStatusBike,*/ deleteStation }
+    const deleteStation = ((id) => {
+        StationsService.deleteStation(id)
+        .then(({data}) => {
+            toast.success("Deleted station success", {
+                position: toast.POSITION.TOP_RIGHT
+            });
+
+            setStations(stations.filter(station => station.id !== id))
+        })
+        
+    })
+
+    return { loading, stations, getStation, createStation, getStationsMap,updateStation, deleteStation }
 }

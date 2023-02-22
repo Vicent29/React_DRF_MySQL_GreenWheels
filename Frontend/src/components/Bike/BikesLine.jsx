@@ -5,8 +5,7 @@ import "./Bike.scss";
 
 export default function BikesLine({ bike, slots, deleteBike, changeStatusBike, updateBike}) {
     const [checkUpdate, setcheckUpdate] = useState(false);
-    const [formUpdate, setformUpdate] = useState({});
-    const { register, handleSubmit, getValues } = useForm();
+    const { register, getValues } = useForm();
 
     const Update_fields = () => {
         setcheckUpdate(false);
@@ -38,8 +37,8 @@ export default function BikesLine({ bike, slots, deleteBike, changeStatusBike, u
                         </select>
                    </td>
                    <td className='align'><img className="img_status_bike" onClick={(e) => changeStatusBike(bike.id)} src={bike.status === true ? '/assets/other_imgs/bike_status_green.png' : '/assets/other_imgs/bike_status_red.png'} alt="avatar"/></td>
-                   <td className='align col-2'><input className='text-center col-4 bg-transparent' type="number" step="0.005" value={formUpdate.pfm} {...register("pfm")} placeholder={bike.pfm + " €"} /></td>
-                   <td className='align col-3'><input className='text-center bg-transparent' type="text" value={formUpdate.img_bike} {...register("img_bike")} placeholder={bike.img_bike} /></td>
+                   <td className='align col-2'><input className='text-center col-4 bg-transparent' type="number" step="0.005" {...register("pfm")} placeholder={bike.pfm + " €"} /></td>
+                   <td className='align col-3'><input className='text-center bg-transparent' type="text" {...register("img_bike")} placeholder={bike.img_bike} /></td>
                    <td scope="col" className="btns">
                     <button type="button" className="btn btn-outline-success border-radius mr-3" onClick={Update_fields}>Update</button>
                     <button type="button" className="btn btn-outline-danger border-radius ml-3" onClick={(e) => deleteBike(bike.id)}>Delete</button>

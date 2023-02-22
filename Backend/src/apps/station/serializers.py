@@ -20,6 +20,15 @@ class StationSerializer(serializers.ModelSerializer):
             'img': instance.img,
             'bikes': instance.bikes,
         }
+    def to_station(instance):
+        return {
+            'id': instance.id,
+            'slug': instance.slug,
+            'name': instance.name,
+            'long': instance.long,
+            'lat': instance.lat,
+            'img': instance.img,
+        }
 
     def getStationsMapS():
         stations = Station.objects.raw(
@@ -29,3 +38,13 @@ class StationSerializer(serializers.ModelSerializer):
             fields = StationSerializer.to_stations(station)
             serialized.append(fields)
         return serialized
+
+    def updateStation(context, slug):
+        print()
+        station= Station.objects.get(slug=slug)
+        for key, value in context.items():
+                if hasattr(station, key):
+                    setattr(station, key, value)
+        station.save()
+        resp_station = Station.objects.get(slug=slug)
+        return StationSerializer.to_station(resp_station)
