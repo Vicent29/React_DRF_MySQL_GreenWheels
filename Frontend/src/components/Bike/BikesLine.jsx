@@ -14,7 +14,7 @@ export default function BikesLine({ bike, slots, deleteBike, changeStatusBike, u
     }
     return (
         <>  
-             <td className='align'>{bike.id}</td>
+            <td className='align'>{bike.id}</td>
             {!checkUpdate && (
                 <>
                     <td className='align'>{bike.slot ? bike.slot : <FontAwesomeIcon className='pending' icon="fa-solid fa-person-biking" />}</td>
