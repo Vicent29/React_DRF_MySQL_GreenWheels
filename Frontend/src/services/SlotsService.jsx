@@ -14,7 +14,10 @@ const SlotsService = {
         return http().post(`/api/slot`, data)
     },
     deleteSlot(id) {
-        return http().delete(`/api/slot/${id}`)
+        return http().delete(`/api/aslot/${id}`)
+    },
+    updateSlot(data, id) {
+        return http().put(`/api/aslot/${id}`, data)
     },
 }
 export default SlotsService;

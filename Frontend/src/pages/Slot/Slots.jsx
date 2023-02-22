@@ -4,10 +4,10 @@ import SlotsTable from "../../components/Slots/SlotsTable"
 
 
 export default function Stations() {
-    const { slots/*, deleteStation, updateStation*/ } = useSlots()
+    const { slots, deleteSlot, updateSlot } = useSlots()
     return (
         <>
-            <SlotsTable slots={slots} /*deleteStation={deleteStation} updateStation={updateStation} */ />
+            <SlotsTable slots={slots} deleteSlot={deleteSlot} updateSlot={updateSlot} />
         </>
     )
 }

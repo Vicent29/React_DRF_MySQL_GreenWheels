@@ -26,3 +26,12 @@ class SlotSerializer(serializers.ModelSerializer):
             fields = SlotSerializer.to_slots(slot)
             serialized.append(fields)
         return serialized
+
+    def updateSlot(context, id):
+        slot = Slot.objects.get(id=id)
+        for key, value in context.items():
+            if hasattr(slot, key):
+                setattr(slot, key, value)
+        slot.save()
+        resp_slot = Slot.objects.get(id=id)
+        return SlotSerializer.to_slots(resp_slot)
