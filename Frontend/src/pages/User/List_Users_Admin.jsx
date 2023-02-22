@@ -3,7 +3,7 @@ import UserTable from "../../components/User/UserTable";
 import { useAuth } from "../../hooks/useAuth";
 
 export default function Profile() {
-  const { users, getUsers, updateUser } = useAuth();
+  const { users, getUsers, changeStatus } = useAuth();
 
   useEffect(() => {
     getUsers();
@@ -11,7 +11,7 @@ export default function Profile() {
 
   return (
     <>
-      <UserTable users={users} updateUser={updateUser} />
+      <UserTable users={users} changeStatus={changeStatus} />
     </>
   );
 }

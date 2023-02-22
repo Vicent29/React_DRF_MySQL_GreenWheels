@@ -149,6 +149,17 @@ class UserSerializer(serializers.ModelSerializer):
         user.chatID = id
         user.save()
         return "User connected"
+    
+
+    def changeStatus(id):
+        user= User.objects.get(id=id)
+        if user.is_active == 1:
+            user.is_active = 0
+        else:
+            user.is_active = 1
+        user.save()
+        resp_user = User.objects.get(id=id)
+        return UserSerializer.to_user_admin(resp_user)
 
 
 class ProfileSerializer(serializers.ModelSerializer):

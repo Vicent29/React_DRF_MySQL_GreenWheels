@@ -78,6 +78,10 @@ class OnlyAdmin(viewsets.GenericViewSet):
 
     def allchatID(self, request):
         return Response(UserSerializer.allchatID())
+    
+    def changeStatus(self, request, id):
+        serializer_user = UserSerializer.changeStatus(id)
+        return Response(serializer_user)
 
 
 class UserRegLog(viewsets.GenericViewSet):
@@ -133,6 +137,8 @@ class ProfileView(viewsets.GenericViewSet):
         if (profile_serializer.is_valid(raise_exception=True)):
             profile_serializer.save()
         return Response(profile_serializer.data)
+
+
 
     def deleteProfile(self, request, id):
         profile_data = request.data

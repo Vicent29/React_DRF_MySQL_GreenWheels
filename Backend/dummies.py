@@ -9,13 +9,13 @@ from src.apps.user.serializers import UserSerializer, ProfileSerializer
 from src.apps.user.models import User
 
 # Const Stations
-stations_name = ['Sant Antoni', 'Mestalla', 'GV de les Germanies', 'Campanar', 'Pont de les arts', 'La petxina' ]
-stations_long= [-0.3683061784538779, -0.3574377740980026, -0.37789696944614093, -0.4016102272319131, -0.38317146191394613, -0.4051409914447106 ]
-stations_lat = [39.48787683924212, 39.47340554036913, 39.462941818658436, 39.483480002708745, 39.48033947524959, 39.47294026796396 ]
-stations_img = ['https://i.postimg.cc/Wbwx9GKx/Captura-de-pantalla-2023-01-31-172335.png', 'https://i.postimg.cc/Wbwx9GKx/Captura-de-pantalla-2023-01-31-172335.png', 'https://i.postimg.cc/m2dWL3wC/Captura-de-pantalla-2023-01-31-172701.png', 'https://i.postimg.cc/269TG5Lc/Station-4.png', 'https://i.postimg.cc/4yCy2bsS/Captura-de-pantalla-2023-02-03-171211.png', 'https://i.postimg.cc/P5D6BdWV/Captura-de-pantalla-2023-02-03-171453.png']
+stations_name = ['Sant Antoni', 'Mestalla', 'GV de les Germanies', 'Campanar', 'Pont de les arts', 'La petxina', 'Reina Sofia Palace' ]
+stations_long= [-0.3683061784538779, -0.3574377740980026, -0.37789696944614093, -0.4016102272319131, -0.38317146191394613, -0.4051409914447106, -0.355896609189557]
+stations_lat = [39.48787683924212, 39.47340554036913, 39.462941818658436, 39.483480002708745, 39.48033947524959, 39.47294026796396, 39.45675013920493 ]
+stations_img = ['https://i.postimg.cc/Wbwx9GKx/Captura-de-pantalla-2023-01-31-172335.png', 'https://i.postimg.cc/Wbwx9GKx/Captura-de-pantalla-2023-01-31-172335.png', 'https://i.postimg.cc/m2dWL3wC/Captura-de-pantalla-2023-01-31-172701.png', 'https://i.postimg.cc/269TG5Lc/Station-4.png', 'https://i.postimg.cc/4yCy2bsS/Captura-de-pantalla-2023-02-03-171211.png', 'https://i.postimg.cc/P5D6BdWV/Captura-de-pantalla-2023-02-03-171453.png', 'https://i.postimg.cc/RFjwMFzX/Captura-de-pantalla-2023-02-22-173501.png']
 
 # Const Bikes
-bike_imgs = ['https://www.diariodenavarra.es/uploads/2022/01/11/61dd81436b264.jpeg', 'https://img.freepik.com/fotos-premium/alquiler-bicicletas-ciudad-almaty-kazajstan_154092-10839.jpg', 'https://www.atlantico.net/media/atlantico/images/2022/04/21/2022042122385896535.jpg', 'https://img77.uenicdn.com/image/upload/v1542049007/category/shutterstock_1143871460.jpg', 'https://www.emesa-m30.es/wp-content/uploads/2020/08/1-estaciones-bici-mad.jpg', 'https://thumbs.dreamstime.com/b/fila-de-las-bicicletas-para-el-alquiler-21045173.jpg']
+bike_imgs = ['https://www.diariodenavarra.es/uploads/2022/01/11/61dd81436b264.jpeg', 'https://img.freepik.com/fotos-premium/alquiler-bicicletas-ciudad-almaty-kazajstan_154092-10839.jpg', 'https://www.atlantico.net/media/atlantico/images/2022/04/21/2022042122385896535.jpg', 'https://img77.uenicdn.com/image/upload/v1542049007/category/shutterstock_1143871460.jpg', 'https://www.emesa-m30.es/wp-content/uploads/2020/08/1-estaciones-bici-mad.jpg', 'https://thumbs.dreamstime.com/b/fila-de-las-bicicletas-para-el-alquiler-21045173.jpg', 'https://images.immediate.co.uk/production/volatile/sites/21/2019/03/newyork_citybike_hire_bikes-1497347246680-1qog3vbc3t2zq-95645ec.jpg?quality=90&resize=960%2C540']
 
 # Const Users
 users_first_name = ['Client', 'Admin', 'Santi', 'Vicent']

@@ -8,7 +8,7 @@ export default function Stations() {
     
     useEffect( ()=> {
          getSlots()
-    },[slots])
+    },[])
 
     return (
         <>

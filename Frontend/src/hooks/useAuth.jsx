@@ -125,12 +125,22 @@ export function useAuth() {
         await AuthService.getUsers()
             .then(({data}) => {
                 setStatus({ loading: false, error: false });
-                console.log(data);
                 setUsers(data)
             }); 
     }, []);
 
-    return { status, signup, signin, setUserLoged, logout, updateUser, resetNotis, loadUser, checkAdmin, setJWT, setUser, getUsers,users,setUsers }
+    const changeStatus = useCallback(async(id)=> {
+        await AuthService.changeStatus(id)
+        .then(({data}) => {
+            setStatus({ loading: false, error: false });
+            toast.success(data.first_name + " has been updated successfully", {
+                position: toast.POSITION.TOP_RIGHT
+            });
+            getUsers()
+        }); 
+    },[])
+
+    return { status, signup, signin, setUserLoged, logout, updateUser, resetNotis, loadUser, checkAdmin, setJWT, setUser, getUsers,users,setUsers, changeStatus }
 }
 
 

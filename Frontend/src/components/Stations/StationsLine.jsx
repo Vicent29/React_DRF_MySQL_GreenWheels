@@ -9,7 +9,8 @@ export default function StationLine({ station, deleteStation, updateStation }) {
     const Update_fields = () => {
         setcheckUpdate(false);
         let data  = getValues()
-        let change =data.long===''? delete data.long: "";
+        let change =data.name===''? delete data.name: "";
+        change =data.long===''? delete data.long: "";
         change = data.lat===''? delete data.lat: "";
         change = data.img ===''? delete data.img: "";
 
