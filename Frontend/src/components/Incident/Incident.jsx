@@ -23,11 +23,11 @@ export default function Incident() {
     const steps = ["Incidence", "Specify", "Description"]
 
     let prueba = steps.map((s, id) => {
-        return id == step ? <li key={id} className='is-active'>{s}</li> : <li key={id}>{s}</li>
+        return id === step ? <li key={id} className='is-active'>{s}</li> : <li key={id}>{s}</li>
     })
 
     const handleStep = (number) => {
-        if (step + number != -1) {
+        if (step + number !== -1) {
             setStep(step + number)
         }
     }
@@ -47,7 +47,7 @@ export default function Incident() {
                     <form className='d-flex justify-center align-items-center formclass' onSubmit={handleSubmit(newPage)}>
                         <div className="w-full max-w-xs">
                             <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                                {step == 0 && (
+                                {step === 0 && (
                                     <div className="mb-4">
                                         <label className="block text-gray-700 text-sm font-bold mb-2">
                                             Incident
@@ -60,7 +60,7 @@ export default function Incident() {
                                         </select>
                                     </div>
                                 )}
-                                {step == 1 && form.incident == "bike" && (
+                                {step === 1 && form.incident === "bike" && (
                                     <div className="mb-4">
                                         <label className="block text-gray-700 text-sm font-bold mb-2">
                                             Bike
@@ -73,7 +73,7 @@ export default function Incident() {
                                         </select>
                                     </div>
                                 )}
-                                {step == 1 && form.incident == "slot" && (
+                                {step === 1 && form.incident === "slot" && (
                                     <div className="mb-4">
                                         <label className="block text-gray-700 text-sm font-bold mb-2">
                                             Slot
@@ -86,7 +86,7 @@ export default function Incident() {
                                         </select>
                                     </div>
                                 )}
-                                {step == 1 && form.incident == "other" && (
+                                {step === 1 && form.incident === "other" && (
                                     <div className="mb-4">
                                         <label className="block text-gray-700 text-sm font-bold mb-2">
                                             Location
@@ -96,7 +96,7 @@ export default function Incident() {
                                             {...register("location", { required: true })} placeholder="C/ de españa" autoComplete="off" />
                                     </div>
                                 )}
-                                {step == 2 && (
+                                {step === 2 && (
                                     <div className="mb-4">
                                         <label className="block text-gray-700 text-sm font-bold mb-2">
                                             Description
@@ -108,11 +108,11 @@ export default function Incident() {
                                 <div className="flex items-center justify-between">
                                     <button type='button' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                         onClick={(e) => handleStep(-1)}>Prev</button>
-                                    {step != 2 && (
+                                    {step !== 2 && (
                                         <button type='button' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                             onClick={handleSubmit(newPage)}>Next</button>
                                     )}
-                                    {step == 2 && (
+                                    {step === 2 && (
                                         <button type='submit' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                             onClick={handleSubmit(createIncidence)}>Send</button>
                                     )}

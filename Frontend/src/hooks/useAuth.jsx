@@ -1,4 +1,4 @@
-import { /*useEffect,*/useContext, useState, useCallback, useEffect } from 'react'
+import {useContext, useState, useCallback } from 'react'
 import { useNavigate } from "react-router-dom"
 
 import AuthContextProvider from '../context/AuthContext';
@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 export function useAuth() {
     const navigate = useNavigate();
     const { user, loadUser, checkAdmin, setJWT, setUser, setIsAdmin } = useContext(AuthContextProvider)
-
+    const [users, setUsers] = useState([])
 
     const [status, setStatus] = useState({ loading: false, error: false })
 
@@ -120,7 +120,17 @@ export function useAuth() {
         }
     }, [user]);
 
-    return { status, signup, signin, setUserLoged, logout, updateUser, resetNotis, loadUser, checkAdmin, setJWT, setUser }
+    const getUsers = useCallback(async() => {
+        setStatus({ loading: true, error: false });
+        await AuthService.getUsers()
+            .then(({data}) => {
+                setStatus({ loading: false, error: false });
+                console.log(data);
+                setUsers(data)
+            }); 
+    }, []);
+
+    return { status, signup, signin, setUserLoged, logout, updateUser, resetNotis, loadUser, checkAdmin, setJWT, setUser, getUsers,users,setUsers }
 }
 
 

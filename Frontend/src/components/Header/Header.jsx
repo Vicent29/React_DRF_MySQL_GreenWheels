@@ -14,7 +14,7 @@ export default function Header() {
     const [location, setLocation] = useState(alocation.pathname.replace('/', ''))
     const { user, isAdmin } = useContext(AuthContextProvider)
     const links = ["HOME"]
-    user ? isAdmin ? links.push("BIKE", "STATION", "SLOT", "LOGOUT") : links.push("INCIDENT", "LOGOUT") : links.push("SIGNIN", "SIGNUP");
+    user ? isAdmin ? links.push( "STATION", "SLOT", "BIKE", "USER", "LOGOUT") : links.push("LOGOUT") : links.push("SIGNIN", "SIGNUP");
     const { logout } = useAuth()
     const [show, setShow] = useState(false)
 

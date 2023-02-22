@@ -1,8 +1,11 @@
 import SlotsLine from "./SlotsLine"
+import SlotsForm from "./SlotsForm";
+import "./Slots.scss";
+
 export default function SlotsTable({slots, deleteSlot, updateSlot}) {
-    console.log(slots);
     return (
-        <div className="d-flex justify-center overflow-auto max-h-screen">
+        <div className="d-flex justify-center overflow-auto h-[80vh]">
+            <SlotsForm></SlotsForm>
             <table className="mytable table table-striped col-10 text-center bg-light mt-4">
                 <thead className="sticky top-0" >
                     <tr className="grey ">
@@ -11,9 +14,7 @@ export default function SlotsTable({slots, deleteSlot, updateSlot}) {
                         <th className='col-1'>Active</th>
                         <th className='col-1'>Station</th>
                         <th className='col-2' scope="col">
-                            {/* // <Link to="/addstation"> */}
-                                <button className="btn btn-outline-info">New Slot</button>
-                            {/* // </Link> */}
+                            <button className="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#ModalNewSlot">New Slot</button>
                         </th>
                     </tr>
                 </thead>

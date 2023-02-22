@@ -19,6 +19,13 @@ export function useSlots() {
             })
     }, [])
 
+    const getSlots= useCallback(async()=> {
+        await SlotsService.getSlots()
+            .then(({ data }) => {
+                setSlots(data)
+            })
+    },[slots])
+
     const getSlotsnoBike = useCallback(async () => {
         await SlotsService.getSlotsnoBike()
             .then(({ data }) => {
@@ -27,6 +34,24 @@ export function useSlots() {
                 }
             })
     }, [])
+
+    const createSlot = useCallback( (request) => {
+        let test = []
+        console.log(request);
+          SlotsService.createSlot(request)
+            .then(({ data }) => {
+                if (data) {
+                    console.log(data);
+                    toast.success("Slot "+ data.id  +" create success", {
+                        position: toast.POSITION.TOP_RIGHT
+                    })
+                    
+                    console.log([...slots, data]);
+                    test =[...slots, data]
+                }
+            })
+        setSlots(test)
+    }, [slots])
 
     const deleteSlot = useCallback(async (id) => {
         await SlotsService.deleteSlot(id)
@@ -47,5 +72,5 @@ export function useSlots() {
             })
     })
 
-    return { loading, slots, setSlots, getSlotsnoBike, deleteSlot, updateSlot/*, getBike, createBike/*, updateBike, changeStatusBike,, deleteBike*/ }
+    return { loading, slots, setSlots, getSlotsnoBike, deleteSlot, updateSlot, createSlot, getSlots }
 }

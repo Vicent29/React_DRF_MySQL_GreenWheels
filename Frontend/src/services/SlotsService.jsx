@@ -11,7 +11,7 @@ const SlotsService = {
         return http().get(`/api/slotnobike`)
     },
     createSlot(data) {
-        return http().post(`/api/slot`, data)
+        return http().post(`/api/aslot`, data)
     },
     deleteSlot(id) {
         return http().delete(`/api/aslot/${id}`)

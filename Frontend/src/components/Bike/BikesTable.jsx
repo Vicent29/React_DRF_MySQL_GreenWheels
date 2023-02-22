@@ -6,7 +6,7 @@ import FormBike from "./BikeForm";
 
 export default function BikesTable({bikes, slots, deleteBike , changeStatusBike, updateBike}) {
   return (
-    <div className="d-flex justify-center overflow-auto max-h-screen">
+    <div className="d-flex justify-center overflow-auto h-[80vh]">
       <FormBike/>
       <table className="mytable table table-striped lg:col-10 md:col-12 text-center bg-light mt-4">
         <thead className="sticky top-0" >

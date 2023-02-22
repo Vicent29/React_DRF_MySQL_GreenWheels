@@ -105,7 +105,7 @@ export default function UpdateUser() {
         }
       }
 
-      if (form.email == '' && form.password == '') {
+      if (form.email === '' && form.password === '') {
         setErr({ email: '', passwd: ''});
       }
     };
@@ -172,7 +172,7 @@ export default function UpdateUser() {
                 </p>
               )}
               {check.email && (
-                <p onClick={() => {setCheck({...check, email: '' }); {chechErrors}}} className="p_icon">
+                <p onClick={() => {setCheck({...check, email: '' }); {chechErrors()}}} className="p_icon">
                   <FontAwesomeIcon className="U_icon check_icon" icon="fa-solid fa-check" />
                 </p>
               )}

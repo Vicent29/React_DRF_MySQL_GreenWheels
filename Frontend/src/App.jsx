@@ -1,3 +1,16 @@
+// context
+import { AuthContextProvider } from "./context/AuthContext";
+import { StationsContextProvider } from "./context/StationsContext";
+
+// components
+import Header from './components/Header/Header'
+import SpinnerLoading from "./components/LoadingSpinner/SpinnerLoading";
+
+//Guards
+import AdminGuard from './services/guards/AdminGuard';
+import { NoAuthGuard } from './services/guards/AuthGuard';
+import { AuthGuard } from './services/guards/AuthGuard';
+
 // import logo from './logo.svg';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React, { Suspense } from 'react';
@@ -16,26 +29,13 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 library.add(fas)
 
-
-// context
-import { AuthContextProvider } from "./context/AuthContext";
-import { StationsContextProvider } from "./context/StationsContext";
-
-// components
-import Header from './components/Header/Header'
-import SpinnerLoading from "./components/LoadingSpinner/SpinnerLoading";
-
-//Guards
-import AdminGuard from './services/guards/AdminGuard';
-import { NoAuthGuard } from './services/guards/AuthGuard';
-import { AuthGuard } from './services/guards/AuthGuard';
-
 // pages
 const Bikes = React.lazy(() => import("./pages/Bikes/Bikes"))
 const AddBike = React.lazy(() => import("./pages/Bikes/CreateBike"))
 const Home = React.lazy(() => import("./pages/Home/Home"))
 const Station = React.lazy(() => import("./pages/Station/Stations"))
 const Slot = React.lazy(() => import("./pages/Slot/Slots"))
+const UserList = React.lazy(() => import("./pages/User/List_Users_Admin"))
 const AddStation = React.lazy(() => import("./pages/Station/CreateStation"))
 const Incident = React.lazy(() => import("./pages/Incident/Incident"))
 const Signin = React.lazy(() => import("./pages/Login/Signin"))
@@ -61,6 +61,7 @@ function App() {
                 <Route path="station" element={<Suspense fallback={<SpinnerLoading />}><Station /></Suspense>} />
                 <Route path="addstation" element={<Suspense fallback={<SpinnerLoading />}><AddStation /></Suspense>} />
                 <Route path="slot" element={<Suspense fallback={<SpinnerLoading />}><Slot /></Suspense>} />
+                <Route path="user" element={<Suspense fallback={<SpinnerLoading />}><UserList /></Suspense>} />
               </Route>
               {/* Regsiter and Login */}
               <Route element={<NoAuthGuard />}>

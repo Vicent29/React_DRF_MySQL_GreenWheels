@@ -46,9 +46,6 @@ class OnlyAdmin(viewsets.GenericViewSet):
         return Response(slot_serializer.data)
 
     def deleteSlot(self, request, id):
-        # slot_data = request.data
-        # slot_serializer = SlotSerializer(data=slot_data)
-        # if (slot_serializer.is_valid(raise_exception=True)):
         Slot.objects.get(id=id).delete()
         return JsonResponse({'message': 'Slot eliminado Correctamente', "Slot": id}, status=status.HTTP_204_NO_CONTENT)
 

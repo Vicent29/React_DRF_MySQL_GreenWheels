@@ -1,13 +1,20 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useSlots } from '../../hooks/useSlots'
 import SlotsTable from "../../components/Slots/SlotsTable"
 
 
 export default function Stations() {
-    const { slots, deleteSlot, updateSlot } = useSlots()
+    const { slots,getSlots, deleteSlot, updateSlot } = useSlots()
+    
+    useEffect( ()=> {
+         getSlots()
+    },[slots])
+
     return (
         <>
-            <SlotsTable slots={slots} deleteSlot={deleteSlot} updateSlot={updateSlot} />
+            <div className='lg:w-[80%] lg:ml-[10%]'>
+                <SlotsTable slots={slots} deleteSlot={deleteSlot} updateSlot={updateSlot} />
+            </div>
         </>
     )
 }

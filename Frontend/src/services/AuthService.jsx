@@ -2,7 +2,7 @@ import http from "./http"
 
 const AuthService = {
     getUsers() {
-        return http().get("/api/user")
+        return http().get("/api/auser")
     },
     getUser(id) {
         return http().get(`/api/user/${id}`)

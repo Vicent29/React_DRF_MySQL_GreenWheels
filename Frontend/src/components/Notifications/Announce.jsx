@@ -1,6 +1,7 @@
 import React from "react"
 import { useForm } from "react-hook-form"
 import { useTel } from "../../hooks/useTel"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 export default function Announce() {
 
@@ -15,7 +16,7 @@ export default function Announce() {
     return (
         <>
             <a className="menu-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                ANNOUNCE
+                <FontAwesomeIcon className="text-2xl text-white" icon="fa-solid fa-comment-medical" />
             </a>
 
             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

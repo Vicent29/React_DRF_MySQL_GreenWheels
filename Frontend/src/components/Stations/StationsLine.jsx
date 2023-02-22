@@ -8,7 +8,12 @@ export default function StationLine({ station, deleteStation, updateStation }) {
 
     const Update_fields = () => {
         setcheckUpdate(false);
-        updateStation(getValues(), station.slug);
+        let data  = getValues()
+        let change =data.long===''? delete data.long: "";
+        change = data.lat===''? delete data.lat: "";
+        change = data.img ===''? delete data.img: "";
+
+        updateStation(data, station.slug);
     }
 
     return (
@@ -23,7 +28,7 @@ export default function StationLine({ station, deleteStation, updateStation }) {
                     <td className='align'><img src={station.img ? station.img : "https://www.seekpng.com/png/detail/305-3050927_png-file-svg-bike-parking-icon-png.png"} alt="img_bike_rent" className='img_bike_admin rounded-circle img-fluid' /></td>
                     <td scope="col" className="btns">
                         <button type="button" className="btn btn-outline-success border-radius mr-3" onClick={() => setcheckUpdate(true)}>Update</button>
-                        <button type="button" className="btn btn-outline-danger border-radius ml-3" onClick={(e) => deleteStation(station.id)}>Delete</button>
+                        <button type="button" className="btn btn-outline-danger border-radius ml-3" onClick={() => deleteStation(station.id)}>Delete</button>
                     </td>
                 </>
             )}
