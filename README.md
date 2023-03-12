@@ -3,8 +3,8 @@
 ## Indice:
 
 1. ¿Que es GreenWheels?
-2. Tecnologias implementadas
-3. Desarrollo de los modulos
+2. Tecnologias implementadas.
+3. Desarrollo de los modulos.
 
 # 🔹 GreenWheels:  
 
